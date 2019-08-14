@@ -1,0 +1,4168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="@172.168.12.100">
+  <database-model serializer="dbm" rdbms="ORACLE" format-version="4.11">
+    <root id="1">
+      <ServerVersion>11.2.0.1</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="MBUS">
+      <ObjectId>88</ObjectId>
+      <IntrospectionTimestamp>2019-08-08.18:32:38</IntrospectionTimestamp>
+      <CreatedTimestamp>2019-05-08.01:52:56</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-08.18:32:37</ModifiedTimestamp>
+      <CommentsHash>2646248554899874</CommentsHash>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="PUBLIC">
+      <ObjectId>1</ObjectId>
+    </schema>
+    <schema id="4" parent="1" name="SYS">
+      <ObjectId>0</ObjectId>
+    </schema>
+    <schema id="5" parent="1" name="SYSTEM">
+      <ObjectId>5</ObjectId>
+    </schema>
+    <schema id="6" parent="1" name="OUTLN">
+      <ObjectId>9</ObjectId>
+    </schema>
+    <schema id="7" parent="1" name="DIP">
+      <ObjectId>14</ObjectId>
+    </schema>
+    <schema id="8" parent="1" name="ORACLE_OCM">
+      <ObjectId>21</ObjectId>
+    </schema>
+    <schema id="9" parent="1" name="DBSNMP">
+      <ObjectId>30</ObjectId>
+    </schema>
+    <schema id="10" parent="1" name="APPQOSSYS">
+      <ObjectId>31</ObjectId>
+    </schema>
+    <schema id="11" parent="1" name="WMSYS">
+      <ObjectId>32</ObjectId>
+    </schema>
+    <schema id="12" parent="1" name="EXFSYS">
+      <ObjectId>42</ObjectId>
+    </schema>
+    <schema id="13" parent="1" name="XDB">
+      <ObjectId>43</ObjectId>
+    </schema>
+    <schema id="14" parent="1" name="ANONYMOUS">
+      <ObjectId>44</ObjectId>
+    </schema>
+    <schema id="15" parent="1" name="ORDSYS">
+      <ObjectId>51</ObjectId>
+    </schema>
+    <schema id="16" parent="1" name="ORDDATA">
+      <ObjectId>52</ObjectId>
+    </schema>
+    <schema id="17" parent="1" name="ORDPLUGINS">
+      <ObjectId>53</ObjectId>
+    </schema>
+    <schema id="18" parent="1" name="SI_INFORMTN_SCHEMA">
+      <ObjectId>54</ObjectId>
+    </schema>
+    <schema id="19" parent="1" name="MDSYS">
+      <ObjectId>55</ObjectId>
+    </schema>
+    <schema id="20" parent="1" name="OLAPSYS">
+      <ObjectId>59</ObjectId>
+    </schema>
+    <schema id="21" parent="1" name="MDDATA">
+      <ObjectId>63</ObjectId>
+    </schema>
+    <schema id="22" parent="1" name="SPATIAL_WFS_ADMIN_USR">
+      <ObjectId>65</ObjectId>
+    </schema>
+    <schema id="23" parent="1" name="SPATIAL_CSW_ADMIN_USR">
+      <ObjectId>68</ObjectId>
+    </schema>
+    <schema id="24" parent="1" name="LBACSYS">
+      <ObjectId>70</ObjectId>
+    </schema>
+    <schema id="25" parent="1" name="SYSMAN">
+      <ObjectId>72</ObjectId>
+    </schema>
+    <schema id="26" parent="1" name="MGMT_VIEW">
+      <ObjectId>74</ObjectId>
+    </schema>
+    <schema id="27" parent="1" name="FLOWS_FILES">
+      <ObjectId>75</ObjectId>
+    </schema>
+    <schema id="28" parent="1" name="APEX_PUBLIC_USER">
+      <ObjectId>76</ObjectId>
+    </schema>
+    <schema id="29" parent="1" name="APEX_030200">
+      <ObjectId>78</ObjectId>
+    </schema>
+    <schema id="30" parent="1" name="OWBSYS">
+      <ObjectId>79</ObjectId>
+    </schema>
+    <schema id="31" parent="1" name="OWBSYS_AUDIT">
+      <ObjectId>83</ObjectId>
+    </schema>
+    <schema id="32" parent="1" name="WUHAO">
+      <ObjectId>86</ObjectId>
+    </schema>
+    <schema id="33" parent="1" name="WATER_V1">
+      <ObjectId>87</ObjectId>
+    </schema>
+    <schema id="34" parent="1" name="YAOYIWEN">
+      <ObjectId>89</ObjectId>
+    </schema>
+    <schema id="35" parent="1" name="PROJECT_TEMPLATE">
+      <ObjectId>91</ObjectId>
+    </schema>
+    <schema id="36" parent="1" name="NBWATER">
+      <ObjectId>92</ObjectId>
+    </schema>
+    <schema id="37" parent="1" name="XS$NULL">
+      <ObjectId>2147483638</ObjectId>
+    </schema>
+    <sequence id="38" parent="2" name="SEQ_INST_DETAIL">
+      <ObjectId>82611</ObjectId>
+      <CreatedTimestamp>2019-05-22.19:31:31</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:31</ModifiedTimestamp>
+      <SequenceIdentity>0..99999999</SequenceIdentity>
+      <CacheSize>-2147483648</CacheSize>
+    </sequence>
+    <sequence id="39" parent="2" name="SEQ_OP_INST">
+      <ObjectId>82612</ObjectId>
+      <CreatedTimestamp>2019-05-22.19:31:31</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:31</ModifiedTimestamp>
+      <SequenceIdentity>0..99999999</SequenceIdentity>
+      <CacheSize>-2147483648</CacheSize>
+    </sequence>
+    <table id="40" parent="2" name="MB_AUTHORITY">
+      <ObjectId>82562</ObjectId>
+      <CreatedTimestamp>2019-05-22.19:22:52</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:32</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="41" parent="2" name="MB_AUTHORITY_RESOURCE">
+      <ObjectId>82563</ObjectId>
+      <Comment>系统权限关联资源表</Comment>
+      <CreatedTimestamp>2019-05-22.19:22:52</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:32</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="42" parent="2" name="MB_BUY_RECORD">
+      <ObjectId>82564</ObjectId>
+      <Comment>购水记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:22:52</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:32</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="43" parent="2" name="MB_CARD_TERMINAL">
+      <ObjectId>82565</ObjectId>
+      <Comment>一卡通终端表</Comment>
+      <CreatedTimestamp>2019-05-22.19:22:52</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:33</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="44" parent="2" name="MB_CARD_TERMINAL_PARAM">
+      <ObjectId>82566</ObjectId>
+      <Comment>一卡通终端参数表</Comment>
+      <CreatedTimestamp>2019-05-22.19:22:52</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:33</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="45" parent="2" name="MB_CLEAR_RECORD">
+      <ObjectId>82567</ObjectId>
+      <Comment>房间清零记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:22:52</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:33</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="46" parent="2" name="MB_COLLECT">
+      <ObjectId>82568</ObjectId>
+      <Comment>采集管理表</Comment>
+      <CreatedTimestamp>2019-05-22.19:22:52</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:34</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="47" parent="2" name="MB_COLLECT_RECORD">
+      <ObjectId>82569</ObjectId>
+      <Comment>用水抄表记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:22:53</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:34</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="48" parent="2" name="MB_CONCENTRATOR">
+      <ObjectId>82570</ObjectId>
+      <Comment>集中器表</Comment>
+      <CreatedTimestamp>2019-05-22.19:22:53</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:34</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="49" parent="2" name="MB_INSTRUCTION_DETAIL">
+      <ObjectId>82571</ObjectId>
+      <Comment>指令明细表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:01</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:35</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="50" parent="2" name="MB_LOGIN_LOG">
+      <ObjectId>82576</ObjectId>
+      <Comment>登录日志表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:01</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:35</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="51" parent="2" name="MB_OPERATION_INSTRUCTION">
+      <ObjectId>82577</ObjectId>
+      <Comment>操作指令表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:01</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:23:01</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="52" parent="2" name="MB_OPERATION_LOG">
+      <ObjectId>82582</ObjectId>
+      <Comment>职工操作日志表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:01</CreatedTimestamp>
+      <ModifiedTimestamp>2019-07-19.18:28:43</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="53" parent="2" name="MB_PARAM_CARD_VERSION">
+      <ObjectId>82583</ObjectId>
+      <Comment>参数卡版本表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:01</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="54" parent="2" name="MB_REDRUSH_RECORD">
+      <ObjectId>82584</ObjectId>
+      <Comment>冲红记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:01</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="55" parent="2" name="MB_REPLACEROOM_RECORD">
+      <ObjectId>82586</ObjectId>
+      <Comment>控水换房记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:37</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="56" parent="2" name="MB_REPLACE_RECORD">
+      <ObjectId>82585</ObjectId>
+      <Comment>换表记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="57" parent="2" name="MB_RESOURCE">
+      <ObjectId>82587</ObjectId>
+      <Comment>系统资源表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:37</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="58" parent="2" name="MB_RETURN_RECORD">
+      <ObjectId>82588</ObjectId>
+      <Comment>退水记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:37</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="59" parent="2" name="MB_ROLE">
+      <ObjectId>82589</ObjectId>
+      <Comment>职工角色表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:38</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="60" parent="2" name="MB_ROLE_AUTHORITY">
+      <ObjectId>82590</ObjectId>
+      <Comment>角色关联权限表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:38</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="61" parent="2" name="MB_ROOM_PARAM_RECORD">
+      <ObjectId>82591</ObjectId>
+      <Comment>水表发参数记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:38</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="62" parent="2" name="MB_ROOM_TYPE_PARAM">
+      <ObjectId>82592</ObjectId>
+      <Comment>房间类型参数表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:39</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="63" parent="2" name="MB_RW_CARD_PARAM">
+      <ObjectId>82593</ObjectId>
+      <Comment>读写卡参数表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:39</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="64" parent="2" name="MB_SOCKET_LOG">
+      <ObjectId>82594</ObjectId>
+      <Comment>socket连接日志表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:39</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="65" parent="2" name="MB_SUPPLEMENT_RECORD">
+      <ObjectId>82595</ObjectId>
+      <Comment>补水记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="66" parent="2" name="MB_SYSOPERAT_PARAM">
+      <ObjectId>82596</ObjectId>
+      <Comment>系统运行参数表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="67" parent="2" name="MB_WARNING">
+      <ObjectId>82597</ObjectId>
+      <Comment>报警记录表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="68" parent="2" name="MB_WATER_DAILY">
+      <ObjectId>82598</ObjectId>
+      <Comment>用水日报表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="69" parent="2" name="MB_WATER_METER">
+      <ObjectId>82599</ObjectId>
+      <Comment>水表表</Comment>
+      <CreatedTimestamp>2019-05-22.19:23:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:41</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="70" parent="2" name="MB_WATER_METER_INFO">
+      <ObjectId>82600</ObjectId>
+      <Comment>房间水表信息表</Comment>
+      <CreatedTimestamp>2019-05-22.19:25:37</CreatedTimestamp>
+      <ModifiedTimestamp>2019-06-17.18:31:04</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="71" parent="2" name="MB_WORKER">
+      <ObjectId>82601</ObjectId>
+      <Comment>职工表</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:02</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:42</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="72" parent="2" name="MB_WORKER_ROLE">
+      <ObjectId>82602</ObjectId>
+      <Comment>职工关联角色表</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:42</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="73" parent="2" name="QRTZ_BLOB_TRIGGERS">
+      <ObjectId>89541</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="74" parent="2" name="QRTZ_CALENDARS">
+      <ObjectId>89545</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="75" parent="2" name="QRTZ_CRON_TRIGGERS">
+      <ObjectId>89537</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="76" parent="2" name="QRTZ_FIRED_TRIGGERS">
+      <ObjectId>89551</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:42</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="77" parent="2" name="QRTZ_JOB_DETAILS">
+      <ObjectId>89527</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="78" parent="2" name="QRTZ_LOCKS">
+      <ObjectId>89555</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="79" parent="2" name="QRTZ_PAUSED_TRIGGER_GRPS">
+      <ObjectId>89549</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="80" parent="2" name="QRTZ_SCHEDULER_STATE">
+      <ObjectId>89553</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="81" parent="2" name="QRTZ_SIMPLE_TRIGGERS">
+      <ObjectId>89535</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="82" parent="2" name="QRTZ_SIMPROP_TRIGGERS">
+      <ObjectId>89539</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="83" parent="2" name="QRTZ_TRIGGERS">
+      <ObjectId>89531</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="84" parent="2" name="TB_APARTMENT">
+      <ObjectId>82603</ObjectId>
+      <Comment>公寓</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:43</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="85" parent="2" name="TB_AREA">
+      <ObjectId>82604</ObjectId>
+      <Comment>系统区县表</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:43</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="86" parent="2" name="TB_CITY">
+      <ObjectId>82605</ObjectId>
+      <Comment>系统市区表</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:43</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="87" parent="2" name="TB_FLOOR">
+      <ObjectId>82606</ObjectId>
+      <Comment>楼栋</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:44</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="88" parent="2" name="TB_LAYER">
+      <ObjectId>82607</ObjectId>
+      <Comment>楼层</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:03</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:29:03</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="89" parent="2" name="TB_PROVINCE">
+      <ObjectId>82608</ObjectId>
+      <Comment>系统省会表</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:10</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:44</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="90" parent="2" name="TB_REGION">
+      <ObjectId>82609</ObjectId>
+      <Comment>区域表</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:10</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:44</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <table id="91" parent="2" name="TB_ROOM">
+      <ObjectId>82610</ObjectId>
+      <Comment>房间</Comment>
+      <CreatedTimestamp>2019-05-22.19:29:10</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:29:10</ModifiedTimestamp>
+      <TemporaryPreserve>1</TemporaryPreserve>
+    </table>
+    <routine id="92" parent="2" name="PROCEDURENAME">
+      <ObjectId>90258</ObjectId>
+      <RoutineKind>procedure</RoutineKind>
+      <SourceTextLength>177</SourceTextLength>
+      <DependsOnIds>4884,4763,82610</DependsOnIds>
+      <CreatedTimestamp>2019-08-08.18:05:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-08.18:32:37</ModifiedTimestamp>
+    </routine>
+    <column id="93" parent="40" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="94" parent="40" name="AUTHORITYNAME">
+      <Position>2</Position>
+      <Comment>权限名称</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="95" parent="40" name="DESCR">
+      <Position>3</Position>
+      <Comment>描述</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="96" parent="40" name="CTIME">
+      <Position>4</Position>
+      <Comment>创建时间</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <index id="97" parent="40" name="SYS_C0019658">
+      <ObjectId>82613</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:32</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:32</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="98" parent="40" name="SYS_C0019658">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:32</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019658</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="99" parent="41" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="100" parent="41" name="AUTHORITYID">
+      <Position>2</Position>
+      <Comment>权限ID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+    </column>
+    <column id="101" parent="41" name="RESOURCEID">
+      <Position>3</Position>
+      <Comment>资源ID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+    </column>
+    <index id="102" parent="41" name="SYS_C0019672">
+      <ObjectId>82614</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:32</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:32</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="103" parent="41" name="SYS_C0019672">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:32</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019672</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="104" parent="42" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="105" parent="42" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="106" parent="42" name="SERIAL_NUMBER">
+      <Position>3</Position>
+      <Comment>流水号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="107" parent="42" name="USER_ID">
+      <Position>4</Position>
+      <Comment>操作人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="108" parent="42" name="CURRENT_STATUS">
+      <Position>5</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="109" parent="42" name="PAYER_ID">
+      <Position>6</Position>
+      <Comment>付款人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="110" parent="42" name="PAYER_NAME">
+      <Position>7</Position>
+      <Comment>付款人姓名</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="111" parent="42" name="BUY_WATER">
+      <Position>8</Position>
+      <Comment>购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="112" parent="42" name="BUY_MONEY">
+      <Position>9</Position>
+      <Comment>购水金额</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="113" parent="42" name="ACTUAL_MONEY">
+      <Position>10</Position>
+      <Comment>实际收款</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="114" parent="42" name="RETURN_MONEY">
+      <Position>11</Position>
+      <Comment>找零</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="115" parent="42" name="TYPE">
+      <Position>12</Position>
+      <Comment>类型（0:现金，1:一卡通, 2:微信，3：终端，4：客户端）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="116" parent="42" name="CREATE_TIME">
+      <Position>13</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="117" parent="42" name="UPDATE_TIME">
+      <Position>14</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="118" parent="42" name="REDRUSH">
+      <Position>15</Position>
+      <Comment>是否红冲（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="119" parent="42" name="CONCENTRATOR_ID">
+      <Position>16</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="120" parent="42" name="OPERATION_ID">
+      <Position>17</Position>
+      <Comment>指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="121" parent="42" name="SYS_C0019686">
+      <ObjectId>82615</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:32</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:32</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="122" parent="42" name="SYS_C0019686">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:32</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019686</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="123" parent="43" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="124" parent="43" name="PARAM_NUM">
+      <Position>2</Position>
+      <Comment>参数表编号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="125" parent="43" name="TERMINAL_NUM">
+      <Position>3</Position>
+      <Comment>终端编号（不可重复）</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="126" parent="43" name="TERMINAL_ADDRESS">
+      <Position>4</Position>
+      <Comment>ip地址（不可重复）</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="127" parent="43" name="TERMINAL_TYPE">
+      <Position>5</Position>
+      <Comment>终端类型（0：购水终端，1：退水终端）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="128" parent="43" name="DEL_STATUS">
+      <Position>6</Position>
+      <Comment>是否删除（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="129" parent="43" name="TERMINAL_STATUS">
+      <Position>7</Position>
+      <Comment>终端状态</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="130" parent="43" name="TERMINAL_FUN">
+      <Position>8</Position>
+      <Comment>终端功能</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="131" parent="43" name="MIN_WATER">
+      <Position>9</Position>
+      <Comment>水量下限（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="132" parent="43" name="MIN_MONEY">
+      <Position>10</Position>
+      <Comment>卡底金（元）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="133" parent="43" name="DAY_RESTRICT">
+      <Position>11</Position>
+      <Comment>日限（元）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="134" parent="43" name="USE_STATUS">
+      <Position>12</Position>
+      <Comment>是否启用（0：启用，1：禁用）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="135" parent="43" name="HEARTBEAT_TIME">
+      <Position>13</Position>
+      <Comment>心跳时间</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+    </column>
+    <column id="136" parent="43" name="COLLECT_TIME">
+      <Position>14</Position>
+      <Comment>采集时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="137" parent="43" name="CREATE_TIME">
+      <Position>15</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <index id="138" parent="43" name="SYS_C0019700">
+      <ObjectId>82616</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:33</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:33</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="139" parent="43" name="SYS_C0019700">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:33</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019700</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="140" parent="44" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="141" parent="44" name="PARAM_NUM">
+      <Position>2</Position>
+      <Comment>编号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="142" parent="44" name="MIN_WATER">
+      <Position>3</Position>
+      <Comment>水量下限（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="143" parent="44" name="MIN_MONEY">
+      <Position>4</Position>
+      <Comment>卡底金（元）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="144" parent="44" name="DAY_RESTRICT">
+      <Position>5</Position>
+      <Comment>日限（元）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="145" parent="44" name="DEL_STATUS">
+      <Position>6</Position>
+      <Comment>是否删除（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="146" parent="44" name="CREATE_TIME">
+      <Position>7</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <index id="147" parent="44" name="SYS_C0019714">
+      <ObjectId>82617</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:33</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:33</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="148" parent="44" name="SYS_C0019714">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:33</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019714</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="149" parent="45" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="150" parent="45" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="151" parent="45" name="TYPE">
+      <Position>3</Position>
+      <Comment>记录类型（0:初始化，1:清零，2:按导入清零）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+    </column>
+    <column id="152" parent="45" name="CURRENT_STATUS">
+      <Position>4</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="153" parent="45" name="USER_WATER">
+      <Position>5</Position>
+      <Comment>清零前已用水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="154" parent="45" name="SUPPLEMENT_WATER">
+      <Position>6</Position>
+      <Comment>清零前补水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="155" parent="45" name="BUY_WATER_TOTAL">
+      <Position>7</Position>
+      <Comment>清零前购水量 (如果购水量=现金购水+一卡通购水此字段可弃用)</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="156" parent="45" name="CASH_BUY_WATER">
+      <Position>8</Position>
+      <Comment>清零前现金购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="157" parent="45" name="CARD_BUY_WATER">
+      <Position>9</Position>
+      <Comment>清零前持卡购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="158" parent="45" name="RETURN_WATER">
+      <Position>10</Position>
+      <Comment>清零前退水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="159" parent="45" name="SURPLUS_WATER">
+      <Position>11</Position>
+      <Comment>清零前剩余水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="160" parent="45" name="CLOSE_VALVE_WATER">
+      <Position>12</Position>
+      <Comment>清零前关阀水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="161" parent="45" name="CUMULATE_WATER">
+      <Position>13</Position>
+      <Comment>清零前累积用水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="162" parent="45" name="REMARK">
+      <Position>14</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(500 char)|0s</DataType>
+    </column>
+    <column id="163" parent="45" name="USER_ID">
+      <Position>15</Position>
+      <Comment>操作人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="164" parent="45" name="CREATE_TIME">
+      <Position>16</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="165" parent="45" name="UPDATE_TIME">
+      <Position>17</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="166" parent="45" name="REDRUSH">
+      <Position>18</Position>
+      <Comment>是否红冲（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="167" parent="45" name="CONCENTRATOR_ID">
+      <Position>19</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="168" parent="45" name="OPERAT_MONEY">
+      <Position>20</Position>
+      <Comment>操作金额</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="169" parent="45" name="OPERATION_ID">
+      <Position>21</Position>
+      <Comment>指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="170" parent="45" name="SYS_C0019728">
+      <ObjectId>82618</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:33</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:33</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="171" parent="45" name="SYS_C0019728">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:33</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019728</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="172" parent="46" name="APPLICATION_NUMBER">
+      <Position>1</Position>
+      <Comment>采集应用编号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="173" parent="46" name="COLLECT_NAME">
+      <Position>2</Position>
+      <Comment>采集名称</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="174" parent="46" name="CONCENTRATOR_ID">
+      <Position>3</Position>
+      <Comment>集中器id</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="175" parent="46" name="FAILURE">
+      <Position>4</Position>
+      <Comment>密钥失效期</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="176" parent="46" name="AUTO_COLLECT_FREQUENCY">
+      <Position>5</Position>
+      <Comment>自动采集频率(分钟)</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="177" parent="46" name="INSTRUCTION_NUMBER">
+      <Position>6</Position>
+      <Comment>当前执行的命令编号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="178" parent="46" name="ID">
+      <Position>7</Position>
+      <Comment>id</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="179" parent="46" name="DEL_STATUS">
+      <Position>8</Position>
+      <Comment>是否删除（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="180" parent="46" name="COLLECT_KEY">
+      <Position>9</Position>
+      <Comment>采集密钥</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="181" parent="46" name="COLLECT_ADDRESS">
+      <Position>10</Position>
+      <Comment>采集地址(ip及端口不能重复）</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="182" parent="46" name="SYS_C0019742">
+      <ObjectId>82619</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:34</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:34</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="183" parent="46" name="SYS_C0019742">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:34</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019742</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="184" parent="47" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="185" parent="47" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="186" parent="47" name="CONCENTRATOR_ID">
+      <Position>3</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="187" parent="47" name="RESULT">
+      <Position>4</Position>
+      <Comment>返回结果</Comment>
+      <DataType>NVARCHAR2(2000 char)|0s</DataType>
+    </column>
+    <column id="188" parent="47" name="REMARK">
+      <Position>5</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(500 char)|0s</DataType>
+    </column>
+    <column id="189" parent="47" name="CREATE_TIME">
+      <Position>6</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="190" parent="47" name="USER_WATER">
+      <Position>7</Position>
+      <Comment>用水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+    </column>
+    <column id="191" parent="47" name="SURPLUS_WATER">
+      <Position>8</Position>
+      <Comment>剩余水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="192" parent="47" name="VALVE_STATUS">
+      <Position>9</Position>
+      <Comment>阀门状态（0：关阀，1：一般开阀，2：水用完，3：窃水关阀）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="193" parent="47" name="MODULE_STATUS">
+      <Position>10</Position>
+      <Comment>模块状态（0：未知，1：正常）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="194" parent="47" name="SUPPLEMENT_WATER">
+      <Position>11</Position>
+      <Comment>补水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="195" parent="47" name="BUY_WATER_TOTAL">
+      <Position>12</Position>
+      <Comment>购水量 (如果购水量=现金购水+一卡通购水此字段可弃用)</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="196" parent="47" name="CASH_BUY_WATER">
+      <Position>13</Position>
+      <Comment>现金购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="197" parent="47" name="CARD_BUY_WATER">
+      <Position>14</Position>
+      <Comment>持卡购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="198" parent="47" name="RETURN_WATER">
+      <Position>15</Position>
+      <Comment>退水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+    </column>
+    <column id="199" parent="47" name="POWER_STATUS">
+      <Position>16</Position>
+      <Comment>电池状态（0：正常，1：亏电）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="200" parent="47" name="ATTACK_NUM">
+      <Position>17</Position>
+      <Comment>磁攻击次数，该值不大于3</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="201" parent="47" name="CURRENT_STATUS">
+      <Position>18</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="202" parent="47" name="OVER_WATER">
+      <Position>19</Position>
+      <Comment>已透支水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="203" parent="47" name="UPDATE_TIME">
+      <Position>20</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="204" parent="47" name="ADD_NUM">
+      <Position>21</Position>
+      <Comment>补水购水下发计数</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="205" parent="47" name="OPERATION_ID">
+      <Position>22</Position>
+      <Comment>指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="206" parent="47" name="SYS_C0019756">
+      <ObjectId>82620</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:34</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:34</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="207" parent="47" name="SYS_C0019756">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:34</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019756</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="208" parent="48" name="ID">
+      <Position>1</Position>
+      <Comment>集中器id</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="209" parent="48" name="IP_ADDRESS">
+      <Position>2</Position>
+      <Comment>集中器ip地址</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="210" parent="48" name="CONCENTRATOR_PWD">
+      <Position>3</Position>
+      <Comment>集中器密码</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="211" parent="48" name="CONCENTRATOR_VERSION">
+      <Position>4</Position>
+      <Comment>集中器版本</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="212" parent="48" name="COMMUNICATION_MODE">
+      <Position>5</Position>
+      <Comment>通讯模式</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="213" parent="48" name="COLLECT_ID">
+      <Position>6</Position>
+      <Comment>采集表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="214" parent="48" name="REMARK">
+      <Position>7</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="215" parent="48" name="CONCENTRATOR_NUM">
+      <Position>8</Position>
+      <Comment>集中器编号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="216" parent="48" name="APARTMENT_ID">
+      <Position>9</Position>
+      <Comment>关联公寓ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="217" parent="48" name="CREATE_TIME">
+      <Position>10</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="218" parent="48" name="UPDATE_TIME">
+      <Position>11</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <index id="219" parent="48" name="SYS_C0019770">
+      <ObjectId>82621</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:34</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:34</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="220" parent="48" name="SYS_C0019770">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:35</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019770</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="221" parent="49" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="222" parent="49" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="223" parent="49" name="RECORD_ID">
+      <Position>3</Position>
+      <Comment>记录表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="224" parent="49" name="TYPE">
+      <Position>4</Position>
+      <Comment>类型（0:购水，1:退水，2:补水，3:换房，4：更换水表,5:普通指令,6:清零,7:冲红,8获取水表状态等）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="225" parent="49" name="CURRENT_STATUS">
+      <Position>5</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="226" parent="49" name="REMARK">
+      <Position>6</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(500 char)|0s</DataType>
+    </column>
+    <column id="227" parent="49" name="USER_ID">
+      <Position>7</Position>
+      <Comment>操作人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="228" parent="49" name="CREATE_TIME">
+      <Position>8</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="229" parent="49" name="UPDATE_TIME">
+      <Position>9</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="230" parent="49" name="INSTRUCTION_NUM">
+      <Position>10</Position>
+      <Comment>指令编号</Comment>
+      <DataType>NUMBER(18 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;&apos;</DefaultExpression>
+    </column>
+    <column id="231" parent="49" name="COLLECT_ID">
+      <Position>11</Position>
+      <Comment>采集表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="232" parent="49" name="COLLECT_IP">
+      <Position>12</Position>
+      <Comment>采集表IP</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="233" parent="49" name="APARTMENT_ID">
+      <Position>13</Position>
+      <Comment>公寓ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="234" parent="49" name="OPERATION_ID">
+      <Position>14</Position>
+      <Comment>操作指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="235" parent="49" name="WATER_METER_NUM">
+      <Position>15</Position>
+      <Comment>水表编号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="236" parent="49" name="INSTRUCTION_DETAIL">
+      <Position>16</Position>
+      <Comment>指令json</Comment>
+      <DataType>CLOB|0s</DataType>
+    </column>
+    <column id="237" parent="49" name="RESULT">
+      <Position>17</Position>
+      <Comment>返回结果</Comment>
+      <DataType>CLOB|0s</DataType>
+    </column>
+    <column id="238" parent="50" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="239" parent="50" name="WORKERACCOUNT">
+      <Position>2</Position>
+      <Comment>职工账号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="240" parent="50" name="WORKERNAME">
+      <Position>3</Position>
+      <Comment>职工登录名</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="241" parent="50" name="IPADDRESS">
+      <Position>4</Position>
+      <Comment>IP地址</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="242" parent="50" name="LOGINTIME">
+      <Position>5</Position>
+      <Comment>登录时间</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="243" parent="50" name="LOGINSTATE">
+      <Position>6</Position>
+      <Comment>登录状态</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="244" parent="50" name="SYS_C0019809">
+      <ObjectId>82622</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:35</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:35</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="245" parent="50" name="SYS_C0019809">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:35</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019809</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="246" parent="51" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+    </column>
+    <column id="247" parent="51" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="248" parent="51" name="TYPE">
+      <Position>3</Position>
+      <Comment>类型（0:购水，1:退水，2:补水，3:换房，4：更换水表,5:普通指令,6:清零,7:冲红,8获取水表状态等）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="249" parent="51" name="CURRENT_STATUS">
+      <Position>4</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="250" parent="51" name="REMARK">
+      <Position>5</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(500 char)|0s</DataType>
+    </column>
+    <column id="251" parent="51" name="USER_ID">
+      <Position>6</Position>
+      <Comment>操作人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="252" parent="51" name="CREATE_TIME">
+      <Position>7</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="253" parent="51" name="UPDATE_TIME">
+      <Position>8</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="254" parent="51" name="INSTRUCTION_NUM">
+      <Position>9</Position>
+      <Comment>指令编号</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="255" parent="51" name="COLLECT_ID">
+      <Position>10</Position>
+      <Comment>采集表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="256" parent="51" name="COLLECT_IP">
+      <Position>11</Position>
+      <Comment>采集表IP</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="257" parent="51" name="APARTMENT_ID">
+      <Position>12</Position>
+      <Comment>公寓ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="258" parent="51" name="CONCENTRATOR_ID">
+      <Position>13</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="259" parent="51" name="WATER_METER_NUM">
+      <Position>14</Position>
+      <Comment>水表编号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="260" parent="51" name="INSTRUCTION_DETAIL">
+      <Position>15</Position>
+      <Comment>指令json</Comment>
+      <DataType>CLOB|0s</DataType>
+    </column>
+    <column id="261" parent="51" name="RESULT">
+      <Position>16</Position>
+      <Comment>返回结果</Comment>
+      <DataType>CLOB|0s</DataType>
+    </column>
+    <column id="262" parent="52" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="263" parent="52" name="WORKERNAME">
+      <Position>2</Position>
+      <Comment>职工登录名</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="264" parent="52" name="MODULENAME">
+      <Position>3</Position>
+      <Comment>操作业务名</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="265" parent="52" name="OPERACONTENT">
+      <Position>4</Position>
+      <Comment>操作业务信息</Comment>
+      <DataType>NVARCHAR2(500 char)|0s</DataType>
+      <DefaultExpression>NULL</DefaultExpression>
+    </column>
+    <column id="266" parent="52" name="OPERATIME">
+      <Position>5</Position>
+      <Comment>操作时间</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="267" parent="52" name="SYS_C0019823">
+      <ObjectId>82623</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:36</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="268" parent="52" name="SYS_C0019823">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019823</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="269" parent="53" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="270" parent="53" name="VERSION_NUM">
+      <Position>2</Position>
+      <Comment>版本号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="271" parent="53" name="VERSION_NAME">
+      <Position>3</Position>
+      <Comment>版本名称</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="272" parent="53" name="LAWFUL_STATUS">
+      <Position>4</Position>
+      <Comment>是否合法（0：合法，1：不合法）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="273" parent="53" name="REMARK">
+      <Position>5</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="274" parent="53" name="CREATE_TIME">
+      <Position>6</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <index id="275" parent="53" name="SYS_C0019837">
+      <ObjectId>82624</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:36</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="276" parent="53" name="SYS_C0019837">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019837</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="277" parent="54" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="278" parent="54" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="279" parent="54" name="SERIAL_NUMBER">
+      <Position>3</Position>
+      <Comment>流水号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="280" parent="54" name="USER_ID">
+      <Position>4</Position>
+      <Comment>操作人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="281" parent="54" name="CURRENT_STATUS">
+      <Position>5</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="282" parent="54" name="TYPE">
+      <Position>6</Position>
+      <Comment>类型（0:补水，1:退水）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+    </column>
+    <column id="283" parent="54" name="REMARK">
+      <Position>7</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(500 char)|0s</DataType>
+    </column>
+    <column id="284" parent="54" name="REDRUSH_MONEY">
+      <Position>8</Position>
+      <Comment>冲红金额</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="285" parent="54" name="REDRUSH_WATER">
+      <Position>9</Position>
+      <Comment>冲红水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="286" parent="54" name="CREATE_TIME">
+      <Position>10</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="287" parent="54" name="UPDATE_TIME">
+      <Position>11</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="288" parent="54" name="RECORD_ID">
+      <Position>12</Position>
+      <Comment>记录表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="289" parent="54" name="CONCENTRATOR_ID">
+      <Position>13</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="290" parent="54" name="OPERATION_ID">
+      <Position>14</Position>
+      <Comment>指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="291" parent="54" name="SYS_C0019851">
+      <ObjectId>82625</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:36</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="292" parent="54" name="SYS_C0019851">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019851</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="293" parent="55" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="294" parent="55" name="OLD_WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>原水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="295" parent="55" name="NEW_WATER_METER_INFO_ID">
+      <Position>3</Position>
+      <Comment>新水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="296" parent="55" name="CURRENT_STATUS">
+      <Position>4</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="297" parent="55" name="USER_ID">
+      <Position>5</Position>
+      <Comment>操作人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="298" parent="55" name="CREATE_TIME">
+      <Position>6</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="299" parent="55" name="UPDATE_TIME">
+      <Position>7</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="300" parent="55" name="REDRUSH">
+      <Position>8</Position>
+      <Comment>是否红冲（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="301" parent="55" name="SUPPLEMENT_WATER">
+      <Position>9</Position>
+      <Comment>补水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="302" parent="55" name="BUY_WATER_TOTAL">
+      <Position>10</Position>
+      <Comment>购水量 (如果购水量=现金购水+一卡通购水此字段可弃用)</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="303" parent="55" name="CASH_BUY_WATER">
+      <Position>11</Position>
+      <Comment>现金购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="304" parent="55" name="CARD_BUY_WATER">
+      <Position>12</Position>
+      <Comment>持卡购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="305" parent="55" name="RETURN_WATER">
+      <Position>13</Position>
+      <Comment>退水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="306" parent="55" name="SURPLUS_WATER">
+      <Position>14</Position>
+      <Comment>剩余水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="307" parent="55" name="USER_WATER">
+      <Position>15</Position>
+      <Comment>已用水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="308" parent="55" name="OVER_WATER">
+      <Position>16</Position>
+      <Comment>已透支水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="309" parent="55" name="OPERATION_ID">
+      <Position>17</Position>
+      <Comment>指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="310" parent="55" name="SYS_C0019879">
+      <ObjectId>82627</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:37</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:37</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="311" parent="55" name="SYS_C0019879">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:37</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019879</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="312" parent="56" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="313" parent="56" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="314" parent="56" name="NEW_WATER_METER_ID">
+      <Position>3</Position>
+      <Comment>新水表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="315" parent="56" name="OLD_WATER_METER_ID">
+      <Position>4</Position>
+      <Comment>旧水表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="316" parent="56" name="REPLACE_MONEY">
+      <Position>5</Position>
+      <Comment>换表费用</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="317" parent="56" name="CURRENT_STATUS">
+      <Position>6</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="318" parent="56" name="REPLACE_WATER_NUM">
+      <Position>7</Position>
+      <Comment>换表次数</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="319" parent="56" name="WATER_TYPE">
+      <Position>8</Position>
+      <Comment>水表类型</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="320" parent="56" name="OPEN_TIME">
+      <Position>9</Position>
+      <Comment>开户日期</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="321" parent="56" name="REPLACE_TIME">
+      <Position>10</Position>
+      <Comment>换表日期</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="322" parent="56" name="OPERATION_USER">
+      <Position>11</Position>
+      <Comment>操作人员</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="323" parent="56" name="USER_ID">
+      <Position>12</Position>
+      <Comment>添加人员ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="324" parent="56" name="CREATE_TIME">
+      <Position>13</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="325" parent="56" name="REMARK">
+      <Position>14</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(255 char)|0s</DataType>
+    </column>
+    <column id="326" parent="56" name="OPERATION_ID">
+      <Position>15</Position>
+      <Comment>指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="327" parent="56" name="SYS_C0019865">
+      <ObjectId>82626</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:36</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="328" parent="56" name="SYS_C0019865">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:36</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019865</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="329" parent="57" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="330" parent="57" name="PID">
+      <Position>2</Position>
+      <Comment>父级UUID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="331" parent="57" name="RESOURCENAME">
+      <Position>3</Position>
+      <Comment>资源名称</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="332" parent="57" name="RESOURCEURL">
+      <Position>4</Position>
+      <Comment>资源地址</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="333" parent="57" name="ISMENU">
+      <Position>5</Position>
+      <Comment>是否菜单</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="334" parent="57" name="DESCR">
+      <Position>6</Position>
+      <Comment>描述</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="335" parent="57" name="CTIME">
+      <Position>7</Position>
+      <Comment>创建时间</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="336" parent="57" name="SYS_C0019893">
+      <ObjectId>82628</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:37</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:37</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="337" parent="57" name="SYS_C0019893">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:37</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019893</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="338" parent="58" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="339" parent="58" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="340" parent="58" name="SERIAL_NUMBER">
+      <Position>3</Position>
+      <Comment>流水号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="341" parent="58" name="USER_ID">
+      <Position>4</Position>
+      <Comment>操作人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="342" parent="58" name="CURRENT_STATUS">
+      <Position>5</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="343" parent="58" name="RETURN_WATER">
+      <Position>6</Position>
+      <Comment>退购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="344" parent="58" name="RETURN_MONEY">
+      <Position>7</Position>
+      <Comment>退水金额（元）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="345" parent="58" name="REMARK">
+      <Position>8</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(500 char)|0s</DataType>
+    </column>
+    <column id="346" parent="58" name="CREATE_TIME">
+      <Position>9</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="347" parent="58" name="UPDATE_TIME">
+      <Position>10</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="348" parent="58" name="TYPE">
+      <Position>11</Position>
+      <Comment>类型（0:退水，1:换房退水）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="349" parent="58" name="REDRUSH">
+      <Position>12</Position>
+      <Comment>是否红冲（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="350" parent="58" name="CONCENTRATOR_ID">
+      <Position>13</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="351" parent="58" name="RETURN_BU_WATER">
+      <Position>14</Position>
+      <Comment>退补水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="352" parent="58" name="OPERATION_ID">
+      <Position>15</Position>
+      <Comment>指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="353" parent="59" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="354" parent="59" name="ROLENAME">
+      <Position>2</Position>
+      <Comment>角色名称</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="355" parent="59" name="DESCR">
+      <Position>3</Position>
+      <Comment>描述</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="356" parent="59" name="CTIME">
+      <Position>4</Position>
+      <Comment>创建时间</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <index id="357" parent="59" name="SYS_C0019920">
+      <ObjectId>82629</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:38</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:38</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="358" parent="59" name="SYS_C0019920">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:38</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019920</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="359" parent="60" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="360" parent="60" name="ROLEID">
+      <Position>2</Position>
+      <Comment>角色ID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+    </column>
+    <column id="361" parent="60" name="AUTHORITYID">
+      <Position>3</Position>
+      <Comment>权限ID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+    </column>
+    <index id="362" parent="60" name="SYS_C0019934">
+      <ObjectId>82630</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:38</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:38</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="363" parent="60" name="SYS_C0019934">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:38</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019934</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="364" parent="61" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="365" parent="61" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="366" parent="61" name="CURRENT_STATUS">
+      <Position>3</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="367" parent="61" name="USER_ID">
+      <Position>4</Position>
+      <Comment>操作人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="368" parent="61" name="CREATE_TIME">
+      <Position>5</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="369" parent="61" name="UPDATE_TIME">
+      <Position>6</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="370" parent="61" name="CONCENTRATOR_ID">
+      <Position>7</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="371" parent="61" name="OPERATION_ID">
+      <Position>8</Position>
+      <Comment>指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="372" parent="61" name="WARN_WATER">
+      <Position>9</Position>
+      <Comment>报警水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="373" parent="61" name="VALVE_WATER">
+      <Position>10</Position>
+      <Comment>关阀水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="374" parent="61" name="OVER_WATER">
+      <Position>11</Position>
+      <Comment>最大透支水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="375" parent="61" name="BUY_MONEY">
+      <Position>12</Position>
+      <Comment>购水单价</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="376" parent="61" name="RETURN_MONEY">
+      <Position>13</Position>
+      <Comment>退水单价</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="377" parent="61" name="ADD_CYCLE">
+      <Position>14</Position>
+      <Comment>软件补水周期（0：每日补一次，1：每月补一次，2：不限补水周期）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="378" parent="61" name="HOARD_WATER">
+      <Position>15</Position>
+      <Comment>最大囤积量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <index id="379" parent="61" name="SYS_C0019945">
+      <ObjectId>82631</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:38</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:38</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="380" parent="61" name="SYS_C0019945">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:38</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019945</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="381" parent="62" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="382" parent="62" name="TYPE_NUM">
+      <Position>2</Position>
+      <Comment>类型编号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="383" parent="62" name="TYPE_NAME">
+      <Position>3</Position>
+      <Comment>类型名称</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="384" parent="62" name="DEL_STATUS">
+      <Position>4</Position>
+      <Comment>是否删除（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="385" parent="62" name="EFFECT_STATUS">
+      <Position>5</Position>
+      <Comment>是否生效（0：否，1：是  有在其他相应功能中手动下发或更新，才能被运用和生效）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="386" parent="62" name="WARN_WATER">
+      <Position>6</Position>
+      <Comment>报警水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="387" parent="62" name="VALVE_WATER">
+      <Position>7</Position>
+      <Comment>关阀水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="388" parent="62" name="OVER_WATER">
+      <Position>8</Position>
+      <Comment>最大透支水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="389" parent="62" name="HOARD_WATER">
+      <Position>9</Position>
+      <Comment>最大囤积量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="390" parent="62" name="BUY_MONEY">
+      <Position>10</Position>
+      <Comment>购水单价</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="391" parent="62" name="RETURN_MONEY">
+      <Position>11</Position>
+      <Comment>退水单价</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="392" parent="62" name="ADD_CYCLE">
+      <Position>12</Position>
+      <Comment>软件补水周期（0：每日补一次，1：每月补一次，2：不限补水周期）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="393" parent="62" name="CREATE_TIME">
+      <Position>13</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="394" parent="62" name="EFFECT_TIME">
+      <Position>14</Position>
+      <Comment>参数生效时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <index id="395" parent="62" name="SYS_C0019959">
+      <ObjectId>82632</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:39</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:39</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="396" parent="62" name="SYS_C0019959">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:39</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019959</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="397" parent="63" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="398" parent="63" name="VERSION_NUM">
+      <Position>2</Position>
+      <Comment>版本号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="399" parent="63" name="BASE_ADDRESS">
+      <Position>3</Position>
+      <Comment>基础信息区扇区地址</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="400" parent="63" name="MONEY_ADDRESS">
+      <Position>4</Position>
+      <Comment>金额信息区扇区地址</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="401" parent="63" name="RECORD_ADDRESS">
+      <Position>5</Position>
+      <Comment>记录信息区扇区地址</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="402" parent="63" name="WATERMETE_ADDRESS">
+      <Position>6</Position>
+      <Comment>水表信息区扇区地址</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="403" parent="63" name="EXTEND_ADDRESS">
+      <Position>7</Position>
+      <Comment>扩展信息区扇区地址</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="404" parent="63" name="PURSE_ADDRESS">
+      <Position>8</Position>
+      <Comment>小钱包信息区扇区地址</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="405" parent="63" name="USE_CRC">
+      <Position>9</Position>
+      <Comment>是否使用CRC校验</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="406" parent="63" name="CARD_PASS_MODE">
+      <Position>10</Position>
+      <Comment>用户的卡密码模式</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="407" parent="63" name="RETENTION_ONE">
+      <Position>11</Position>
+      <Comment>保留值1</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="408" parent="63" name="RETENTION_TWO">
+      <Position>12</Position>
+      <Comment>保留值2</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="409" parent="63" name="DEL_STATUS">
+      <Position>13</Position>
+      <Comment>是否删除（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="410" parent="63" name="CREATE_TIME">
+      <Position>14</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <index id="411" parent="63" name="SYS_C0019973">
+      <ObjectId>82633</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:39</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:39</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="412" parent="63" name="SYS_C0019973">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:39</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019973</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="413" parent="64" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="414" parent="64" name="CHANNEL_ID">
+      <Position>2</Position>
+      <Comment>channel的ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="415" parent="64" name="CURRENT_TIME">
+      <Position>3</Position>
+      <Comment>当前时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="416" parent="64" name="REMARK">
+      <Position>4</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(500 char)|0s</DataType>
+    </column>
+    <index id="417" parent="64" name="SYS_C0019987">
+      <ObjectId>82634</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:39</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:39</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="418" parent="64" name="SYS_C0019987">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:39</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0019987</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="419" parent="65" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="420" parent="65" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="421" parent="65" name="SERIAL_NUMBER">
+      <Position>3</Position>
+      <Comment>流水号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="422" parent="65" name="USER_ID">
+      <Position>4</Position>
+      <Comment>操作人ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="423" parent="65" name="SUPPLEMENT_WATER">
+      <Position>5</Position>
+      <Comment>补水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="424" parent="65" name="REMARK">
+      <Position>6</Position>
+      <Comment>备注</Comment>
+      <DataType>NVARCHAR2(500 char)|0s</DataType>
+    </column>
+    <column id="425" parent="65" name="CURRENT_STATUS">
+      <Position>7</Position>
+      <Comment>操作状态（0:未下发，1:下发成功，2:下发失败）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="426" parent="65" name="CREATE_TIME">
+      <Position>8</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="427" parent="65" name="UPDATE_TIME">
+      <Position>9</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="428" parent="65" name="TYPE">
+      <Position>10</Position>
+      <Comment>类型（0:房间补水，1:楼层补水，2：按导入补水,3：换房补水）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="429" parent="65" name="REDRUSH">
+      <Position>11</Position>
+      <Comment>是否红冲（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="430" parent="65" name="CONCENTRATOR_ID">
+      <Position>12</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="431" parent="65" name="OPERAT_MONEY">
+      <Position>13</Position>
+      <Comment>操作金额</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="432" parent="65" name="OPERATION_ID">
+      <Position>14</Position>
+      <Comment>指令表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="433" parent="65" name="SYS_C0020001">
+      <ObjectId>82635</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="434" parent="65" name="SYS_C0020001">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020001</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="435" parent="66" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="436" parent="66" name="DEL_STATUS">
+      <Position>2</Position>
+      <Comment>是否删除（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="437" parent="66" name="EFFECT_STATUS">
+      <Position>3</Position>
+      <Comment>是否生效（0：否，1：是  有在其他相应功能中手动下发或更新，才能被运用和生效）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="438" parent="66" name="WARN_WATER">
+      <Position>4</Position>
+      <Comment>报警水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="439" parent="66" name="VALVE_WATER">
+      <Position>5</Position>
+      <Comment>关阀水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="440" parent="66" name="OVER_WATER">
+      <Position>6</Position>
+      <Comment>最大透支水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="441" parent="66" name="BUY_MONEY">
+      <Position>7</Position>
+      <Comment>购水单价</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="442" parent="66" name="RETURN_MONEY">
+      <Position>8</Position>
+      <Comment>退水单价</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="443" parent="66" name="ADD_CYCLE">
+      <Position>9</Position>
+      <Comment>软件补水周期（0：每日补一次，1：每月补一次，2：不限补水周期）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="444" parent="66" name="CREATE_TIME">
+      <Position>10</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="445" parent="66" name="EFFECT_TIME">
+      <Position>11</Position>
+      <Comment>参数生效时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="446" parent="66" name="HOARD_WATER">
+      <Position>12</Position>
+      <Comment>最大囤积量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <index id="447" parent="66" name="SYS_C0020015">
+      <ObjectId>82636</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="448" parent="66" name="SYS_C0020015">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020015</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="449" parent="67" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="450" parent="67" name="WATER_METER_ID">
+      <Position>2</Position>
+      <Comment>水表编号（对应水表表的水表编号）</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="451" parent="67" name="TYPE">
+      <Position>3</Position>
+      <Comment>报警类型（0：电池电量报警，1：低水量报警，2：磁攻击报警）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="452" parent="67" name="CREATE_TIME">
+      <Position>4</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="453" parent="67" name="CONCENTRATOR_ID">
+      <Position>5</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <index id="454" parent="67" name="SYS_C0020028">
+      <ObjectId>82637</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="455" parent="67" name="SYS_C0020028">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:40</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020028</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="456" parent="68" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="457" parent="68" name="WATER_METER_INFO_ID">
+      <Position>2</Position>
+      <Comment>房间水表信息表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="458" parent="68" name="USE_TIME">
+      <Position>3</Position>
+      <Comment>用水日期（精确到日，一天一条）</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="459" parent="68" name="SUPPLEMENT_WATER">
+      <Position>4</Position>
+      <Comment>当日补水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="460" parent="68" name="BUY_WATER_TOTAL">
+      <Position>5</Position>
+      <Comment>当日购水量 (如果购水量=现金购水+一卡通购水此字段可弃用)</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="461" parent="68" name="CASH_BUY_WATER">
+      <Position>6</Position>
+      <Comment>当日现金购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="462" parent="68" name="CARD_BUY_WATER">
+      <Position>7</Position>
+      <Comment>当日持卡购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="463" parent="68" name="RETURN_WATER">
+      <Position>8</Position>
+      <Comment>当日退水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+    </column>
+    <column id="464" parent="68" name="USER_WATER">
+      <Position>9</Position>
+      <Comment>当日用水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+    </column>
+    <column id="465" parent="68" name="SURPLUS_WATER">
+      <Position>10</Position>
+      <Comment>当日剩余水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="466" parent="68" name="CREATE_TIME">
+      <Position>11</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="467" parent="69" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="468" parent="69" name="WATER_METER_ID">
+      <Position>2</Position>
+      <Comment>水表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="469" parent="69" name="TYPE">
+      <Position>3</Position>
+      <Comment>水表类型(0:冷水水表,1:生活热水水表)</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+    </column>
+    <column id="470" parent="69" name="CREATE_TIME">
+      <Position>4</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="471" parent="69" name="UPDATE_TIME">
+      <Position>5</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="472" parent="69" name="DEL_STATUS">
+      <Position>6</Position>
+      <Comment>是否删除（0：否，1：是）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <index id="473" parent="69" name="SYS_C0020055">
+      <ObjectId>82639</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="474" parent="69" name="WATER_METER_NUM_IND">
+      <ObjectId>82638</ObjectId>
+      <CreatedTimestamp>2019-05-22.19:31:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>WATER_METER_ID</ColNames>
+    </index>
+    <key id="475" parent="69" name="SYS_C0020055">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:41</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020055</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="476" parent="70" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="477" parent="70" name="AREA_ID">
+      <Position>2</Position>
+      <Comment>区域ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="478" parent="70" name="APARTMENT_ID">
+      <Position>3</Position>
+      <Comment>公寓ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="479" parent="70" name="CONCENTRATOR_ID">
+      <Position>4</Position>
+      <Comment>集中器ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="480" parent="70" name="FLOOR_ID">
+      <Position>5</Position>
+      <Comment>楼层ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="481" parent="70" name="ROOM_ID">
+      <Position>6</Position>
+      <Comment>房间ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="482" parent="70" name="ROOM_NUM">
+      <Position>7</Position>
+      <Comment>房间号</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="483" parent="70" name="WATER_METER_ID">
+      <Position>8</Position>
+      <Comment>水表ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="484" parent="70" name="INIT_STATUS">
+      <Position>9</Position>
+      <Comment>初始化状态（0：未初始化，1：已初始化，2：清零初始化）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="485" parent="70" name="VALVE_STATUS">
+      <Position>10</Position>
+      <Comment>阀门状态（0：阀门关闭，1：阀门开放，2：阀门强制开放，3：阀门强制关闭）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="486" parent="70" name="MODULE_STATUS">
+      <Position>11</Position>
+      <Comment>模块状态（0：未知，1：正常）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="487" parent="70" name="COLLECT_TIME">
+      <Position>12</Position>
+      <Comment>采集时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="488" parent="70" name="SUPPLEMENT_WATER">
+      <Position>13</Position>
+      <Comment>补水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="489" parent="70" name="BUY_WATER_TOTAL">
+      <Position>14</Position>
+      <Comment>购水量 (如果购水量=现金购水+一卡通购水此字段可弃用)</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="490" parent="70" name="CASH_BUY_WATER">
+      <Position>15</Position>
+      <Comment>现金购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="491" parent="70" name="CARD_BUY_WATER">
+      <Position>16</Position>
+      <Comment>持卡购水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="492" parent="70" name="RETURN_WATER">
+      <Position>17</Position>
+      <Comment>退水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="493" parent="70" name="SURPLUS_WATER">
+      <Position>18</Position>
+      <Comment>剩余水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="494" parent="70" name="USER_WATER">
+      <Position>19</Position>
+      <Comment>已用水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="495" parent="70" name="CLOSE_VALVE_WATER">
+      <Position>20</Position>
+      <Comment>关阀水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="496" parent="70" name="ROOM_TYPE_ID">
+      <Position>21</Position>
+      <Comment>房间类型编号 （不绑定ID，绑定编号，关联最大囤积量，购水单价，退水单价。若没有配置类型，取系统运行参数默认配置）</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="497" parent="70" name="CUMULATE_WATER">
+      <Position>22</Position>
+      <Comment>累积用水量（吨）</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="498" parent="70" name="CREATE_TIME">
+      <Position>23</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="499" parent="70" name="UPDATE_TIME">
+      <Position>24</Position>
+      <Comment>更新时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="500" parent="70" name="OVER_WATER">
+      <Position>25</Position>
+      <Comment>已透支水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="501" parent="70" name="WARN_WATER">
+      <Position>26</Position>
+      <Comment>报警水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="502" parent="70" name="MAX_OVER_WATER">
+      <Position>27</Position>
+      <Comment>最大透支水量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="503" parent="70" name="BUY_MONEY">
+      <Position>28</Position>
+      <Comment>购水单价</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="504" parent="70" name="RETURN_MONEY">
+      <Position>29</Position>
+      <Comment>退水单价</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="505" parent="70" name="ADD_CYCLE">
+      <Position>30</Position>
+      <Comment>软件补水周期（0：每日补一次，1：每月补一次，2：不限补水周期）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="506" parent="70" name="HOARD_WATER">
+      <Position>31</Position>
+      <Comment>最大囤积量</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="507" parent="70" name="REPLACE_WATER_NUM">
+      <Position>32</Position>
+      <Comment>换表次数</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="508" parent="70" name="WATER_TYPE">
+      <Position>33</Position>
+      <Comment>水表类型(0:冷水水表,1:生活热水水表)</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="509" parent="70" name="BUILD_ID">
+      <Position>34</Position>
+      <Comment>栋ID</Comment>
+      <DataType>NVARCHAR2(100 char)|0s</DataType>
+    </column>
+    <column id="510" parent="70" name="ADD_NUM">
+      <Position>35</Position>
+      <Comment>补水购水下发计数</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="511" parent="70" name="POWER_STATUS">
+      <Position>36</Position>
+      <Comment>电池状态（0：正常，1：亏电）</Comment>
+      <DataType>NUMBER(3 digit)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="512" parent="70" name="ATTACK_NUM">
+      <Position>37</Position>
+      <Comment>磁攻击次数，该值不大于3</Comment>
+      <DataType>NUMBER(*)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="513" parent="70" name="OPEN_TIME">
+      <Position>38</Position>
+      <Comment>水表开户时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <index id="514" parent="70" name="SYS_C0020069">
+      <ObjectId>82640</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:42</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:42</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="515" parent="70" name="SYS_C0020069">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:42</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020069</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="516" parent="71" name="ID">
+      <Position>1</Position>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="517" parent="71" name="WORKERACCOUNT">
+      <Position>2</Position>
+      <Comment>登录账号</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="518" parent="71" name="WORKERNAME">
+      <Position>3</Position>
+      <Comment>登录名</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="519" parent="71" name="REALNAME">
+      <Position>4</Position>
+      <Comment>职工姓名</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="520" parent="71" name="IDENTITY">
+      <Position>5</Position>
+      <Comment>身份</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="521" parent="71" name="EMAIL">
+      <Position>6</Position>
+      <Comment>邮箱</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="522" parent="71" name="ISOPEN">
+      <Position>7</Position>
+      <Comment>状态</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="523" parent="71" name="CTIME">
+      <Position>8</Position>
+      <Comment>创建时间</Comment>
+      <DataType>DATE|0s</DataType>
+    </column>
+    <column id="524" parent="71" name="PASSWORD">
+      <Position>9</Position>
+      <Comment>账号密码</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <index id="525" parent="71" name="SYS_C0020083">
+      <ObjectId>82641</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:42</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:42</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="526" parent="71" name="SYS_C0020083">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:42</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020083</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="527" parent="72" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="528" parent="72" name="ROLEID">
+      <Position>2</Position>
+      <Comment>角色ID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+    </column>
+    <column id="529" parent="72" name="WORKERID">
+      <Position>3</Position>
+      <Comment>职工ID</Comment>
+      <DataType>NVARCHAR2(32 char)|0s</DataType>
+    </column>
+    <index id="530" parent="72" name="SYS_C0020097">
+      <ObjectId>82642</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:42</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:42</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="531" parent="72" name="SYS_C0020097">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:42</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020097</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="532" parent="73" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="533" parent="73" name="TRIGGER_NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="534" parent="73" name="TRIGGER_GROUP">
+      <Position>3</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="535" parent="73" name="BLOB_DATA">
+      <Position>4</Position>
+      <DataType>BLOB|0s</DataType>
+    </column>
+    <index id="536" parent="73" name="QRTZ_BLOB_TRIG_PK">
+      <ObjectId>89544</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="537" parent="73" name="QRTZ_BLOB_TRIG_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_BLOB_TRIG_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="538" parent="73" name="QRTZ_BLOB_TRIG_TO_TRIG_FK">
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <RefSchemaName>MBUS</RefSchemaName>
+      <RefTableName>QRTZ_TRIGGERS</RefTableName>
+      <RefKeyName>QRTZ_TRIGGERS_PK</RefKeyName>
+      <OnDelete>restrict</OnDelete>
+    </foreign-key>
+    <column id="539" parent="74" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="540" parent="74" name="CALENDAR_NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="541" parent="74" name="CALENDAR">
+      <Position>3</Position>
+      <DataType>BLOB|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="542" parent="74" name="QRTZ_CALENDARS_PK">
+      <ObjectId>89548</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+CALENDAR_NAME</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="543" parent="74" name="QRTZ_CALENDARS_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+CALENDAR_NAME</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_CALENDARS_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="544" parent="75" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="545" parent="75" name="TRIGGER_NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="546" parent="75" name="TRIGGER_GROUP">
+      <Position>3</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="547" parent="75" name="CRON_EXPRESSION">
+      <Position>4</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="548" parent="75" name="TIME_ZONE_ID">
+      <Position>5</Position>
+      <DataType>VARCHAR2(80 byte)|0s</DataType>
+    </column>
+    <index id="549" parent="75" name="QRTZ_CRON_TRIG_PK">
+      <ObjectId>89538</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="550" parent="75" name="QRTZ_CRON_TRIG_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_CRON_TRIG_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="551" parent="75" name="QRTZ_CRON_TRIG_TO_TRIG_FK">
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <RefSchemaName>MBUS</RefSchemaName>
+      <RefTableName>QRTZ_TRIGGERS</RefTableName>
+      <RefKeyName>QRTZ_TRIGGERS_PK</RefKeyName>
+      <OnDelete>restrict</OnDelete>
+    </foreign-key>
+    <column id="552" parent="76" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="553" parent="76" name="ENTRY_ID">
+      <Position>2</Position>
+      <DataType>VARCHAR2(95 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="554" parent="76" name="TRIGGER_NAME">
+      <Position>3</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="555" parent="76" name="TRIGGER_GROUP">
+      <Position>4</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="556" parent="76" name="INSTANCE_NAME">
+      <Position>5</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="557" parent="76" name="FIRED_TIME">
+      <Position>6</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="558" parent="76" name="SCHED_TIME">
+      <Position>7</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="559" parent="76" name="PRIORITY">
+      <Position>8</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="560" parent="76" name="STATE">
+      <Position>9</Position>
+      <DataType>VARCHAR2(16 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="561" parent="76" name="JOB_NAME">
+      <Position>10</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+    </column>
+    <column id="562" parent="76" name="JOB_GROUP">
+      <Position>11</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+    </column>
+    <column id="563" parent="76" name="IS_NONCONCURRENT">
+      <Position>12</Position>
+      <DataType>VARCHAR2(1 byte)|0s</DataType>
+    </column>
+    <column id="564" parent="76" name="REQUESTS_RECOVERY">
+      <Position>13</Position>
+      <DataType>VARCHAR2(1 byte)|0s</DataType>
+    </column>
+    <index id="565" parent="76" name="QRTZ_FIRED_TRIGGER_PK">
+      <ObjectId>89552</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+ENTRY_ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="566" parent="76" name="IDX_QRTZ_FT_T_G">
+      <ObjectId>89575</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+    </index>
+    <index id="567" parent="76" name="IDX_QRTZ_FT_TG">
+      <ObjectId>89576</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:42</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:42</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_GROUP</ColNames>
+    </index>
+    <index id="568" parent="76" name="IDX_QRTZ_FT_INST_JOB_REQ_RCVRY">
+      <ObjectId>89572</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+INSTANCE_NAME
+REQUESTS_RECOVERY</ColNames>
+    </index>
+    <index id="569" parent="76" name="IDX_QRTZ_FT_TRIG_INST_NAME">
+      <ObjectId>89571</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+INSTANCE_NAME</ColNames>
+    </index>
+    <index id="570" parent="76" name="IDX_QRTZ_FT_J_G">
+      <ObjectId>89573</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+JOB_NAME
+JOB_GROUP</ColNames>
+    </index>
+    <index id="571" parent="76" name="IDX_QRTZ_FT_JG">
+      <ObjectId>89574</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+JOB_GROUP</ColNames>
+    </index>
+    <key id="572" parent="76" name="QRTZ_FIRED_TRIGGER_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+ENTRY_ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_FIRED_TRIGGER_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="573" parent="77" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="574" parent="77" name="JOB_NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="575" parent="77" name="JOB_GROUP">
+      <Position>3</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="576" parent="77" name="DESCRIPTION">
+      <Position>4</Position>
+      <DataType>VARCHAR2(250 byte)|0s</DataType>
+    </column>
+    <column id="577" parent="77" name="JOB_CLASS_NAME">
+      <Position>5</Position>
+      <DataType>VARCHAR2(250 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="578" parent="77" name="IS_DURABLE">
+      <Position>6</Position>
+      <DataType>VARCHAR2(1 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="579" parent="77" name="IS_NONCONCURRENT">
+      <Position>7</Position>
+      <DataType>VARCHAR2(1 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="580" parent="77" name="IS_UPDATE_DATA">
+      <Position>8</Position>
+      <DataType>VARCHAR2(1 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="581" parent="77" name="REQUESTS_RECOVERY">
+      <Position>9</Position>
+      <DataType>VARCHAR2(1 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="582" parent="77" name="JOB_DATA">
+      <Position>10</Position>
+      <DataType>BLOB|0s</DataType>
+    </column>
+    <index id="583" parent="77" name="QRTZ_JOB_DETAILS_PK">
+      <ObjectId>89530</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+JOB_NAME
+JOB_GROUP</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="584" parent="77" name="IDX_QRTZ_J_GRP">
+      <ObjectId>89558</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+JOB_GROUP</ColNames>
+    </index>
+    <index id="585" parent="77" name="IDX_QRTZ_J_REQ_RECOVERY">
+      <ObjectId>89557</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+REQUESTS_RECOVERY</ColNames>
+    </index>
+    <key id="586" parent="77" name="QRTZ_JOB_DETAILS_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+JOB_NAME
+JOB_GROUP</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_JOB_DETAILS_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="587" parent="78" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="588" parent="78" name="LOCK_NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(40 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="589" parent="78" name="QRTZ_LOCKS_PK">
+      <ObjectId>89556</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+LOCK_NAME</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="590" parent="78" name="QRTZ_LOCKS_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+LOCK_NAME</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_LOCKS_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="591" parent="79" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="592" parent="79" name="TRIGGER_GROUP">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="593" parent="79" name="QRTZ_PAUSED_TRIG_GRPS_PK">
+      <ObjectId>89550</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_GROUP</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="594" parent="79" name="QRTZ_PAUSED_TRIG_GRPS_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_GROUP</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_PAUSED_TRIG_GRPS_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="595" parent="80" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="596" parent="80" name="INSTANCE_NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="597" parent="80" name="LAST_CHECKIN_TIME">
+      <Position>3</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="598" parent="80" name="CHECKIN_INTERVAL">
+      <Position>4</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="599" parent="80" name="QRTZ_SCHEDULER_STATE_PK">
+      <ObjectId>89554</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+INSTANCE_NAME</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="600" parent="80" name="QRTZ_SCHEDULER_STATE_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+INSTANCE_NAME</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_SCHEDULER_STATE_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="601" parent="81" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="602" parent="81" name="TRIGGER_NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="603" parent="81" name="TRIGGER_GROUP">
+      <Position>3</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="604" parent="81" name="REPEAT_COUNT">
+      <Position>4</Position>
+      <DataType>NUMBER(7 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="605" parent="81" name="REPEAT_INTERVAL">
+      <Position>5</Position>
+      <DataType>NUMBER(12 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="606" parent="81" name="TIMES_TRIGGERED">
+      <Position>6</Position>
+      <DataType>NUMBER(10 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="607" parent="81" name="QRTZ_SIMPLE_TRIG_PK">
+      <ObjectId>89536</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="608" parent="81" name="QRTZ_SIMPLE_TRIG_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_SIMPLE_TRIG_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="609" parent="81" name="QRTZ_SIMPLE_TRIG_TO_TRIG_FK">
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <RefSchemaName>MBUS</RefSchemaName>
+      <RefTableName>QRTZ_TRIGGERS</RefTableName>
+      <RefKeyName>QRTZ_TRIGGERS_PK</RefKeyName>
+      <OnDelete>restrict</OnDelete>
+    </foreign-key>
+    <column id="610" parent="82" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="611" parent="82" name="TRIGGER_NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="612" parent="82" name="TRIGGER_GROUP">
+      <Position>3</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="613" parent="82" name="STR_PROP_1">
+      <Position>4</Position>
+      <DataType>VARCHAR2(512 byte)|0s</DataType>
+    </column>
+    <column id="614" parent="82" name="STR_PROP_2">
+      <Position>5</Position>
+      <DataType>VARCHAR2(512 byte)|0s</DataType>
+    </column>
+    <column id="615" parent="82" name="STR_PROP_3">
+      <Position>6</Position>
+      <DataType>VARCHAR2(512 byte)|0s</DataType>
+    </column>
+    <column id="616" parent="82" name="INT_PROP_1">
+      <Position>7</Position>
+      <DataType>NUMBER(10 digit)|0s</DataType>
+    </column>
+    <column id="617" parent="82" name="INT_PROP_2">
+      <Position>8</Position>
+      <DataType>NUMBER(10 digit)|0s</DataType>
+    </column>
+    <column id="618" parent="82" name="LONG_PROP_1">
+      <Position>9</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+    </column>
+    <column id="619" parent="82" name="LONG_PROP_2">
+      <Position>10</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+    </column>
+    <column id="620" parent="82" name="DEC_PROP_1">
+      <Position>11</Position>
+      <DataType>NUMBER(13,4 digit)|0s</DataType>
+    </column>
+    <column id="621" parent="82" name="DEC_PROP_2">
+      <Position>12</Position>
+      <DataType>NUMBER(13,4 digit)|0s</DataType>
+    </column>
+    <column id="622" parent="82" name="BOOL_PROP_1">
+      <Position>13</Position>
+      <DataType>VARCHAR2(1 byte)|0s</DataType>
+    </column>
+    <column id="623" parent="82" name="BOOL_PROP_2">
+      <Position>14</Position>
+      <DataType>VARCHAR2(1 byte)|0s</DataType>
+    </column>
+    <index id="624" parent="82" name="QRTZ_SIMPROP_TRIG_PK">
+      <ObjectId>89540</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="625" parent="82" name="QRTZ_SIMPROP_TRIG_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_SIMPROP_TRIG_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="626" parent="82" name="QRTZ_SIMPROP_TRIG_TO_TRIG_FK">
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <RefSchemaName>MBUS</RefSchemaName>
+      <RefTableName>QRTZ_TRIGGERS</RefTableName>
+      <RefKeyName>QRTZ_TRIGGERS_PK</RefKeyName>
+      <OnDelete>restrict</OnDelete>
+    </foreign-key>
+    <column id="627" parent="83" name="SCHED_NAME">
+      <Position>1</Position>
+      <DataType>VARCHAR2(120 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="628" parent="83" name="TRIGGER_NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="629" parent="83" name="TRIGGER_GROUP">
+      <Position>3</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="630" parent="83" name="JOB_NAME">
+      <Position>4</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="631" parent="83" name="JOB_GROUP">
+      <Position>5</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="632" parent="83" name="DESCRIPTION">
+      <Position>6</Position>
+      <DataType>VARCHAR2(250 byte)|0s</DataType>
+    </column>
+    <column id="633" parent="83" name="NEXT_FIRE_TIME">
+      <Position>7</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+    </column>
+    <column id="634" parent="83" name="PREV_FIRE_TIME">
+      <Position>8</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+    </column>
+    <column id="635" parent="83" name="PRIORITY">
+      <Position>9</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+    </column>
+    <column id="636" parent="83" name="TRIGGER_STATE">
+      <Position>10</Position>
+      <DataType>VARCHAR2(16 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="637" parent="83" name="TRIGGER_TYPE">
+      <Position>11</Position>
+      <DataType>VARCHAR2(8 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="638" parent="83" name="START_TIME">
+      <Position>12</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="639" parent="83" name="END_TIME">
+      <Position>13</Position>
+      <DataType>NUMBER(13 digit)|0s</DataType>
+    </column>
+    <column id="640" parent="83" name="CALENDAR_NAME">
+      <Position>14</Position>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+    </column>
+    <column id="641" parent="83" name="MISFIRE_INSTR">
+      <Position>15</Position>
+      <DataType>NUMBER(2 digit)|0s</DataType>
+    </column>
+    <column id="642" parent="83" name="JOB_DATA">
+      <Position>16</Position>
+      <DataType>BLOB|0s</DataType>
+    </column>
+    <index id="643" parent="83" name="QRTZ_TRIGGERS_PK">
+      <ObjectId>89534</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:40</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="644" parent="83" name="IDX_QRTZ_T_N_STATE">
+      <ObjectId>89564</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP
+TRIGGER_STATE</ColNames>
+    </index>
+    <index id="645" parent="83" name="IDX_QRTZ_T_N_G_STATE">
+      <ObjectId>89565</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_GROUP
+TRIGGER_STATE</ColNames>
+    </index>
+    <index id="646" parent="83" name="IDX_QRTZ_T_G">
+      <ObjectId>89562</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_GROUP</ColNames>
+    </index>
+    <index id="647" parent="83" name="IDX_QRTZ_T_J">
+      <ObjectId>89559</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+JOB_NAME
+JOB_GROUP</ColNames>
+    </index>
+    <index id="648" parent="83" name="IDX_QRTZ_T_JG">
+      <ObjectId>89560</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+JOB_GROUP</ColNames>
+    </index>
+    <index id="649" parent="83" name="IDX_QRTZ_T_NEXT_FIRE_TIME">
+      <ObjectId>89566</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+NEXT_FIRE_TIME</ColNames>
+    </index>
+    <index id="650" parent="83" name="IDX_QRTZ_T_NFT_ST">
+      <ObjectId>89567</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_STATE
+NEXT_FIRE_TIME</ColNames>
+    </index>
+    <index id="651" parent="83" name="IDX_QRTZ_T_STATE">
+      <ObjectId>89563</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+TRIGGER_STATE</ColNames>
+    </index>
+    <index id="652" parent="83" name="IDX_QRTZ_T_C">
+      <ObjectId>89561</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+CALENDAR_NAME</ColNames>
+    </index>
+    <index id="653" parent="83" name="IDX_QRTZ_T_NFT_ST_MISFIRE_GRP">
+      <ObjectId>89570</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+MISFIRE_INSTR
+NEXT_FIRE_TIME
+TRIGGER_GROUP
+TRIGGER_STATE</ColNames>
+    </index>
+    <index id="654" parent="83" name="IDX_QRTZ_T_NFT_ST_MISFIRE">
+      <ObjectId>89569</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+MISFIRE_INSTR
+NEXT_FIRE_TIME
+TRIGGER_STATE</ColNames>
+    </index>
+    <index id="655" parent="83" name="IDX_QRTZ_T_NFT_MISFIRE">
+      <ObjectId>89568</ObjectId>
+      <CreatedTimestamp>2019-08-01.22:21:41</CreatedTimestamp>
+      <ModifiedTimestamp>2019-08-01.22:21:41</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>SCHED_NAME
+MISFIRE_INSTR
+NEXT_FIRE_TIME</ColNames>
+    </index>
+    <key id="656" parent="83" name="QRTZ_TRIGGERS_PK">
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+TRIGGER_NAME
+TRIGGER_GROUP</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>QRTZ_TRIGGERS_PK</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="657" parent="83" name="QRTZ_TRIGGER_TO_JOBS_FK">
+      <ModifiedTimestamp>2019-08-01.22:21:40</ModifiedTimestamp>
+      <ColNames>SCHED_NAME
+JOB_NAME
+JOB_GROUP</ColNames>
+      <RefSchemaName>MBUS</RefSchemaName>
+      <RefTableName>QRTZ_JOB_DETAILS</RefTableName>
+      <RefKeyName>QRTZ_JOB_DETAILS_PK</RefKeyName>
+      <OnDelete>restrict</OnDelete>
+    </foreign-key>
+    <column id="658" parent="84" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="659" parent="84" name="CODE">
+      <Position>2</Position>
+      <Comment>公寓编码</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="660" parent="84" name="NAME">
+      <Position>3</Position>
+      <Comment>公寓名称</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="661" parent="84" name="PARENTID">
+      <Position>4</Position>
+      <Comment>所属区域ID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+    </column>
+    <column id="662" parent="84" name="CTIME">
+      <Position>5</Position>
+      <Comment>创建时间</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="663" parent="84" name="REMARK">
+      <Position>6</Position>
+      <Comment>备注</Comment>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+    </column>
+    <index id="664" parent="84" name="SYS_C0020111">
+      <ObjectId>82643</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:43</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:43</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="665" parent="84" name="SYS_C0020111">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:43</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020111</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="666" parent="85" name="AREAID">
+      <Position>1</Position>
+      <Comment>区县编码</Comment>
+      <DataType>VARCHAR2(50 byte)|0s</DataType>
+    </column>
+    <column id="667" parent="85" name="AREA">
+      <Position>2</Position>
+      <Comment>区县名称</Comment>
+      <DataType>VARCHAR2(60 byte)|0s</DataType>
+    </column>
+    <column id="668" parent="85" name="FATHER">
+      <Position>3</Position>
+      <Comment>市区编码</Comment>
+      <DataType>VARCHAR2(6 byte)|0s</DataType>
+    </column>
+    <column id="669" parent="85" name="ID">
+      <Position>4</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="670" parent="85" name="SYS_C0020125">
+      <ObjectId>82644</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:43</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:43</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="671" parent="85" name="SYS_C0020125">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:43</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020125</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="672" parent="86" name="CITYID">
+      <Position>1</Position>
+      <Comment>市县编码</Comment>
+      <DataType>VARCHAR2(6 byte)|0s</DataType>
+    </column>
+    <column id="673" parent="86" name="CITY">
+      <Position>2</Position>
+      <Comment>市县名称</Comment>
+      <DataType>VARCHAR2(50 byte)|0s</DataType>
+    </column>
+    <column id="674" parent="86" name="FATHER">
+      <Position>3</Position>
+      <Comment>省会编码</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+    </column>
+    <column id="675" parent="86" name="ID">
+      <Position>4</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="676" parent="86" name="SYS_C0020139">
+      <ObjectId>82645</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:43</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:43</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="677" parent="86" name="SYS_C0020139">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:43</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020139</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="678" parent="87" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="679" parent="87" name="CODE">
+      <Position>2</Position>
+      <Comment>楼栋编号</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="680" parent="87" name="NAME">
+      <Position>3</Position>
+      <Comment>楼栋</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="681" parent="87" name="PARENTID">
+      <Position>4</Position>
+      <Comment>所属公寓id</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+    </column>
+    <column id="682" parent="87" name="CTIME">
+      <Position>5</Position>
+      <Comment>创建时间</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="683" parent="87" name="REMARK">
+      <Position>6</Position>
+      <Comment>备注</Comment>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+    </column>
+    <index id="684" parent="87" name="SYS_C0020153">
+      <ObjectId>82646</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:44</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:44</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="685" parent="87" name="SYS_C0020153">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:44</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020153</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="686" parent="88" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+    </column>
+    <column id="687" parent="88" name="CODE">
+      <Position>2</Position>
+      <Comment>楼层编号</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="688" parent="88" name="NAME">
+      <Position>3</Position>
+      <Comment>楼层</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="689" parent="88" name="PARENTID">
+      <Position>4</Position>
+      <Comment>所属楼栋</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+    </column>
+    <column id="690" parent="88" name="CTIME">
+      <Position>5</Position>
+      <Comment>创建时间</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="691" parent="88" name="REMARK">
+      <Position>6</Position>
+      <Comment>备注</Comment>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+    </column>
+    <column id="692" parent="89" name="PROVINCEID">
+      <Position>1</Position>
+      <Comment>省会编码</Comment>
+      <DataType>VARCHAR2(6 byte)|0s</DataType>
+    </column>
+    <column id="693" parent="89" name="PROVINCE">
+      <Position>2</Position>
+      <Comment>省会名称</Comment>
+      <DataType>VARCHAR2(40 byte)|0s</DataType>
+    </column>
+    <column id="694" parent="89" name="ID">
+      <Position>3</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="695" parent="89" name="SYS_C0020167">
+      <ObjectId>82647</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:44</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:44</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="696" parent="89" name="SYS_C0020167">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:44</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020167</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="697" parent="90" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="698" parent="90" name="NAME">
+      <Position>2</Position>
+      <Comment>区域名称</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="699" parent="90" name="CTIME">
+      <Position>3</Position>
+      <Comment>创建时间</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="700" parent="90" name="REMARK">
+      <Position>4</Position>
+      <Comment>备注</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="701" parent="90" name="CODE">
+      <Position>5</Position>
+      <Comment>区域编号</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <index id="702" parent="90" name="SYS_C0020181">
+      <ObjectId>82648</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <CreatedTimestamp>2019-05-22.19:31:44</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-22.19:31:44</ModifiedTimestamp>
+      <TablespaceName>M_BUS</TablespaceName>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="703" parent="90" name="SYS_C0020181">
+      <NameSurrogate>1</NameSurrogate>
+      <ModifiedTimestamp>2019-05-22.19:31:44</ModifiedTimestamp>
+      <ColNames>ID</ColNames>
+      <InitiallyDeferred>1</InitiallyDeferred>
+      <UnderlyingIndexName>SYS_C0020181</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="704" parent="91" name="ID">
+      <Position>1</Position>
+      <Comment>32位数UUID</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+    </column>
+    <column id="705" parent="91" name="CODE">
+      <Position>2</Position>
+      <Comment>房间编号</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="706" parent="91" name="NAME">
+      <Position>3</Position>
+      <Comment>房间号</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="707" parent="91" name="PARENTID">
+      <Position>4</Position>
+      <Comment>所属楼层</Comment>
+      <DataType>VARCHAR2(32 byte)|0s</DataType>
+    </column>
+    <column id="708" parent="91" name="CTIME">
+      <Position>5</Position>
+      <Comment>创建时间</Comment>
+      <DataType>VARCHAR2(100 byte)|0s</DataType>
+    </column>
+    <column id="709" parent="91" name="REMARK">
+      <Position>6</Position>
+      <Comment>备注</Comment>
+      <DataType>VARCHAR2(200 byte)|0s</DataType>
+    </column>
+  </database-model>
+</dataSource>

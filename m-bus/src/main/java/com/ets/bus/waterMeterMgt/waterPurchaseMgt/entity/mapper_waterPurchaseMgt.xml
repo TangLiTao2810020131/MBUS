@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.waterMeterMgt.waterPurchaseMgt.dao.WaterPurchaseMgtDao">
+
+    <!--查询水表信息表集合-->
+    <select id="selectWaterMeterInfoList" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.WaterMeterInfoVo">
+        SELECT
+          mwmi.ID id,
+          tre.NAME areaName,
+          ta.NAME apartmentName,
+          ta.id apartmentId,
+          tf.NAME buildName,
+          tl.NAME floorName,
+          tr.NAME roomNum,
+          mwmi.INIT_STATUS initStatus,
+          mwmi.VALVE_STATUS valveStatus,
+          mwmi.MODULE_STATUS moduleStatus,
+          mwmi.SURPLUS_WATER surplusWater,
+          mwmi.CASH_BUY_WATER cashBuyWater,
+          mwmi.CARD_BUY_WATER cardBuyWater,
+          mwmi.HOARD_WATER maxWater,
+          mwmi.SUPPLEMENT_WATER supplementWater,
+          mwmi.RETURN_WATER returnWater,
+          mwmi.USER_WATER userWater,
+          mwmi.OVER_WATER overWater,
+          mwmi.ROOM_TYPE_ID roomTypeId,
+          mwmi.ADD_NUM addNum,
+          mrtp.TYPE_NAME roomTypeName,
+          mwm.WATER_METER_ID waterMeterNum,
+          mc.CONCENTRATOR_NUM concentratorNum,
+          mc.ID concentratorId,
+          mwmi.BUY_WATER_TOTAL buyWaterTotal
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        LEFT JOIN MB_WATER_METER mwm ON mwm.ID = mwmi.WATER_METER_ID
+        WHERE
+          mwmi.WATER_METER_ID is not null
+          AND
+          mwmi.CONCENTRATOR_ID is not null
+          AND
+          (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+          <if test="roomTypeId != null and roomTypeId != '' ">
+              and mwmi.ROOM_TYPE_ID=#{roomTypeId}
+          </if>
+          <if test="areaId != null and areaId != '' ">
+              and mwmi.AREA_ID=#{areaId}
+          </if>
+          <if test="apartmentId != null and apartmentId != '' ">
+              and mwmi.APARTMENT_ID=#{apartmentId}
+          </if>
+          <if test="buildId != null and buildId != '' ">
+              and mwmi.BUILD_ID=#{buildId}
+          </if>
+          <if test="floorId != null and floorId != '' ">
+              and mwmi.FLOOR_ID=#{floorId}
+          </if>
+          <if test="areaName != null and areaName != '' ">
+              and tre.NAME=#{areaName}
+          </if>
+          <if test="apartmentName != null and apartmentName != '' ">
+              and ta.NAME=#{apartmentName}
+          </if>
+          <if test="floorName != null and floorName != '' ">
+              and tl.NAME=#{floorName}
+          </if>
+          <if test="roomNum != null and roomNum != '' ">
+              and tr.NAME=#{roomNum}
+          </if>
+          <if test="concentratorIp != null and concentratorIp != '' ">
+              and mc.IP_ADDRESS=#{concentratorIp}
+          </if>
+          <if test="concentratorNum != null and concentratorNum != '' ">
+            and mc.concentrator_num=#{concentratorNum}
+          </if>
+        ORDER BY  mwmi.CREATE_TIME, mwm.WATER_METER_ID ASC
+    </select>
+
+    <!--根据ID查询房间水表信息-->
+    <select id="selectWaterMeterInfoById" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.WaterMeterInfoVo">
+        SELECT
+        mwmi.ID id,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        ta.ID apartmentId,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        tl.CODE floorNum,
+        tl.ID floorId,
+        tf.name buildName,
+        mwmi.INIT_STATUS initStatus,
+        mwmi.VALVE_STATUS valveStatus,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.SURPLUS_WATER surplusWater,
+        mwmi.COLLECT_TIME collectTime,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.CASH_BUY_WATER cashBuyWater,
+        mwmi.CARD_BUY_WATER cardBuyWater,
+        mwmi.OVER_WATER overWater,
+        mwmi.SUPPLEMENT_WATER supplementWater,
+        mwmi.RETURN_WATER returnWater,
+        mwmi.USER_WATER userWater,
+        mwmi.ROOM_TYPE_ID roomTypeId,
+        mwmi.BUY_WATER_TOTAL buyWaterTotal,
+        mwmi.HOARD_WATER maxWater,
+        mwmi.ADD_NUM addNum,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        mwmi.CONCENTRATOR_ID concentratorId,
+        mwm.WATER_METER_ID waterMeterNum,
+        mwmi.BUY_MONEY price
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_WATER_METER mwm ON mwm.ID = mwmi.WATER_METER_ID
+        WHERE
+          mwmi.ID=#{id}
+    </select>
+
+    <!-- 向操作指令表插入一条记录 -->
+    <insert id="insertOperationInstruction" parameterType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        INSERT INTO
+          MB_OPERATION_INSTRUCTION(ID,WATER_METER_INFO_ID,TYPE,CURRENT_STATUS,USER_ID,COLLECT_ID,COLLECT_IP,APARTMENT_ID,WATER_METER_NUM,INSTRUCTION_DETAIL,CONCENTRATOR_ID,INSTRUCTION_NUM,CREATE_TIME)
+        VALUES
+          (#{id},#{waterMeterInfoId},#{type},#{currentStatus},#{userId},#{collectId},#{collectIp},#{apartmentId},#{waterMeterNum},#{instructionDetail},#{concentratorId},SEQ_OP_INST.nextval,sysdate)
+    </insert>
+
+    <!-- 向指令明细表插入一条记录 -->
+    <insert id="insertInstructionDetail" parameterType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.InstructionDetailVo">
+        INSERT INTO
+          MB_INSTRUCTION_DETAIL(ID,WATER_METER_INFO_ID,RECORD_ID,TYPE,CURRENT_STATUS,USER_ID,COLLECT_ID,COLLECT_IP,APARTMENT_ID,OPERATION_ID,WATER_METER_NUM,INSTRUCTION_DETAIL,INSTRUCTION_NUM,CREATE_TIME)
+        VALUES(#{id},#{waterMeterInfoId},#{recordId},#{type},#{currentStatus},#{userId},#{collectId},#{collectIp},#{apartmentId},#{operationId},#{waterMeterNum},#{instructionDetail},SEQ_INST_DETAIL.nextval,sysdate)
+    </insert>
+
+    <!-- 向购水记录表插入一条现金购水记录 -->
+    <insert id="insertBuyRecord" parameterType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.BuyRecordVo">
+        INSERT INTO
+          MB_BUY_RECORD(ID,WATER_METER_INFO_ID,SERIAL_NUMBER,USER_ID,CURRENT_STATUS,PAYER_NAME,BUY_WATER,BUY_MONEY,ACTUAL_MONEY,RETURN_MONEY,TYPE,CONCENTRATOR_ID,OPERATION_ID,CREATE_TIME)
+        VALUES(#{id},#{waterMeterInfoId},#{serialNumber},#{userId},#{currentStatus},#{payerName},#{buyWater},#{buyMoney},#{actualMoney},#{returnMoney},#{type},#{concentratorId},#{operationId},sysdate)
+    </insert>
+
+    <!-- 向采集水表信息记录插入一条记录 -->
+    <insert id="insertCollectRecord" parameterType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.CollectRecordVo">
+        INSERT INTO
+          MB_COLLECT_RECORD(ID,WATER_METER_INFO_ID,CONCENTRATOR_ID,CREATE_TIME,OPERATION_ID,CURRENT_STATUS)
+        VALUES(#{id},#{waterMeterInfoId},#{concentratorId},sysdate,#{operationId},#{currentStatus})
+    </insert>
+
+    <!--获取系统运行参数-->
+    <select id="getSysoperatParam" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.SysoperatParamVo">
+        SELECT
+            msp.ID id,
+            msp.DEL_STATUS delStatus,
+            msp.EFFECT_STATUS effectStatus,
+            msp.WARN_WATER warnWater,
+            msp.VALVE_WATER valveWater,
+            msp.OVER_WATER overWater,
+            msp.BUY_MONEY buyMoney,
+            msp.RETURN_MONEY returnMoney,
+            msp.ADD_CYCLE addCycle,
+            msp.HOARD_WATER hoardWater
+        FROM MB_SYSOPERAT_PARAM msp
+        WHERE
+          msp.DEL_STATUS=0
+    </select>
+
+    <!--根据房间水表ID查询是否存在未完成的指令-->
+    <select id="getNotFinishInstruct" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        SELECT
+          moi.ID id
+        FROM MB_OPERATION_INSTRUCTION moi
+        WHERE
+          moi.CURRENT_STATUS=0
+          AND
+          moi.TYPE in (0,1,2)
+          AND
+          moi.WATER_METER_INFO_ID = #{waterMeterInfoId}
+    </select>
+
+    <!--根据房间水表ID查询是否存在未完成的指令-->
+    <select id="getNotFinishByMeterIdAndType" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        SELECT
+          moi.ID id
+        FROM MB_OPERATION_INSTRUCTION moi
+        WHERE
+          moi.CURRENT_STATUS=0
+        <if test="type != null">
+            AND
+            moi.TYPE = #{type}
+        </if>
+          AND
+          moi.WATER_METER_INFO_ID = #{waterMeterInfoId}
+    </select>
+
+    <!--根据房间水表ID查询是否存在未完成的指令-->
+    <select id="getNotFinishByConIdAndType" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        SELECT
+          moi.ID id
+        FROM MB_OPERATION_INSTRUCTION moi
+        WHERE
+          moi.CURRENT_STATUS=0
+        <if test="type != null">
+            AND
+            moi.TYPE = #{type}
+        </if>
+          AND
+          moi.CONCENTRATOR_ID = #{concentratorId}
+    </select>
+
+    <!--查询所有房间类型-->
+    <select id="getRoomTypeList" resultType="com.ets.bus.waterMeterMgt.waterAddMgt.entity.RoomTypeVo">
+        SELECT
+        mrtp.ID id,
+        mrtp.TYPE_NUM typeNum,
+        mrtp.TYPE_NAME typeName,
+        mrtp.DEL_STATUS delStatus
+        FROM MB_ROOM_TYPE_PARAM mrtp
+        WHERE
+        mrtp.DEL_STATUS=0
+        ORDER BY mrtp.TYPE_NUM
+    </select>
+
+    <!--更加code获取名称-->
+    <select id="getRoomTypeName" resultType="java.lang.String">
+        SELECT
+        mrtp.TYPE_NAME
+        FROM MB_ROOM_TYPE_PARAM mrtp
+        WHERE
+        mrtp.DEL_STATUS=0
+        and
+        mrtp.TYPE_NUM=#{typeCode}
+    </select>
+
+    <!-- 向房间参数下发记录插入一条记录 -->
+    <insert id="insertRoomParamRecord" parameterType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.RoomParamRecordVo">
+        INSERT INTO
+          MB_ROOM_PARAM_RECORD(ID,WATER_METER_INFO_ID,CURRENT_STATUS,USER_ID,CONCENTRATOR_ID,OPERATION_ID,WARN_WATER,VALVE_WATER,OVER_WATER,BUY_MONEY,RETURN_MONEY,ADD_CYCLE,HOARD_WATER,CREATE_TIME)
+        VALUES(#{id},#{waterMeterInfoId},#{currentStatus},#{userId},#{concentratorId},#{operationId},#{warnWater},#{valveWater},#{overWater},#{buyMoney},#{returnMoney},#{addCycle},#{hoardWater},sysdate)
+    </insert>
+
+    <!--获取所有集中器编号-->
+    <select id="getAllConcentratorVo" resultType="java.lang.String">
+        SELECT
+        CONCENTRATOR_NUM
+        FROM MB_CONCENTRATOR
+    </select>
+
+    <!--获取房间信息-->
+    <select id="getWaterMeterInfoByRoom" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.WaterMeterInfoVo">
+        SELECT
+        mwmi.ID id,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        ta.ID apartmentId,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        tl.CODE floorNum,
+        tl.ID floorId,
+        mwmi.INIT_STATUS initStatus,
+        mwmi.VALVE_STATUS valveStatus,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.SURPLUS_WATER surplusWater,
+        mwmi.COLLECT_TIME collectTime,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.CASH_BUY_WATER cashBuyWater,
+        mwmi.CARD_BUY_WATER cardBuyWater,
+        mwmi.OVER_WATER overWater,
+        mwmi.SUPPLEMENT_WATER supplementWater,
+        mwmi.RETURN_WATER returnWater,
+        mwmi.USER_WATER userWater,
+        mwmi.ROOM_TYPE_ID roomTypeId,
+        mwmi.BUY_WATER_TOTAL buyWaterTotal,
+        mwmi.HOARD_WATER maxWater,
+        mwmi.ADD_NUM addNum,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        mwmi.CONCENTRATOR_ID concentratorId,
+        mwm.WATER_METER_ID waterMeterNum,
+        mwmi.BUY_MONEY price
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_WATER_METER mwm ON mwm.ID = mwmi.WATER_METER_ID
+        WHERE
+          tr.NAME=#{roomNum}
+          AND
+          tl.NAME=#{floorName}
+          AND
+          tf.NAME=#{buildName}
+          AND
+          ta.NAME=#{apartmentName}
+    </select>
+
+    <insert id="testSaveWaterMeter">
+        insert into MB_WATER_METER values(#{id},#{waterMeterId},0,sysdate,sysdate,0)
+    </insert>
+
+    <insert id="testSaveWatermeterRoomInfoMgt">
+        insert into MB_WATER_METER_INFO(ID, AREA_ID, APARTMENT_ID, FLOOR_ID, ROOM_ID, ROOM_NUM, CREATE_TIME,BUILD_ID,CLOSE_VALVE_WATER,WARN_WATER,MAX_OVER_WATER,HOARD_WATER,BUY_MONEY,RETURN_MONEY,ADD_CYCLE,ROOM_TYPE_ID,CONCENTRATOR_ID,WATER_METER_ID,OPEN_TIME) values (#{id},'004fe199479b4137963ed5a1dd3d3eaa','ad46959087264937b376a728591402ce',#{floorId},#{roomId},#{roomNum},sysdate,'6cc1961e993948ea977bfcfa54d0247d',0,0,0,0,0,0,0,0,#{concentratorId},#{waterMeterId},sysdate)
+    </insert>
+
+    <insert id="testaddConcentrator">
+        insert into mb_concentrator
+        values(#{id},'192.168.0.5','123456','1','0','aece4c24ae224ff1868e146c399ddf6c','测试',#{concentratorNum},'ad46959087264937b376a728591402ce',sysdate,sysdate)
+    </insert>
+
+    <insert id="testInsertLayer">
+    	insert into tb_layer values(#{id},#{code},#{name},'6cc1961e993948ea977bfcfa54d0247d',sysdate,'')
+    </insert>
+
+    <insert id="testInsertRoom">
+    	insert into tb_room values(#{id},#{code},#{name},#{parentid},sysdate,'')
+    </insert>
+</mapper>
+    

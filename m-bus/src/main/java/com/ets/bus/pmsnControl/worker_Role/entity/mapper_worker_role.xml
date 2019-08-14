@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.pmsnControl.worker_Role.dao.WorkerRoleDao">
+<delete id="deleteRoleByWorkerId" parameterType="java.lang.String">
+   delete from MB_WORKER_ROLE where WORKERID=#{workerId}
+</delete>
+    <insert id="save" parameterType="com.ets.bus.pmsnControl.worker_Role.entity.mb_worker_role">
+        insert into MB_WORKER_ROLE values(#{id},#{roleId},#{workerId})
+</insert>
+    <select id="getRoleNameByWorkerId" parameterType="java.lang.String" resultType="java.lang.String">
+        select r.ROLENAME  from MB_ROLE r left join MB_WORKER_ROLE wr on r.ID=wr.ROLEID where wr.WORKERID=#{id}
+    </select>
+    <select id="getRoleByWorkerId" parameterType="java.lang.String" resultType="com.ets.bus.pmsnControl.worker_Role.entity.mb_worker_role">
+	select * from MB_WORKER_ROLE where WORKERID=#{id}
+</select>
+    <select id="getRoles" parameterType="java.lang.String"   resultType="com.ets.bus.pmsnControl.roleMgt.entity.mb_role">
+	select r.* from mb_role r ,mb_worker_role wr where r.id=wr.roleId and wr.workerId=#{workerId}
+</select>
+    <update id="updateRoleByWorkerId" parameterType="com.ets.bus.pmsnControl.workerMgt.entity.mb_worker">
+        update MB_WORKER_ROLE set ROLEID=#{roleId} where WORKERID=#{id}
+    </update>
+    <select id="getRole" parameterType="java.lang.String" resultType="com.ets.bus.pmsnControl.worker_Role.entity.mb_worker_role">
+        select * from mb_role r ,mb_worker_role wr where r.id=wr.roleId and wr.workerId=#{workerId}
+    </select>
+
+
+
+</mapper>

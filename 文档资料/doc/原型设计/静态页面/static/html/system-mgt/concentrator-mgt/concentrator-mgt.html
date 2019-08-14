@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>系统管理-集中器管理</title>
+  <link rel="stylesheet" href="../../../css/layui.css" media="all">	
+  <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+</head>
+<body class="inner-body" style="background:#f2f2f2;position: relative;">
+<!-----------树菜单--------------->
+<div id="treeBox" style="width: 200px;background: #FFFFFF;float: left;height: 100%;">
+	
+	<div class="treename">
+		<span>集中器信息列表</span>
+	</div>
+	<div class="layui-form1" id="tree">
+		<ul id="tree"></ul>
+		<!--<div id="xtree" class="xtree_contianer"></div>-->
+	</div>
+</div>
+
+<!-------默认表格开始----------->
+
+<div class="tableHtml" style="margin-left: 210px;height: 100%;background: #FFFFFF;overflow: hidden;">
+    
+	<div class="tablebox" style="height: 680px; width: auto; overflow-x: hidden;overflow-y: auto;">
+		<div class="top-btn">
+			<!--更多操作html-->
+			
+			<ul id="uls" style="text-align: center;">
+				<img src="../../../images/arrow.png" style="position: absolute;left: 50%;margin: -10px 0 0 -9px;">
+				<li id="Btn3"><span>获取</span></li>
+				<li id="Btn4"><span>重启</span></li>
+				<li id="Btn5"><span>换集</span></li>						
+			</ul>
+			
+			<div class="layui-btn-group" style="position: relative;">
+			    <button class="layui-btn" id="Btn1">&nbsp;&nbsp;校时&nbsp;&nbsp;</button>
+			    <button class="layui-btn" id="Btn2">发参数</button>
+			    <button class="layui-btn" id="moreBtn">更多</button>
+			    <!--<button class="layui-btn" id="Btn3">获取房间信息</button>
+			    <button class="layui-btn" id="Btn4">重启集中器</button>
+			    <button class="layui-btn" id="Btn5">换集中器</button>-->
+			</div>
+			<div class="search-btn-group">
+				<input type="text"  autocomplete="off" class="layui-input layui-input_" placeholder="请输入">
+		 		<button class="layui-btn layui-btns">查询</button>
+				<button class="layui-btn layui-btns layui-bg-orange" id="superBtn">高级查询</button>
+			</div>
+			
+			
+	  </div>
+  	
+		<div class="tableDiv">
+			<table id="layui-table" lay-filter="tableBox" class="layui-table"></table>
+		</div>
+		<div class="top-btn">
+			<div class="layui-btn-group" style="position: relative;height: 38px;">
+			   <!-- <button class="layui-btn" id="addBtn">&nbsp;&nbsp;校时&nbsp;&nbsp;</button>
+			  -->
+			</div>
+			<div class="search-btn-group">
+			 	<div class="layui-form search-btn-group-box" style="display: inline-block;">
+			  		<div class="layui-inline">
+				      <label class="layui-form-label" title="购水方式">购水方式</label>
+				      <div class="layui-input-inline">
+				        <select name="">   
+				        	<option value="">全部</option>
+				            <option value="">初始</option>
+				            <option value="">已下发</option>
+				            <option value="">已执行</option>
+				            <option value="">未知</option>
+				        </select>
+				      </div>
+			   		</div>
+			  	</div>
+				<input type="text"  autocomplete="off" class="layui-input layui-input_" placeholder="请输入">
+				<input type="text" name="date" id="date" lay-verify="date" placeholder="请选择时间" autocomplete="off" class="layui-input layui-input_" lay-key="1">
+		 		<button class="layui-btn layui-btns"> 查 询 </button>
+				
+			</div>
+	  	</div>
+		<div class="tableDiv2" style="height: 600px;">
+			<table id="layui-table2" lay-filter="tableBox2" class="layui-table"></table>
+		</div>
+	</div>
+</div>
+<!-----------------默认表格结束------------>
+
+<!--高级查询-->
+<form class="layui-form" action="" id="formHtml" lay-filter="updForm">
+	  <div class="layui-form-item">
+			<div class="layui-inline">
+	      <label class="layui-form-label" title="房间类型">房间类型</label>
+	      <div class="layui-input-inline">
+	        <select name="">   
+	        	  <option value="0">全部</option>
+	            <option value="1">学生公寓</option>
+	            <option value="2">教师公寓</option>
+	        </select>
+	      </div>
+	    </div>
+  		<div class="layui-inline">
+	      <label class="layui-form-label" title="公寓">公寓</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+		  </div>
+	  </div>
+  	<div class="layui-form-item">
+			<div class="layui-inline">
+	      <label class="layui-form-label" title="楼层">楼层</label>
+	      <div class="layui-input-inline">
+	       	<input type="text" name=""  placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	   	</div>
+	   	<div class="layui-inline">
+	      <label class="layui-form-label" title="房间号">房间号</label>
+	      <div class="layui-input-inline">
+	       	<input type="text" name="" placeholder="请输入"  lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	   	</div>
+  	</div>
+  	<div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button type="button" class="layui-btn" lay-submit="" lay-filter="confirmBtn">查询</button>
+	      <button type="button" class="layui-btn layui-btn-primary" id="closeBtn">收起</button>
+	    </div>
+ 		</div>
+</form>
+</body>
+<script src="../../../layui.all.js"></script>
+<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//主动加载jquery模块
+layui.use(['jquery', 'layer'], function(){
+	var $ = layui.jquery //重点处
+	,layer = layui.layer;
+	//执行一个laydate实例
+	var laydate = layui.laydate;
+	 	laydate.render({
+	    elem: '#date' //指定元素
+	});
+	table = layui.table;//表格，注意此处table必须是全局变量
+	/*table1*/
+	var arr = [[ 
+	   {type:'checkbox'}
+	  ,{field: 'louceng', title: '集中器ID'}
+      ,{field: 'fangjianhao', title: '集中器'} 
+      ,{field: 'quyu', title: '区域', }
+      ,{field: 'gongyu', title: '公寓'}
+    ]];
+	var limitArr =[10,20,30];
+	var urls = '../../../tableJson.js';
+	com.tableRender('#layui-table','tableId','full-150',limitArr,urls,arr);//加载表格,注意tableId是自定义的，在表格重载需要！！
+	/*table2*/
+	var arr2 = [[ 
+	  {type:'checkbox'}
+	  ,{field: 'louceng', title: '集中器ID'}
+  	,{field: 'fangjianhao', title: '集中器'} 
+  	,{field: 'quyu', title: '区域', }
+  	,{field: 'gongyu', title: '公寓'}
+  ]];
+	var limitArr2 =[10,20,30];
+	var urls2 = '../../../tableJson.js';
+	com.tableRender('#layui-table2','tableId2','full-80',limitArr2,urls2,arr2);//加载表格,注意tableId是自定义的，在表格重载需要！！
+	/*树形菜单*/
+	com.normalTree("#tree","../../../treeJson.js");
+
+	var idArray = [];//选中行的集合
+ 	/*-----校时-----*/
+ 	$("#Btn1").click(function(){
+ 		idArray = [];//清空
+ 		com.confirm('将服务器时间更新到集中器上。','校时',['确定','取消'],idArray,function (){
+	 		//校时，确定的回调
+	 		console.log(idArray+"校时的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+ 		});
+	})	
+	/*----发参数-----*/
+	$("#Btn2").click(function(){
+	 	var checkStatus = table.checkStatus('tableId'); //test即为基础参数id对应的值
+    //数据只能是一条
+    if (checkStatus.data.length == 0) {
+        parent.layer.open({
+            title: '温馨提示'
+            , content: '请勾选一条目标数据！'
+        });
+        return false;
+    }
+  	console.log(checkStatus.data);
+   	var index = parent.layer.open({ //在父窗口打开
+   		title:'发参数' ,
+   		resize:false,//禁止拉伸
+			type: 2,
+			area: ['360px','260px'],
+			content:"html/system-mgt/concentrator-mgt/parm.html",	  
+		});
+		parent.index_  = index;//传给子页面的值index
+		parent.id_ = checkStatus.data[0].id;//传给子页面的数据id！！！！
+	})
+	/*----获取房间信息-----*/
+ 	$("#Btn3").click(function(){
+ 		idArray = [];//清空
+	 	com.confirm('获取集中器下所有的房间的当前信息。','获取房间信息',['确定','取消'],idArray,function (){
+	 		//获取房间信息，确定的回调
+	 		console.log(idArray+"获取房间信息的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+	 	
+ 		});
+	})
+ 	/*----重启集中器-----*/
+ 	$("#Btn4").click(function(){
+ 		idArray = [];//清空
+	 	com.confirm('重新重启集中器。','重启集中器',['确定','取消'],idArray,function (){
+	 		//重启集中器，确定的回调
+	 		console.log(idArray+"重启集中器的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+ 		});
+	})
+ 	/*----换集中器-----*/
+ 	$("#Btn5").click(function(){
+ 		idArray = [];//清空
+	 	com.confirm('将集中器所管理的房间信息更新到新的集中器上，不影响计量模块。','换集中器',['确定','取消'],idArray,function (){
+	 		//换集中器，确定的回调	 		
+	 		console.log(idArray+"换集中器的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+ 		});
+	})
+	
+})
+</script>
+</html>

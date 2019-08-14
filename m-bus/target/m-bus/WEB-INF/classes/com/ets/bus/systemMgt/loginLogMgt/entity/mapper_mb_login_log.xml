@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ets.bus.systemMgt.loginLogMgt.dao.LoginLogMgtDao">
+    <sql id="where">
+        <where>
+
+            <if test="workerAccount != null and workerAccount!= '' "> and workerAccount like '%${workerAccount}%'</if>
+            <if test="workerName != null and workerName != '' "> and workerName like '%${workerName}%' </if>
+            <if test="loginTime != null and loginTime != '' "> and loginTime like '%${loginTime}%'</if>
+
+        </where>
+    </sql>
+
+    <!-- 分页列表 -->
+    <select id="getLogs" parameterType="map" resultType="com.ets.bus.systemMgt.loginLogMgt.entity.mb_login_log">
+        select * from
+        (
+        select * from
+        (
+        select u.*,rownum rn from
+        (
+        select * from MB_LOGIN_LOG u
+        <include refid="where"></include>
+        order by u.LOGINTIME desc
+        ) u
+        where rownum <![CDATA[<=]]> #{page}
+        )
+        where rn > #{limit}
+        )
+    </select>
+
+    <!-- 获取总记录数 -->
+    <select id="getCount" parameterType="map" resultType="long">
+        select count(*) from MB_LOGIN_LOG
+        <include refid="where"></include>
+    </select>
+
+    <!--增加日志信息-->
+<insert id="addLog" parameterType="com.ets.bus.systemMgt.loginLogMgt.entity.mb_login_log">
+ insert into MB_LOGIN_LOG values(#{id},#{workerAccount},#{workerName},#{ipaddress},#{loginTime},#{loginState})
+</insert>
+    <!-- 查看 -->
+    <select id="infoLog" resultType="com.ets.bus.systemMgt.loginLogMgt.entity.mb_login_log" parameterType="java.lang.String">
+        select * from MB_LOGIN_LOG where id=#{id}
+    </select>
+
+
+
+
+
+
+
+
+
+</mapper>

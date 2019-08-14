@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>系统管理-集中器管理-发参数</title>
+  <link rel="stylesheet" href="../../../css/layui.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../../../css/common-layer.css"/>
+</head>
+<body style="background: #fff;overflow-x:hidden ;" class="innerBody">
+
+<form class="layui-form" action="" id="formHtml" style="width: ;margin-top: 20px;" lay-filter="updForm">
+   <p style="margin-left: 35px;">更新集中器、水表中的系统参数。</p>
+   <div class="layui-form-item">
+	    
+	    <div class="layui-input-block"  style="width: 350px;margin-left: 35px;">
+	      <input type="radio" name="parm" value="0" title="更新集中器和水表中的系统参数" checked="">
+	    </div>
+	    <div class="layui-input-block"  style="width: 350px;margin-left: 35px;">
+	      <input type="radio" name="parm" value="1" title="仅更新集中器中的系统参数">
+	    </div>
+    </div>
+  	<div class="layui-form-item  window-block-btn">
+	    <div class="layui-input-block">
+	    	<button type="button" class="layui-btn layui-btn-primary window-btn" id="canleBtn">取消</button>
+	      <button type="button" class="layui-btn window-btn" lay-submit="" lay-filter="confirmBtn">确定</button>
+	      
+	    </div>
+ 	</div>
+</form>
+
+
+</body>
+
+<script src="../../../layui.all.js"></script>
+<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	 //主动加载jquery模块
+	layui.use(['jquery', 'layer'], function(){
+		var $ = layui.jquery //重点处
+		,layer = layui.layer;
+		//得到父页面的id值
+		var index = (window.parent.index_);
+		console.log(index);
+		
+		layui.use('form', function(){  
+		 	var form = layui.form;
+		 	//------确认-------
+			form.on('submit(confirmBtn)', function (data) {
+			    var obj = data.field;
+			    console.log(obj);
+			    //以下是ajax
+			    
+			    /*添加成功之后，关闭弹窗，刷新父页面*/
+			    parent.layer.close(index);//关闭layer
+			    $('#iframe',parent.document).attr('src', 'html/system-mgt/concentrator-mgt/concentrator-mgt.html');
+			});
+			//取消
+			$("body").on("click","#canleBtn",function(){
+				parent.layer.close(index);//关闭layer
+			})
+			
+		})	
+	})
+   
+</script>
+</html>

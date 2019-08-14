@@ -1,0 +1,1420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.waterMeterMgt.watermeteDetails.dao.WaterMeteDetailsDao">
+
+    <!--查询水表交易记录集合-->
+    <select id="selectTransactionDetailsList" resultType="com.ets.bus.waterMeterMgt.watermeteDetails.entity.TransactionDetailsVo">
+        select * from
+        (
+        select * from
+        (
+        select m.*,rownum rn from
+        (
+        SELECT
+        *
+        FROM(
+        SELECT
+        mbr.ID id,
+        mbr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mbr.CONCENTRATOR_ID concentratorIp,
+        CASE mbr.TYPE
+        WHEN 0 THEN '现金购水'
+        WHEN 1 THEN '一卡通购水'
+        ELSE '未知' END
+        transacType,
+        mbr.BUY_MONEY operatMoney,
+        mbr.CREATE_TIME operatTime,
+        mbr.BUY_WATER operatWater,
+        mbr.PAYER_NAME userName,
+        mw.REALNAME operatName,
+        CASE mbr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mbr.CURRENT_STATUS currentStatus,
+        CASE mbr.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        mbr.REDRUSH hasRedrush
+        FROM MB_BUY_RECORD mbr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mbr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mbr.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 1">
+            and mbr.TYPE=0
+        </if>
+        <if test="transacType == 2">
+            and mbr.TYPE=1
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mbr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mbr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mbr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mbr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        UNION ALL
+        SELECT
+        mrr.ID id,
+        mrr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mrr.CONCENTRATOR_ID concentratorIp,
+        '交易冲红' transacType,
+        mrr.REDRUSH_MONEY operatMoney,
+        mrr.CREATE_TIME operatTime,
+        mrr.REDRUSH_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE mrr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mrr.CURRENT_STATUS currentStatus,
+        '否' hasRedrushName,
+        1 hasRedrush
+        FROM MB_REDRUSH_RECORD mrr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mrr.USER_ID
+        WHERE
+        1=1
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mrr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mrr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mrr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mrr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        UNION ALL
+        SELECT
+        mrer.ID id,
+        mrer.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mrer.CONCENTRATOR_ID concentratorIp,
+        CASE mrer.TYPE
+        WHEN 0 THEN '退水'
+        WHEN 1 THEN '换房退水'
+        ELSE '未知' END
+        transacType,
+        mrer.RETURN_MONEY operatMoney,
+        mrer.CREATE_TIME operatTime,
+        mrer.RETURN_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE mrer.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mrer.CURRENT_STATUS currentStatus,
+        CASE mrer.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        mrer.REDRUSH hasRedrush
+        FROM MB_RETURN_RECORD mrer
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrer.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mrer.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 6">
+            and mrer.TYPE=0
+        </if>
+        <if test="transacType == 10">
+            and mrer.TYPE=1
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mrer.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mrer.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mrer.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mrer.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        UNION ALL
+        SELECT
+        mcr.ID id,
+        N'---' serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mcr.CONCENTRATOR_ID concentratorIp,
+        CASE mcr.TYPE
+        WHEN 0 THEN '初始化'
+        WHEN 1 THEN '换房清零'
+        WHEN 2 THEN '水量清零'
+        WHEN 3 THEN '按导入清零'
+        ELSE '未知' END
+        transacType,
+        mcr.OPERAT_MONEY operatMoney,
+        mcr.CREATE_TIME operatTime,
+        mcr.SURPLUS_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE mcr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE 'null' END
+        currentStatusName,
+        mcr.CURRENT_STATUS currentStatus,
+        CASE mcr.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        mcr.REDRUSH hasRedrush
+        FROM MB_CLEAR_RECORD mcr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mcr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mcr.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 7">
+            and mcr.TYPE=1
+        </if>
+        <if test="transacType == 8">
+            and mcr.TYPE=2
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mcr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mcr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mcr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mcr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        UNION ALL
+        SELECT
+        msr.ID id,
+        msr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        msr.CONCENTRATOR_ID concentratorIp,
+        CASE msr.TYPE
+        WHEN 0 THEN '房间补水'
+        WHEN 1 THEN '楼层补水'
+        WHEN 2 THEN '按导入补水'
+        WHEN 3 THEN '换房补水'
+        ELSE '未知' END
+        transacType,
+        msr.OPERAT_MONEY operatMoney,
+        msr.CREATE_TIME operatTime,
+        msr.SUPPLEMENT_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE msr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        msr.CURRENT_STATUS currentStatus,
+        CASE msr.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        msr.REDRUSH hasRedrush
+        FROM MB_SUPPLEMENT_RECORD msr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = msr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = msr.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 3">
+            and msr.TYPE=0
+        </if>
+        <if test="transacType == 4">
+            and msr.TYPE=1
+        </if>
+        <if test="transacType == 5">
+            and msr.TYPE=2
+        </if>
+        <if test="transacType == 9">
+            and msr.TYPE=3
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and msr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and msr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and msr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and msr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        )
+        ORDER BY operatTime DESC
+        ) m
+        where rownum <![CDATA[<=]]> #{page}
+        )
+        where rn > #{limit}
+        )
+    </select>
+
+    <!--查询水表交易记录集合-->
+    <select id="selectTransactionDetailsCount" resultType="java.lang.Integer">
+
+        SELECT
+        COUNT(*)
+        FROM(
+        SELECT
+        mbr.ID id,
+        mbr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mbr.CONCENTRATOR_ID concentratorIp,
+        CASE mbr.TYPE
+        WHEN 0 THEN '现金购水'
+        WHEN 1 THEN '一卡通购水'
+        ELSE '未知' END
+        transacType,
+        mbr.BUY_MONEY operatMoney,
+        mbr.CREATE_TIME operatTime,
+        mbr.BUY_WATER operatWater,
+        mbr.PAYER_NAME userName,
+        mw.REALNAME operatName,
+        CASE mbr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mbr.CURRENT_STATUS currentStatus,
+        CASE mbr.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        mbr.REDRUSH hasRedrush
+        FROM MB_BUY_RECORD mbr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mbr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mbr.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 1">
+            and mbr.TYPE=0
+        </if>
+        <if test="transacType == 2">
+            and mbr.TYPE=1
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mbr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mbr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mbr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mbr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        UNION ALL
+        SELECT
+        mrr.ID id,
+        mrr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mrr.CONCENTRATOR_ID concentratorIp,
+        '交易冲红' transacType,
+        mrr.REDRUSH_MONEY operatMoney,
+        mrr.CREATE_TIME operatTime,
+        mrr.REDRUSH_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE mrr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mrr.CURRENT_STATUS currentStatus,
+        '否' hasRedrushName,
+        1 hasRedrush
+        FROM MB_REDRUSH_RECORD mrr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mrr.USER_ID
+        WHERE
+        1=1
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mrr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mrr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mrr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mrr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        UNION ALL
+        SELECT
+        mrer.ID id,
+        mrer.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mrer.CONCENTRATOR_ID concentratorIp,
+        CASE mrer.TYPE
+        WHEN 0 THEN '退水'
+        WHEN 1 THEN '换房退水'
+        ELSE '未知' END
+        transacType,
+        mrer.RETURN_MONEY operatMoney,
+        mrer.CREATE_TIME operatTime,
+        mrer.RETURN_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE mrer.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mrer.CURRENT_STATUS currentStatus,
+        CASE mrer.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        mrer.REDRUSH hasRedrush
+        FROM MB_RETURN_RECORD mrer
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrer.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mrer.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 6">
+            and mrer.TYPE=0
+        </if>
+        <if test="transacType == 10">
+            and mrer.TYPE=1
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mrer.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mrer.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mrer.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mrer.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        UNION ALL
+        SELECT
+        mcr.ID id,
+        N'---' serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mcr.CONCENTRATOR_ID concentratorIp,
+        CASE mcr.TYPE
+        WHEN 0 THEN '初始化'
+        WHEN 1 THEN '换房清零'
+        WHEN 2 THEN '水量清零'
+        WHEN 3 THEN '按导入清零'
+        ELSE '未知' END
+        transacType,
+        mcr.OPERAT_MONEY operatMoney,
+        mcr.CREATE_TIME operatTime,
+        mcr.SURPLUS_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE mcr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE 'null' END
+        currentStatusName,
+        mcr.CURRENT_STATUS currentStatus,
+        CASE mcr.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        mcr.REDRUSH hasRedrush
+        FROM MB_CLEAR_RECORD mcr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mcr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mcr.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 7">
+            and mcr.TYPE=1
+        </if>
+        <if test="transacType == 8">
+            and mcr.TYPE=2
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mcr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mcr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mcr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mcr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        UNION ALL
+        SELECT
+        msr.ID id,
+        msr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        msr.CONCENTRATOR_ID concentratorIp,
+        CASE msr.TYPE
+        WHEN 0 THEN '房间补水'
+        WHEN 1 THEN '楼层补水'
+        WHEN 2 THEN '按导入补水'
+        WHEN 3 THEN '换房补水'
+        ELSE '未知' END
+        transacType,
+        msr.OPERAT_MONEY operatMoney,
+        msr.CREATE_TIME operatTime,
+        msr.SUPPLEMENT_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE msr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        msr.CURRENT_STATUS currentStatus,
+        CASE msr.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        msr.REDRUSH hasRedrush
+        FROM MB_SUPPLEMENT_RECORD msr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = msr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = msr.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 3">
+            and msr.TYPE=0
+        </if>
+        <if test="transacType == 4">
+            and msr.TYPE=1
+        </if>
+        <if test="transacType == 5">
+            and msr.TYPE=2
+        </if>
+        <if test="transacType == 9">
+            and msr.TYPE=3
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and msr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and msr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and msr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and msr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        )
+    </select>
+
+    <!--查询购水记录集合-->
+    <select id="selectBuyRecordList" resultType="com.ets.bus.waterMeterMgt.watermeteDetails.entity.TransactionDetailsVo">
+        SELECT
+        mbr.ID id,
+        mbr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mbr.CONCENTRATOR_ID concentratorIp,
+        CASE mbr.TYPE
+        WHEN 0 THEN '现金购水'
+        WHEN 1 THEN '一卡通购水'
+        ELSE '未知' END
+        transacType,
+        mbr.BUY_MONEY operatMoney,
+        mbr.CREATE_TIME operatTime,
+        mbr.BUY_WATER operatWater,
+        mbr.PAYER_NAME userName,
+        mw.REALNAME operatName,
+        CASE mbr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mbr.CURRENT_STATUS currentStatus,
+        CASE mbr.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        mbr.REDRUSH hasRedrush
+        FROM MB_BUY_RECORD mbr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mbr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mbr.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 1">
+            and mbr.TYPE=0
+        </if>
+        <if test="transacType == 2">
+            and mbr.TYPE=1
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mbr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mbr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mbr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mbr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY mbr.CREATE_TIME DESC
+    </select>
+
+    <!--查询补水记录集合-->
+    <select id="selectSupplementRecordList" resultType="com.ets.bus.waterMeterMgt.watermeteDetails.entity.TransactionDetailsVo">
+        SELECT
+        msr.ID id,
+        msr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        msr.CONCENTRATOR_ID concentratorIp,
+        CASE msr.TYPE
+        WHEN 0 THEN '房间补水'
+        WHEN 1 THEN '楼层补水'
+        WHEN 2 THEN '按导入补水'
+        WHEN 3 THEN '换房补水'
+        ELSE '未知' END
+        transacType,
+        msr.OPERAT_MONEY operatMoney,
+        msr.CREATE_TIME operatTime,
+        msr.SUPPLEMENT_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE msr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        msr.CURRENT_STATUS currentStatus,
+        CASE msr.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        msr.REDRUSH hasRedrush
+        FROM MB_SUPPLEMENT_RECORD msr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = msr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = msr.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 3">
+            and msr.TYPE=0
+        </if>
+        <if test="transacType == 4">
+            and msr.TYPE=1
+        </if>
+        <if test="transacType == 5">
+            and msr.TYPE=2
+        </if>
+        <if test="transacType == 9">
+            and msr.TYPE=3
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and msr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and msr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and msr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and msr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY msr.CREATE_TIME DESC
+    </select>
+
+    <!--查询退水记录集合-->
+    <select id="selectReturnRecordList" resultType="com.ets.bus.waterMeterMgt.watermeteDetails.entity.TransactionDetailsVo">
+        SELECT
+        mrer.ID id,
+        mrer.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mrer.CONCENTRATOR_ID concentratorIp,
+        CASE mrer.TYPE
+        WHEN 0 THEN '退水'
+        WHEN 1 THEN '换房退水'
+        ELSE '未知' END
+        transacType,
+        mrer.RETURN_MONEY operatMoney,
+        mrer.CREATE_TIME operatTime,
+        mrer.RETURN_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE mrer.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mrer.CURRENT_STATUS currentStatus,
+        CASE mrer.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        mrer.REDRUSH hasRedrush
+        FROM MB_RETURN_RECORD mrer
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrer.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mrer.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 6">
+            and mrer.TYPE=0
+        </if>
+        <if test="transacType == 10">
+            and mrer.TYPE=1
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mrer.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mrer.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mrer.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mrer.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY mrer.CREATE_TIME DESC
+    </select>
+
+    <!--查询清零记录集合-->
+    <select id="selectClearRecordList" resultType="com.ets.bus.waterMeterMgt.watermeteDetails.entity.TransactionDetailsVo">
+        SELECT
+        mcr.ID id,
+        N'---' serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mcr.CONCENTRATOR_ID concentratorIp,
+        CASE mcr.TYPE
+        WHEN 0 THEN '初始化'
+        WHEN 1 THEN '换房清零'
+        WHEN 2 THEN '水量清零'
+        WHEN 3 THEN '按导入清零'
+        ELSE '未知' END
+        transacType,
+        mcr.OPERAT_MONEY operatMoney,
+        mcr.CREATE_TIME operatTime,
+        mcr.SURPLUS_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE mcr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE 'null' END
+        currentStatusName,
+        mcr.CURRENT_STATUS currentStatus,
+        CASE mcr.REDRUSH
+        WHEN 0 THEN '否'
+        WHEN 1 THEN '是'
+        ELSE '未知' END
+        hasRedrushName,
+        mcr.REDRUSH hasRedrush
+        FROM MB_CLEAR_RECORD mcr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mcr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mcr.USER_ID
+        WHERE
+        1=1
+        <if test="transacType == 7">
+            and mcr.TYPE=1
+        </if>
+        <if test="transacType == 8">
+            and mcr.TYPE=2
+        </if>
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mcr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mcr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mcr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mcr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY mcr.CREATE_TIME DESC
+    </select>
+
+    <!--查询冲红记录集合-->
+    <select id="selectRedrushRecordList" resultType="com.ets.bus.waterMeterMgt.watermeteDetails.entity.TransactionDetailsVo">
+        SELECT
+        mrr.ID id,
+        mrr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mrr.CONCENTRATOR_ID concentratorIp,
+        '交易冲红' transacType,
+        mrr.REDRUSH_MONEY operatMoney,
+        mrr.CREATE_TIME operatTime,
+        mrr.REDRUSH_WATER operatWater,
+        N'---' userName,
+        mw.REALNAME operatName,
+        CASE mrr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mrr.CURRENT_STATUS currentStatus,
+        N'否' hasRedrushName,
+        1 hasRedrush
+        FROM MB_REDRUSH_RECORD mrr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mrr.USER_ID
+        WHERE
+        1=1
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="startTime != null">
+            and mrr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mrr.CREATE_TIME <![CDATA[<=]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mrr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null">
+            and mrr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY mrr.CREATE_TIME DESC
+    </select>
+
+    <!--获取补水记录信息-->
+    <select id="selectSupplementRecordById" resultType="com.ets.bus.waterMeterMgt.watermeteDetails.entity.TransactionDetailsVo">
+            SELECT
+                msr.ID id,
+                mwmi.ID waterMeterInfoId,
+                ta.NAME apartmentName,
+                mwmi.ROOM_NUM roomNum,
+                CASE mwmi.MODULE_STATUS
+                  WHEN 0 THEN '未知'
+                  WHEN 1 THEN '正常'
+                  ELSE '未知' END
+                moduleStatusName,
+                CASE msr.TYPE
+                  WHEN 0 THEN '房间补水'
+                  WHEN 1 THEN '楼层补水'
+                  WHEN 2 THEN '按导入补水'
+                  WHEN 3 THEN '换房补水'
+                  ELSE '未知' END
+                transacType,
+                msr.REDRUSH hasRedrush,
+                msr.CREATE_TIME operatTime,
+                msr.CURRENT_STATUS currentStatus,
+                msr.SERIAL_NUMBER serialNumber,
+                msr.SUPPLEMENT_WATER operatWater
+            FROM MB_SUPPLEMENT_RECORD msr
+            LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = msr.WATER_METER_INFO_ID
+            LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+            WHERE
+              msr.id = #{id}
+    </select>
+
+    <!--获取退水记录信息-->
+    <select id="selectReturnRecordById" resultType="com.ets.bus.waterMeterMgt.watermeteDetails.entity.TransactionDetailsVo">
+            SELECT
+                mrr.ID id,
+                mwmi.ID waterMeterInfoId,
+                ta.NAME apartmentName,
+                mwmi.ROOM_NUM roomNum,
+                CASE mwmi.MODULE_STATUS
+                  WHEN 0 THEN '未知'
+                  WHEN 1 THEN '正常'
+                  ELSE '未知' END
+                moduleStatusName,
+                CASE mrr.TYPE
+                  WHEN 0 THEN '退水'
+                  WHEN 1 THEN '换房退水'
+                  ELSE '未知' END
+                transacType,
+                mrr.REDRUSH hasRedrush,
+                mrr.CREATE_TIME operatTime,
+                mrr.CURRENT_STATUS currentStatus,
+                mrr.SERIAL_NUMBER serialNumber,
+                mrr.RETURN_WATER operatWater
+            FROM MB_RETURN_RECORD mrr
+            LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.WATER_METER_INFO_ID
+            LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+            WHERE
+            mrr.id = #{id}
+    </select>
+
+    <!-- 冲红记录表插入一条冲红记录 -->
+    <insert id="insertRedRushVo" parameterType="com.ets.bus.reportQuery.entity.report.RedRushVo">
+        INSERT INTO
+          MB_REDRUSH_RECORD(ID,WATER_METER_INFO_ID,SERIAL_NUMBER,USER_ID,CURRENT_STATUS,TYPE,REMARK,REDRUSH_WATER,RECORD_ID,OPERATION_ID,CREATE_TIME)
+        VALUES(#{id},#{waterMeterInfoId},#{serialNumber},#{userId},#{currentStatus},#{type},#{remark},#{redrushWater},#{recordId},#{operationId},sysdate)
+    </insert>
+    <!--查看详细信息-->
+    <select id="findWaterMeterDetails" parameterType="java.lang.String" resultType="com.ets.bus.waterMeterMgt.watermeteDetails.entity.TransactionDetailsVo">
+     select * from (
+       SELECT
+       mbr.ID id,
+       mbr.SERIAL_NUMBER serialNumber,
+       tre.NAME areaName,
+       ta.NAME apartmentName,
+       tl.NAME floorName,
+       tr.NAME roomNum,
+       mbr.CONCENTRATOR_ID concentratorIp,
+       CASE mbr.TYPE
+         WHEN 0 THEN '现金购水'
+         WHEN 1 THEN '一卡通购水'
+         ELSE '未知' END
+    transacType,
+       mbr.BUY_MONEY operatMoney,
+       mbr.CREATE_TIME operatTime,
+       mbr.BUY_WATER operatWater,
+       mbr.PAYER_NAME userName,
+       mw.REALNAME operatName,
+       CASE mbr.CURRENT_STATUS
+         WHEN 0 THEN '未下发'
+         WHEN 1 THEN '操作成功'
+         WHEN 2 THEN '操作失败'
+         ELSE '未知' END
+    currentStatusName,
+       mbr.CURRENT_STATUS currentStatus,
+       CASE mbr.REDRUSH
+         WHEN 0 THEN '否'
+         WHEN 1 THEN '是'
+         ELSE '未知' END
+    hasRedrushName,
+       mbr.REDRUSH hasRedrush
+FROM MB_BUY_RECORD mbr
+       LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mbr.WATER_METER_INFO_ID
+       LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+       LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+       LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+       LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+       LEFT JOIN MB_WORKER mw ON mw.ID = mbr.USER_ID
+UNION ALL
+SELECT
+       mrr.ID id,
+       mrr.SERIAL_NUMBER serialNumber,
+       tre.NAME areaName,
+       ta.NAME apartmentName,
+       tl.NAME floorName,
+       tr.NAME roomNum,
+       mrr.CONCENTRATOR_ID concentratorIp,
+       '交易冲红' transacType,
+       mrr.REDRUSH_MONEY operatMoney,
+       mrr.CREATE_TIME operatTime,
+       mrr.REDRUSH_WATER operatWater,
+       N'---' userName,
+       mw.REALNAME operatName,
+       CASE mrr.CURRENT_STATUS
+         WHEN 0 THEN '未下发'
+         WHEN 1 THEN '操作成功'
+         WHEN 2 THEN '操作失败'
+         ELSE '未知' END
+    currentStatusName,
+       mrr.CURRENT_STATUS currentStatus,
+       '否' hasRedrushName,
+       1 hasRedrush
+FROM MB_REDRUSH_RECORD mrr
+       LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.WATER_METER_INFO_ID
+       LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+       LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+       LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+       LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+       LEFT JOIN MB_WORKER mw ON mw.ID = mrr.USER_ID
+
+UNION ALL
+SELECT
+       mrer.ID id,
+       mrer.SERIAL_NUMBER serialNumber,
+       tre.NAME areaName,
+       ta.NAME apartmentName,
+       tl.NAME floorName,
+       tr.NAME roomNum,
+       mrer.CONCENTRATOR_ID concentratorIp,
+       CASE mrer.TYPE
+         WHEN 0 THEN '退水'
+         WHEN 1 THEN '换房退水'
+         ELSE '未知' END
+    transacType,
+       mrer.RETURN_MONEY operatMoney,
+       mrer.CREATE_TIME operatTime,
+       mrer.RETURN_WATER operatWater,
+       N'---' userName,
+       mw.REALNAME operatName,
+       CASE mrer.CURRENT_STATUS
+         WHEN 0 THEN '未下发'
+         WHEN 1 THEN '操作成功'
+         WHEN 2 THEN '操作失败'
+         ELSE '未知' END
+    currentStatusName,
+       mrer.CURRENT_STATUS currentStatus,
+       CASE mrer.REDRUSH
+         WHEN 0 THEN '否'
+         WHEN 1 THEN '是'
+         ELSE '未知' END
+    hasRedrushName,
+       mrer.REDRUSH hasRedrush
+FROM MB_RETURN_RECORD mrer
+       LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrer.WATER_METER_INFO_ID
+       LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+       LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+       LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+       LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+       LEFT JOIN MB_WORKER mw ON mw.ID = mrer.USER_ID
+
+UNION ALL
+SELECT
+       mcr.ID id,
+       N'---' serialNumber,
+       tre.NAME areaName,
+       ta.NAME apartmentName,
+       tl.NAME floorName,
+       tr.NAME roomNum,
+       mcr.CONCENTRATOR_ID concentratorIp,
+       CASE mcr.TYPE
+         WHEN 0 THEN '初始化'
+         WHEN 1 THEN '换房清零'
+         WHEN 2 THEN '水量清零'
+         WHEN 3 THEN '按导入清零'
+         ELSE '未知' END
+    transacType,
+       mcr.OPERAT_MONEY operatMoney,
+       mcr.CREATE_TIME operatTime,
+       mcr.SURPLUS_WATER operatWater,
+       N'---' userName,
+       mw.REALNAME operatName,
+       CASE mcr.CURRENT_STATUS
+         WHEN 0 THEN '未下发'
+         WHEN 1 THEN '操作成功'
+         WHEN 2 THEN '操作失败'
+         ELSE 'null' END
+    currentStatusName,
+       mcr.CURRENT_STATUS currentStatus,
+       CASE mcr.REDRUSH
+         WHEN 0 THEN '否'
+         WHEN 1 THEN '是'
+         ELSE '未知' END
+    hasRedrushName,
+       mcr.REDRUSH hasRedrush
+FROM MB_CLEAR_RECORD mcr
+       LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mcr.WATER_METER_INFO_ID
+       LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+       LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+       LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+       LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+       LEFT JOIN MB_WORKER mw ON mw.ID = mcr.USER_ID
+
+UNION ALL
+SELECT
+       msr.ID id,
+       msr.SERIAL_NUMBER serialNumber,
+       tre.NAME areaName,
+       ta.NAME apartmentName,
+       tl.NAME floorName,
+       tr.NAME roomNum,
+       msr.CONCENTRATOR_ID concentratorIp,
+       CASE msr.TYPE
+         WHEN 0 THEN '房间补水'
+         WHEN 1 THEN '楼层补水'
+         WHEN 2 THEN '按导入补水'
+         WHEN 3 THEN '换房补水'
+         ELSE '未知' END
+    transacType,
+       msr.OPERAT_MONEY operatMoney,
+       msr.CREATE_TIME operatTime,
+       msr.SUPPLEMENT_WATER operatWater,
+       N'---' userName,
+       mw.REALNAME operatName,
+       CASE msr.CURRENT_STATUS
+         WHEN 0 THEN '未下发'
+         WHEN 1 THEN '操作成功'
+         WHEN 2 THEN '操作失败'
+         ELSE '未知' END
+    currentStatusName,
+       msr.CURRENT_STATUS currentStatus,
+       CASE msr.REDRUSH
+         WHEN 0 THEN '否'
+         WHEN 1 THEN '是'
+         ELSE '未知' END
+    hasRedrushName,
+       msr.REDRUSH hasRedrush
+FROM MB_SUPPLEMENT_RECORD msr
+       LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = msr.WATER_METER_INFO_ID
+       LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+       LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+       LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+       LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+       LEFT JOIN MB_WORKER mw ON mw.ID = msr.USER_ID
+       ) m
+
+ where m.id=#{id}
+
+    </select>
+</mapper>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ets.bus.systemMgt.waterMeterMgt.dao.WaterMeterMgtDao">
+    <sql id="where">
+        <where>
+            and mwm.DEL_STATUS=0
+            and (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+            <if test="water_meter_id != null and water_meter_id != '' "> and mwm.water_meter_id like '%${water_meter_id}%'</if>
+            <if test="create_time != null and create_time != '' "> and mwm.create_time like to_date('${create_time}','yyyy-MM-dd')</if>
+            <if test="type != null and type != '' "> and mwm.type = #{type}</if>
+        </where>
+    </sql>
+
+    <select id="getWaterMeterMgts" parameterType="java.util.Map" resultType="com.ets.bus.systemMgt.waterMeterMgt.entity.WaterMeterMgt">
+        select * from
+        (
+        select * from
+        (
+        select m.*,rownum rn from
+        (
+        select
+        mwm.ID id,
+        mwm.water_meter_id water_meter_id,
+        mwm.type type,
+        mwm.create_time create_time,
+        mwm.update_time update_time,
+        mwmi.room_num roomNum,
+        MRTP.TYPE_NAME roomTypeName
+        from MB_WATER_METER mwm
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwm.ID = mwmi.water_meter_id
+        left join MB_ROOM_TYPE_PARAM MRTP on MRTP.TYPE_NUM=mwmi.ROOM_TYPE_ID
+        <include refid="where"/>
+        order by mwm.CREATE_TIME desc
+        ) m
+        where rownum <![CDATA[<=]]> #{page}
+        )
+        where rn > #{limit}
+        )
+    </select>
+
+    <!--获取总记录数-->
+    <select id="getCount" resultType="long" parameterType="java.util.Map">
+        select count(*) from MB_WATER_METER  mwm
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwm.ID = mwmi.water_meter_id
+        left join MB_ROOM_TYPE_PARAM MRTP on MRTP.TYPE_NUM=mwmi.ROOM_TYPE_ID
+        <include refid="where"/>
+    </select>
+    <!--添加水表信息-->
+    <insert id="saveWaterMeter" parameterType="com.ets.bus.systemMgt.waterMeterMgt.entity.WaterMeterMgt">
+        insert into MB_WATER_METER values(#{id},#{water_meter_id},#{type},to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),sysdate,#{delStatus})
+    </insert>
+    <!--编辑水表信息-->
+    <update id="updateWaterMeter" parameterType="com.ets.bus.systemMgt.waterMeterMgt.entity.WaterMeterMgt">
+        update MB_WATER_METER
+        set TYPE=#{type},WATER_METER_ID=#{water_meter_id} where ID=#{id}
+    </update>
+    <!--得到水表信息根据id-->
+    <select id="getWaterMeterById" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.waterMeterMgt.entity.WaterMeterMgt">
+        select * from MB_WATER_METER where ID=#{id}
+    </select>
+     <!--批量删除水表信息（更新水表信息的删除状态）-->
+    <delete id="delWaterMeterMgts" parameterType="java.lang.String">
+        update MB_WATER_METER set DEL_STATUS=1 where id in
+        <foreach collection="array" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <sql id="where1">
+        <where>
+            mwmi.water_meter_id IS NULL
+            <if test="regionId != null and regionId != '' ">
+                and mwmi.AREA_ID=#{regionId}
+            </if>
+            <if test="apartmentId != null and apartmentId != '' ">
+                and mwmi.APARTMENT_ID=#{apartmentId}
+            </if>
+            <if test="buildId != null and buildId != '' ">
+                and mwmi.BUILD_ID=#{buildId}
+            </if>
+            <if test="floorId != null and floorId != '' ">
+                and mwmi.FLOOR_ID=#{floorId}
+            </if>
+        </where>
+    </sql>
+    <!--未绑定水表房间信息列表集合-->
+    <select id="getAllRoom" resultType="com.ets.bus.systemMgt.waterMeterMgt.entity.RoomWaterMeterVo" parameterType="java.util.Map">
+        select * from
+        (
+        select * from
+        (
+        select m.*,rownum rn from
+        (
+        SELECT
+        mwmi.ID id,
+        tre.NAME regionName,
+        ta.NAME apartmentName,
+        tf.NAME floorName,
+        tl.NAME layerName,
+        tr.Name roomNum
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        <include refid="where1"/>
+        ) m
+        where rownum <![CDATA[<=]]> #{page}
+        )
+        where rn > #{limit}
+        )
+    </select>
+        <!--总记录数-->
+        <select id="getAllRoomCount" resultType="long" parameterType="java.util.Map">
+            select count(*) from MB_WATER_METER_INFO mwmi <include refid="where1"/>
+        </select>
+  <!--检测水表的Id的唯一性-->
+    <select id="isCheckWaterMeterId" resultType="long" parameterType="java.lang.String">
+        select count(*) from MB_WATER_METER where WATER_METER_ID=#{waterMeterId}
+    </select>
+    <!--根据id得到RoomWaterMeterVo的属性值-->
+    <select id="waterMeterRoomInfo" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.waterMeterMgt.entity.RoomWaterMeterVo">
+   select
+        tre.NAME regionName,
+        ta.NAME apartmentName,
+        tf.NAME floorName,
+        tl.NAME layerName,
+        tr.Name roomNum,
+        mwm.CREATE_TIME create_time,
+        mwm.UPDATE_TIME update_time,
+        mwm.TYPE type,
+        mwm.WATER_METER_ID water_meter_id
+        FROM  mb_water_meter mwm
+        left join MB_WATER_METER_INFO mwmi on mwmi.water_meter_id=mwm.id
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        where mwm.ID=#{id}
+    </select>
+
+
+    <!--得到水表信息根据水表编号-->
+    <select id="getWaterMeterByNum" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.waterMeterMgt.entity.WaterMeterMgt">
+        select
+          mwm.ID id,
+          mwm.WATER_METER_ID water_meter_id,
+          mwm.WATER_METER_ID type,
+          mwm.CREATE_TIME create_time,
+          mwmi.ROOM_NUM roomNum
+        from MB_WATER_METER mwm
+        LEFT JOIN MB_WATER_METER_INFO mwmi
+        ON mwm.ID = mwmi.WATER_METER_ID
+        where
+          mwm.WATER_METER_ID=#{waterMeterNum}
+          and mwm.DEL_STATUS=0
+    </select>
+    <insert id="batchInsert" parameterType="java.util.List">
+
+        INSERT ALL
+        <foreach collection="list" index="index" item="item">
+            INTO MB_WATER_METER
+            (id,water_meter_id,type,create_time,update_time,del_status)
+            VALUES
+            (
+            #{item.id},#{item.water_meter_id},#{item.type},to_date(#{item.create_time},'yyyy-mm-dd hh24:mi:ss'),sysdate,#{item.delStatus}
+            )
+        </foreach>
+        SELECT 1 FROM DUAL
+    </insert>
+
+</mapper>

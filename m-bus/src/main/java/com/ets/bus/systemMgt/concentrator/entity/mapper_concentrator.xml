@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.systemMgt.concentrator.dao.ConcentratorDao">
+    <sql id="where">
+        <where>
+            <if test="concentrator_num != null and concentrator_num != '' "> and concentrator_num = '${concentrator_num}'</if>
+            <if test="ip_address != null and ip_address != '' "> and ip_address = '${ip_address}'</if>
+            <if test="communication_mode != null and communication_mode != '' "> and communication_mode = '${communication_mode}'</if>
+        </where>
+    </sql>
+
+    <sql id="room">
+        <where>
+            <if test="room_num != null and room_num != '' "> and room_num = '${room_num}'</if>
+            <if test="room_type_id != null and room_type_id != '' "> and mwmi.room_type_id = '${room_type_id}'</if>
+            <if test="apartment_name != null and apartment_name != '' "> and ta.name  = '${apartment_name}'</if>
+            <if test="floor_name != null and floor_name != '' "> and tl.name = '${floor_name}'</if>
+            <if test="concentratorId != null and concentratorId != '' "> and concentrator_id is null</if>
+        </where>
+    </sql>
+
+    <sql id="room1">
+        <where>
+            <if test="room_num != null and room_num != '' "> and room_num = '${room_num}'</if>
+            <if test="room_type_id != null and room_type_id != '' "> and mwmi.room_type_id = '${room_type_id}'</if>
+            <if test="apartment_name != null and apartment_name != '' "> and ta.name  = '${apartment_name}'</if>
+            <if test="floor_name != null and floor_name != '' "> and tl.name = '${floor_name}'</if>
+            <if test="concentratorId != null and concentratorId != '' "> and concentrator_id=#{concentratorId}</if>
+        </where>
+    </sql>
+
+    <select id="getConcentrators" parameterType="java.util.Map" resultType="com.ets.bus.systemMgt.concentrator.entity.Concentrator">
+        select * from MB_CONCENTRATOR
+        <include refid="where"/>
+        order by CREATE_TIME desc
+    </select>
+
+    <!--添加集中器-->
+    <insert id="addConcentrator" parameterType="com.ets.bus.systemMgt.concentrator.entity.Concentrator">
+        insert into mb_concentrator
+        values(#{id},#{ip_address},#{concentrator_pwd},#{concentrator_version},#{communication_mode},#{collect_name},#{remark},#{concentrator_num},#{apartment_id},to_date(#{create_time},'yyyy-mm-dd hh24:mi:ss'),to_date(#{update_time},'yyyy-mm-dd hh24:mi:ss'))
+    </insert>
+
+    <!--编辑集中器-->
+    <update id="editConcentrator" parameterType="com.ets.bus.systemMgt.concentrator.entity.Concentrator">
+        update mb_concentrator
+        set concentrator_num=#{concentrator_num},apartment_id=#{apartment_id},ip_address=#{ip_address},concentrator_pwd=#{concentrator_pwd},concentrator_version=#{concentrator_version},communication_mode=#{communication_mode},COLLECT_ID=#{collect_name},remark=#{remark},update_time=to_date(#{update_time},'yyyy-mm-dd hh24:mi:ss')
+        where id=#{id}
+    </update>
+
+    <!--删除集中器-->
+    <delete id="delConcentrators" parameterType="java.util.List">
+        delete from mb_concentrator where id in
+        <foreach collection="array" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据集中器id查询集中器信息-->
+    <select id="findConcentrator" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.concentrator.entity.Concentrator">
+        select * from mb_concentrator where id=#{id}
+    </select>
+
+    <!--获取所有的集中器信息-->
+    <select id="findConcentrators" resultType="com.ets.bus.systemMgt.concentrator.entity.Concentrator">
+        select * from mb_concentrator
+        <include refid="where"/>
+        order by CREATE_TIME desc
+    </select>
+
+    <!--查询房间关联水表信息(未绑定集中器)-->
+    <select id="findRoomInfo" resultType="com.ets.bus.systemMgt.concentrator.entity.RoomWaterInfo" parameterType="java.util.Map">
+        SELECT
+        mwmi.ID id,
+        tre.NAME area_name,
+        ta.NAME apartment_name,
+        tl.NAME floor_name,
+        tr.NAME room_num,
+        mw.WATER_METER_ID
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_WATER_METER  mw ON mw.id=mwmi.WATER_METER_ID
+        <include refid="room"/>
+    </select>
+
+    <!--批量为房间添加集中器-->
+    <update id="addRooomConcentrator" parameterType="java.util.Map">
+        update MB_WATER_METER_INFO
+        set CONCENTRATOR_ID=#{concentratorId}
+        where id
+        in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--根据集中器IP地址查询集中器信息-->
+    <select id="checkConcentratorIp" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.concentrator.entity.Concentrator">
+        select * from mb_concentrator where ip_address=#{ipAddress}
+    </select>
+
+    <!--根据集中器id查询房间信息-->
+    <select id="findRoomByCobcentratorId" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.concentrator.entity.RoomWaterInfo">
+        select * from  mb_water_meter_info where concentrator_id=#{concentratorId}
+    </select>
+
+    <!--更新房间集中器-->
+    <update id="clearConcentrator" parameterType="java.lang.String">
+        update mb_water_meter_info
+        set concentrator_id=''
+        where concentrator_id=#{concentratorId}
+    </update>
+
+    <!--查询房间关联水表信息(已绑定集中器)-->
+    <select id="findRoomInfoNotConcentrator" parameterType="java.util.Map" resultType="com.ets.bus.systemMgt.concentrator.entity.RoomWaterInfo">
+         SELECT
+        mwmi.ID id,
+        tre.NAME area_name,
+        ta.NAME apartment_name,
+        tl.NAME floor_name,
+        tr.NAME room_num,
+        mw.WATER_METER_ID
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_WATER_METER  mw ON mw.id=mwmi.WATER_METER_ID
+        <include refid="room1"/>
+    </select>
+
+    <!--批量清空房间集中器信息-->
+    <update id="clearRoomConcentrator" parameterType="java.util.List">
+        update mb_water_meter_info
+        set concentrator_id=''
+        where id in
+        <foreach collection="array" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--根据采集表id查询集中器信息-->
+    <select id="findConcentratorByCollectId" parameterType="java.util.List" resultType="com.ets.bus.systemMgt.concentrator.entity.Concentrator">
+        select * from mb_concentrator where collect_id
+        in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--通过集中器ID查询集中器信息（批量查询）-->
+    <select id="getConcentratorByConcentratorId" parameterType="java.util.List" resultType="com.ets.bus.systemMgt.concentrator.entity.Concentrator">
+        select * from MB_CONCENTRATOR where ID
+        in
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--通过水表房间ID查询水表房间信息-->
+    <select id="findWaterRoomById" parameterType="java.util.List" resultType="com.ets.bus.systemMgt.concentrator.entity.RoomWaterInfo">
+       select
+       tr.name area_name,
+       ta.name apartment_name,
+       mwmi.ROOM_NUM room_num
+       from MB_WATER_METER_INFO mwmi
+       left join TB_REGION tr on mwmi.AREA_ID=tr.ID
+       left join TB_APARTMENT ta on mwmi.APARTMENT_ID=ta.id
+       where mwmi.ID in
+       <foreach collection="array" item="id" separator="," open="(" close=")">
+           #{id}
+       </foreach>
+    </select>
+</mapper>

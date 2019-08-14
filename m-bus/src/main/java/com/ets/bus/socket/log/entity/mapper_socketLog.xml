@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.socket.log.dao.SocketLogDao">
+
+    <!-- 插入连接日志 -->
+    <insert id="insertSocketLog" parameterType="com.ets.bus.socket.log.entity.SocketLogBean">
+        INSERT INTO
+          MB_SOCKET_LOG(ID,CHANNEL_ID,CURRENT_TIME,REMARK)
+        VALUES(#{id},#{channelId},#{currentTime},#{remark})
+    </insert>
+
+</mapper>
+    

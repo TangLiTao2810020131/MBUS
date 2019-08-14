@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.district.room.dao.RoomDao">
+	<sql id="where">
+			<if test="code!= null and code != '' "> and code like '%${code}%'</if>
+			<if test="roomname != null and roomname != '' "> and name like '%${roomname}%'</if>
+	</sql>
+
+<!-- 获取列表 -->
+	<select id="select" parameterType="map"  resultType="com.ets.district.room.entity.tb_room">
+			select * from 
+				(
+					select * from 
+					(
+						select u.*,rownum rn from 
+						(
+							select
+		                     u.ID id,
+		                     u.CODE code,
+		                     u.NAME name,
+		                     u.CTIME ctime,
+		                     mwm.WATER_METER_ID water_meter_id,
+		                     MRTP.TYPE_NAME roomTypeName
+		                     from tb_room u
+		left  join MB_WATER_METER_INFO mwmi on u.id=mwmi.ROOM_ID
+		left  join MB_WATER_METER mwm on mwm.ID=mwmi.WATER_METER_ID
+		left  join MB_ROOM_TYPE_PARAM MRTP on MRTP.TYPE_NUM=mwmi.ROOM_TYPE_ID
+		 where parentid = #{parentid} and (MRTP.DEL_STATUS=0 OR MRTP.DEL_STATUS IS NULL)
+							  <include refid="where"></include>
+						) u 
+						where rownum <![CDATA[<=]]> #{page}
+                        order by code asc
+					) 
+					where rn > #{limit}
+				)
+    </select>
+	<select id="getDetails" parameterType="java.lang.String" resultType="com.ets.district.room.entity.tb_room">
+		select
+		u.ID id,
+		u.CODE code,
+		u.NAME name,
+		u.CTIME ctime,
+		u.REMARK remark,
+		mwm.WATER_METER_ID water_meter_id,
+		mr.TYPE_NAME roomTypeName
+		from tb_room u
+		left  join MB_WATER_METER_INFO mwmi on u.id=mwmi.ROOM_ID
+		left  join MB_WATER_METER mwm on mwm.ID=mwmi.WATER_METER_ID
+		left  join MB_ROOM_TYPE_PARAM  mr on mwmi.ROOM_TYPE_ID=mr.TYPE_NUM
+		where
+		(mr.DEL_STATUS=0 OR mr.DEL_STATUS IS NULL)
+		and
+		u.id= #{id}
+	</select>
+     
+     <!-- 获取总记录数 -->
+    <select id="selectCount" parameterType="map"  resultType="long">
+    	select count(*) from tb_room u where parentid = #{parentid}
+	</select>
+    
+    <!-- 获取单条数据 -->
+    <select id="info" parameterType="java.lang.String"  resultType="com.ets.district.room.entity.tb_room">
+    	select * from tb_room where id = #{id}
+    </select>
+	<!-- 新增房间信息 -->
+    <insert id="insert" parameterType="com.ets.district.room.entity.tb_room">
+    	insert into tb_room values(#{id},#{code},#{name},#{parentid},#{ctime},#{remark})
+    </insert>
+	<!-- 编辑房间信息 -->
+    <update id="update" parameterType="com.ets.district.room.entity.tb_room">
+    	update tb_room set name=#{name},code=#{code},remark=#{remark} where id=#{id}
+    </update>
+	<!-- 根据房间编码查询对应的房间信息的个数 -->
+	<select id="isCheckRoomCode" parameterType="com.ets.district.room.entity.tb_room" resultType="long">
+		select count(*) from TB_ROOM where CODE=#{code} and PARENTID=#{parentid}
+	</select>
+	<!-- 根据房间号查询对应的房间信息的个数 -->
+	<select id="isCheckRoomNum" parameterType="com.ets.district.room.entity.tb_room" resultType="long">
+		select count(*) from TB_ROOM where name=#{name} and PARENTID=#{parentid}
+	</select>
+    <!--批量删除房间信息-->
+	<delete id="deleteRoomById" parameterType="java.lang.String" >
+		delete from TB_ROOM where id in
+		<foreach item="empnoItem" collection="array" open="(" separator="," close=")">
+			#{empnoItem}
+		</foreach>
+	</delete>
+
+	<!--根据房间id查询房间信息-->
+	<select id="findRoomById" parameterType="java.util.List" resultType="com.ets.district.room.entity.tb_room">
+		select * from tb_room where id in
+		<foreach collection="bList" item="room" separator="," open="(" close=")">
+			#{room.room_id}
+		</foreach>
+	</select>
+
+	<!--查出房间所有信息-->
+	<select id="selectRoomInfoByRoomId" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.watermeterRoomInfoMgt.entity.WaterMeterInfoMgt">
+		select
+		tr.NAME roomNum,
+		tr.ID roomId,
+		tr.CTIME createTime,
+		tl.ID floorId,
+		tl.CODE floorNum,
+		tl.NAME floorName,
+		ta.id apartmentId,
+		ta.NAME apartmentName,
+        te.id areaId,
+        te.NAME areaName,
+        tf.ID buildId
+		from TB_ROOM tr
+		left join TB_LAYER tl on tl.id=tr.PARENTID
+		left join TB_FLOOR tf on tf.id=tl.PARENTID
+		left join TB_APARTMENT ta on ta.id=tf.PARENTID
+		left join TB_REGION te on te.id=ta.PARENTID
+		where tr.ID=#{id}
+	</select>
+	<!--根据父级Id-->
+	<select id="selectRoomByParentId" parameterType="java.lang.String" resultType="com.ets.district.room.entity.tb_room">
+		select * from tb_room where PARENTID=#{father}
+</select>
+</mapper>

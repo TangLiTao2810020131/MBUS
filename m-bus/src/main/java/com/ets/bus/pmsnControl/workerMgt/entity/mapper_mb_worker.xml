@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE mapper
+            PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+            "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="com.ets.bus.pmsnControl.workerMgt.dao.WorkerMgtDao">
+
+    <sql id="where">
+        <where>
+            <if test="workerAccount != null and workerAccount != '' "> and workerAccount like '%${workerAccount}%'</if>
+            <if test="workerName != null and workerName != '' "> and workerName like '%${workerName}%'</if>
+            <if test="realName != null and realName != '' "> and realName like '%${realName}%'</if>
+            <if test="identity != null and identity != '' "> and identity like '%${identity}%'</if>
+            <if test="email != null and email != '' "> and email like  '%${email}%'</if>
+            <if test="ctime != null and ctime != '' "> and w.ctime like to_date('${ctime}','yyyy-MM-dd HH24:mi:ss')</if>
+            <if test="isclose != null and isclose != '' "> and isclose = #{isclose}</if>
+            <if test="type != null and type != '' "> and type = #{type}</if>
+        </where>
+    </sql>
+
+    <!-- 获取全部职员 -->
+    <select id="getWorkers" parameterType="map" resultType="com.ets.bus.pmsnControl.workerMgt.entity.mb_worker">
+
+        select * from
+        (
+        select * from
+        (
+        select w.*,rownum rn from
+        (
+        select w.ID id,
+        w.workerAccount workerAccount,
+        w.WORKERNAME workerName,
+        w.ISOPEN isOpen,
+        w.REALNAME realName,
+        w.CTIME ctime,
+        w.EMAIL email,
+        r.ROLENAME roleName
+        from
+        MB_WORKER w
+        left join MB_WORKER_ROLE mbr on mbr.WORKERID=w.ID
+        left join MB_ROLE r on mbr.ROLEID=r.ID
+        <include refid="where"></include>
+        order by w.ctime desc
+        ) w
+        where rownum <![CDATA[<=]]> #{page}
+        )
+        where rn > #{limit}
+        )
+
+    </select>
+    <!-- 获取总记录数 -->
+    <select id="getCount" parameterType="map" resultType="long">
+        select count(*) from MB_WORKER w
+        left join MB_WORKER_ROLE mbr on mbr.WORKERID=w.ID
+        left join MB_ROLE r on mbr.ROLEID=r.ID
+        <include refid="where"></include>
+    </select>
+
+    <insert id="insertWorker" parameterType="com.ets.bus.pmsnControl.workerMgt.entity.mb_worker" >
+        insert into MB_WORKER values(#{id},#{workerAccount},#{workerName},#{realName},#{identity},#{email},#{isOpen},#{ctime},#{password})
+    </insert>
+
+    <select id="isCheckWorker" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from MB_WORKER where WORKERACCOUNT=#{workerAccount}
+    </select>
+
+    <delete id="deleteWorkerById" parameterType="java.lang.String" >
+        delete from MB_WORKER where id in
+        <foreach item="empnoItem" collection="array" open="(" separator="," close=")">
+            #{empnoItem}
+        </foreach>
+    </delete>
+
+    <!-- 批量关闭用戶 -->
+    <update id="closeWorkerById" parameterType="java.lang.String">
+        update MB_WORKER  set ISOPEN=1 where id in
+        <foreach item="empnoItem" collection="array" open="(" separator="," close=")">
+            #{empnoItem}
+        </foreach>
+    </update>
+
+    <!-- 批量启用用戶 -->
+    <update id="openWorkerById" parameterType="java.lang.String">
+        update MB_WORKER  set ISOPEN=0 where id in
+        <foreach item="empnoItem" collection="array" open="(" separator="," close=")">
+            #{empnoItem}
+        </foreach>
+    </update>
+
+    <!--重置密码 -->
+    <update id="restPassword" parameterType="java.util.Map">
+        update MB_WORKER set PASSWORD=#{password} where ID in
+        <foreach item="id" collection="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+    <!--查看职员信息-->
+    <select id="infoWorker" parameterType="java.lang.String" resultType="com.ets.bus.pmsnControl.workerMgt.entity.mb_worker">
+        select * from MB_WORKER where ID=#{id}
+    </select>
+    <!--更新职员信息-->
+    <update id="updateWorkerById" parameterType="com.ets.bus.pmsnControl.workerMgt.entity.mb_worker">
+        update MB_WORKER set WORKERNAME=#{workerName},REALNAME=#{realName},IDENTITY=#{identity},EMAIL=#{email},isOpen=#{isOpen} where id=#{id}
+    </update>
+    <select id="getWorkerByWorkerAccount" parameterType="java.lang.String" resultType="com.ets.bus.pmsnControl.workerMgt.entity.mb_worker">
+        select * from MB_WORKER where WORKERACCOUNT=#{workerAccount}
+    </select>
+    <!--修改密码-->
+    <update id="updatePssword" parameterType="java.util.Map">
+        update MB_WORKER set PASSWORD=#{password} where id=#{id}
+    </update>
+
+
+
+
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.waterMeterMgt.waterRoomMgt.dao.WaterRoomMgtDao">
+
+    <!-- 向控水换房记录表插入一条记录 -->
+    <insert id="insertReplaceRoomRecord" parameterType="com.ets.bus.reportQuery.entity.report.ReplaceRoomRecordVo">
+        INSERT INTO
+          MB_REPLACEROOM_RECORD(ID,OLD_WATER_METER_INFO_ID,NEW_WATER_METER_INFO_ID,CURRENT_STATUS,USER_ID,SUPPLEMENT_WATER,BUY_WATER_TOTAL,CASH_BUY_WATER,CARD_BUY_WATER,RETURN_WATER,SURPLUS_WATER,USER_WATER,OVER_WATER,OPERATION_ID,CREATE_TIME)
+        VALUES(#{id},#{oldWaterMeterInfoId},#{newWaterMeterInfoId},#{currentStatus},#{userId},#{supplementWater},#{buyWaterTotal},#{cashBuyWater},#{cardBuyWater},#{returnWater},#{surplusWater},#{userWater},#{overWater},#{operationId},sysdate)
+    </insert>
+
+</mapper>
+    

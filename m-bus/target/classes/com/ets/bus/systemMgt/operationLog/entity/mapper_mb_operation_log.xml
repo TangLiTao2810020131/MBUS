@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ets.bus.systemMgt.operationLog.dao.OperationLogDao">
+    <sql id="where">
+        <where>
+            <if test="workerName != null and workerName != '' "> and workerName = #{workerName}</if>
+            <if test="startdate != null and startdate != '' "> and operaTime <![CDATA[>=]]> #{startdate}</if>
+            <if test="enddate != null and enddate != '' "> and operaTime <![CDATA[<=]]> #{enddate}</if>
+        </where>
+    </sql>
+    <!--得到操作日志的集合-->
+    <select id="getOperaLogs" resultType="com.ets.bus.systemMgt.operationLog.entity.mb_operation_log" parameterType="java.util.Map">
+        select * from
+        (
+        select * from
+        (
+        select u.*,rownum rn from
+        (
+        select * from MB_OPERATION_LOG u
+        <include refid="where"></include>
+        order by u.OPERATIME desc
+        ) u
+        where rownum <![CDATA[<=]]> #{page}
+        )
+        where rn > #{limit}
+        )
+    </select>
+    <!--得到操作日志的总记录数-->
+    <select id="getCount" parameterType="java.util.Map" resultType="long">
+        select count(*) from MB_OPERATION_LOG
+        <include refid="where"></include>
+    </select>
+    <!--增加日志信息-->
+    <insert id="addLog" parameterType="com.ets.bus.systemMgt.operationLog.entity.mb_operation_log">
+ insert into MB_OPERATION_LOG values(#{id},#{workerName},#{moduleName},#{operaContent},#{operaTime})
+</insert>
+    <!-- 查看 -->
+    <select id="infoLog" resultType="com.ets.bus.systemMgt.operationLog.entity.mb_operation_log" parameterType="java.lang.String">
+        select * from MB_OPERATION_LOG where id=#{id}
+    </select>
+    <!--删除日志-->
+    <delete id="deleteLogById" parameterType="java.lang.String">
+        delete from MB_OPERATION_LOG where id=#{id}
+    </delete>
+
+
+</mapper>

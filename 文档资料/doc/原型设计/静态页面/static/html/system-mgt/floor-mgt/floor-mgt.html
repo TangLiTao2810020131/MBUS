@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>系统管理-楼层管理</title>
+  <link rel="stylesheet" href="../../../css/layui.css" media="all">	
+  <link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+</head>
+<body class="inner-body" style="background:#f2f2f2;position: relative;">
+<!-----------树菜单--------------->
+<div id="treeBox" style="width: 200px;background: #FFFFFF;float: left;height: 100%;">
+	
+	<div class="treename">
+		<span>公寓楼层列表</span>
+	</div>
+	<div class="layui-form1" id="tree">
+		<ul id="tree"></ul>
+		<!--<div id="xtree" class="xtree_contianer"></div>-->
+	</div>
+</div>
+
+<!-------默认表格开始----------->
+
+<div class="tableHtml" style="margin-left: 210px;height: 100%;background: #FFFFFF;position: relative;">
+    
+	<div class="tablebox" style="height: 680px; width: auto;overflow: auto;">
+		<div class="top-btn">
+			<div class="layui-btn-group" style="position: relative;">
+			    <button class="layui-btn" id="Btn1">更新房间信息</button>
+			    <button class="layui-btn" id="Btn2">获取房间信息</button>
+			    <button class="layui-btn" id="moreBtn">更多</button>
+			    <!-- <button class="layui-btn" id="Btn3">一般开阀</button>
+			    <button class="layui-btn" id="Btn4">一般关阀</button>
+			    <button class="layui-btn" id="Btn5">强制开阀</button>
+			    <button class="layui-btn" id="Btn6">强制关阀</button>
+			    <button class="layui-btn" id="Btn7">更换水表</button>-->
+			</div>
+			<div class="search-btn-group">
+				<input type="text"  autocomplete="off" class="layui-input layui-input_" placeholder="请输入">
+		 		<button class="layui-btn layui-btns">查询</button>
+				<button class="layui-btn layui-btns layui-bg-orange" id="superBtn">高级查询</button>
+			</div>
+	  </div>
+  	
+		<div class="tableDiv">
+			<table id="layui-table" lay-filter="tableBox" class="layui-table"></table>
+		</div>
+		<div class="top-btn">
+			<div class="layui-btn-group" style="position: relative;height: 38px;">
+			   <!-- <button class="layui-btn" id="addBtn">&nbsp;&nbsp;校时&nbsp;&nbsp;</button>
+			  -->
+			</div>
+			<div class="search-btn-group">
+			 	<div class="layui-form search-btn-group-box" style="display: inline-block;">
+			  		<div class="layui-inline">
+				      <label class="layui-form-label" title="命令状态">命令状态</label>
+				      <div class="layui-input-inline">
+				        <select name="">   
+				        	<option value="">全部</option>
+				            <option value="">初始</option>
+				            <option value="">已下发</option>
+				            <option value="">已执行</option>
+				            <option value="">未知</option>
+				        </select>
+				      </div>
+			   		</div>
+			  	</div>
+				<input type="text"  autocomplete="off" class="layui-input layui-input_" placeholder="请输入">
+				<input type="text" name="date" id="date" lay-verify="date" placeholder="请选择时间" autocomplete="off" class="layui-input layui-input_" lay-key="1">
+		 		<button class="layui-btn layui-btns"> 查 询 </button>
+				
+			</div>
+	  	</div>
+		<div class="tableDiv2" style="height: 600px;">
+			<table id="layui-table2" lay-filter="tableBox2" class="layui-table"></table>
+		</div>
+	</div>
+</div>
+<!-----------------默认表格结束------------>
+<!--更多操作html-->
+<ul id="uls">
+	<li id="Btn3"><span>一般开阀</span></li>
+	<li id="Btn4"><span>一般关阀</span></li>
+	<li id="Btn5"><span>强制开阀</span></li>
+	<li id="Btn6"><span>强制关阀</span></li>
+	<li id="Btn7"><span>更换水表</span></li>
+</ul>
+<!--高级查询-->
+<form class="layui-form" action="" id="formHtml" lay-filter="updForm">
+	  <div class="layui-form-item">
+			<div class="layui-inline">
+	      <label class="layui-form-label" title="房间类型">房间类型</label>
+	      <div class="layui-input-inline">
+	        <select name="">   
+	        	  <option value="0">全部</option>
+	            <option value="1">学生公寓</option>
+	            <option value="2">教师公寓</option>
+	        </select>
+	      </div>
+	    </div>
+  		<div class="layui-inline">
+	      <label class="layui-form-label" title="公寓">公寓</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+		  </div>
+	  </div>
+  	<div class="layui-form-item">
+			<div class="layui-inline">
+	      <label class="layui-form-label" title="楼层">楼层</label>
+	      <div class="layui-input-inline">
+	       	<input type="text" name=""  placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	   	</div>
+	   	<div class="layui-inline">
+	      <label class="layui-form-label" title="房间号">房间号</label>
+	      <div class="layui-input-inline">
+	       	<input type="text" name="" placeholder="请输入"  lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	   	</div>
+  	</div>
+  	<div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button type="button" class="layui-btn" lay-submit="" lay-filter="confirmBtn">查询</button>
+	      <button type="button" class="layui-btn layui-btn-primary" id="closeBtn">收起</button>
+	    </div>
+ 		</div>
+</form>
+</body>
+<script src="../../../layui.all.js"></script>
+<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//主动加载jquery模块
+layui.use(['jquery', 'layer'], function(){
+	var $ = layui.jquery //重点处
+	,layer = layui.layer;
+	//执行一个laydate实例
+	var laydate = layui.laydate;
+	 	laydate.render({
+	    elem: '#date' //指定元素
+	});
+	table = layui.table;//表格，注意此处table必须是全局变量
+	/*table1*/
+	var arr = [[ 
+	   {type:'checkbox'}
+      ,{field: 'gongyu', title: '公寓'}
+      ,{field: 'louceng', title: '楼层'}
+      ,{field: 'fangjianhao', title: '房间号'} 
+      ,{field: 'quyu', title: '阀状态', }
+      ,{field: 'gongyu', title: '模块状态'}
+      ,{field: 'louceng', title: '初始化状态'}
+      ,{field: 'fangjianhao', title: '剩余水量'} 
+      ,{field: 'quyu', title: '用水量', }
+      ,{field: 'gongyu', title: '房间类型'}
+      ,{field: 'gongyu', title: '水表UUID'}
+    ]];
+	var limitArr =[10,20,30];
+	var urls = '../../../tableJson.js';
+	com.tableRender('#layui-table','tableId','full-150',limitArr,urls,arr);//加载表格,注意tableId是自定义的，在表格重载需要！！
+	/*table2*/
+	var arr2 = [[ 
+	   {type:'checkbox'}
+	  ,{field: 'louceng', title: '集中器ID'}
+      ,{field: 'fangjianhao', title: '集中器'} 
+      ,{field: 'quyu', title: '区域', }
+      ,{field: 'gongyu', title: '公寓'}
+    ]];
+	var limitArr2 =[10,20,30];
+	var urls2 = '../../../tableJson.js';
+	com.tableRender('#layui-table2','tableId2','full-80',limitArr2,urls2,arr2);//加载表格,注意tableId是自定义的，在表格重载需要！！
+	/*树形菜单*/
+	com.normalTree("#tree","../../../treeJson.js");
+
+	var idArray = [];//选中行的集合
+ 	/*-----更新房间信息-----*/
+ 	$("#Btn1").click(function(){
+ 		idArray = [];//清空
+ 		com.confirm('将平台中的房间信息更新到集中器中。','更新房间信息',['确定','取消'],idArray,function (){
+	 	  console.log(idArray+"更新房间信息的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+ 		});
+	})	
+	
+	/*----获取房间信息-----*/
+ 	$("#Btn2").click(function(){
+ 		idArray = [];//清空
+	 	com.confirm('获取选中房间的当前信息，存到平台。','获取房间信息',['确定','取消'],idArray,function (){
+	 		//获取房间信息，确定的回调
+	 		console.log(idArray+"获取选中房间的当前信息，存到平台的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+ 		});
+	})
+ 	/*----一般开阀-----*/
+ 	$("#Btn3").click(function(){
+ 		idArray = [];//清空
+	 	com.confirm('对房间进行一般开阀操作。','一般开阀',['确定','取消'],idArray,function (){
+	 		//一般开阀的回调
+	 		console.log(idArray+"一般开阀的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+ 		});
+	})
+ 	/*----一般关阀-----*/
+ 	$("#Btn4").click(function(){
+ 		idArray = [];//清空
+	 	com.confirm('对房间进行一般关阀操作。','一般关阀',['确定','取消'],idArray,function (){
+	 		//一般关阀回调
+	 		console.log(idArray+"一般关阀的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+ 		});
+	})
+ 	/*----强制开阀-----*/
+ 	$("#Btn5").click(function(){
+ 		idArray = [];//清空
+	 	com.confirm('对房间进行强制开阀操作。','强制开阀',['确定','取消'],idArray,function (){
+	 		//强制开阀回调
+	 		console.log(idArray+"强制开阀的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+ 		});
+	})
+ 	/*----强制关阀-----*/
+ 	$("#Btn6").click(function(){
+ 		idArray = [];//清空
+	 	com.confirm('对房间进行强制关阀操作。','强制关阀',['确定','取消'],idArray,function (){
+	 		//强制关阀的回调
+	 		console.log(idArray+"强制关阀的回调");
+	 		parent.layer.closeAll();//关闭弹出层
+ 		});
+	})
+ 	
+ 	/*----更换水表-----*/
+	$("#Btn7").click(function(){
+		com.checkOpen("更换水表","html/system-mgt/floor-mgt/change-watermeter.html",['720px', '400px']);
+		
+	})
+})
+</script>
+</html>

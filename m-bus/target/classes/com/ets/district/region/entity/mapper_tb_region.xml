@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.district.region.dao.RegionDao">
+	<sql id="where">
+      <where>
+		  <if test="code!= null and code != '' "> and code like '%${code}%'</if>
+		  <if test="regionname != null and regionname != '' "> and name like '%${regionname}%'</if>
+	  </where>
+	</sql>
+
+<!-- 获取列表 -->
+	<select id="select" parameterType="map"  resultType="com.ets.district.region.entity.tb_region">
+			select * from 
+				(
+					select * from 
+					(
+						select u.*,rownum rn from 
+						(
+							select * from tb_region u 
+							 <include refid="where"></include>
+						) u 
+						where rownum <![CDATA[<=]]> #{page}
+                        order by code asc
+					) 
+					where rn > #{limit}
+				)
+    </select>
+     
+     <!-- 获取总记录数 -->
+    <select id="selectCount"  resultType="long">
+    	select count(*) from tb_region <include refid="where"></include>
+    </select>
+    
+    <!-- 获取单条数据 -->
+    <select id="info" parameterType="java.lang.String"  resultType="com.ets.district.region.entity.tb_region">
+    	select * from tb_region where id = #{id}
+    </select>
+    <!--新增区域信息-->
+    <insert id="insert" parameterType="com.ets.district.region.entity.tb_region">
+    	insert into tb_region values(#{id},#{name},#{ctime},#{remark},#{code})
+    </insert>
+    <!--编辑区域信息-->
+    <update id="update" parameterType="com.ets.district.region.entity.tb_region">
+    	update tb_region set name=#{name},code=#{code},remark=#{remark} where id=#{id}
+    </update>
+	<select id="getRegions" resultType="com.ets.district.region.entity.tb_region">
+		select * from TB_REGION
+	</select>
+	<!--检查区域编码的唯一性-->
+	<select id="isCheckRegionCode" parameterType="java.lang.String" resultType="long">
+		select count(*) from TB_REGION where CODE=#{code}
+	</select>
+	<!--批量删除区域信息-->
+	<delete id="deleteRegionById" parameterType="java.lang.String" >
+		delete from TB_REGION where id in
+		<foreach item="empnoItem" collection="array" open="(" separator="," close=")">
+			#{empnoItem}
+		</foreach>
+	</delete>
+
+	<!--tree-->
+	<resultMap id="tree" type="com.ets.utils.EleTree">
+		<result column="tr_id" property="id"/>
+		<result column="tr_name" property="name"/>
+		<collection property="children" ofType="com.ets.utils.EleTree">
+			<result column="ta_id" property="id"/>
+			<result column="ta_name" property="name"/>
+			<collection property="children" ofType="com.ets.utils.EleTree">
+				<result column="tf_id" property="id"/>
+				<result column="tf_name" property="name"/>
+				<collection property="children" ofType="com.ets.utils.EleTree">
+					<result column="tl_id" property="id"/>
+					<result column="tl_name" property="name"/>
+					<collection property="children" ofType="com.ets.utils.EleTree">
+						<result column="tm_id" property="id"/>
+						<result column="tm_name" property="name"/>
+					</collection>
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	<!--查询所有的区域信息-->
+	<select id="findRegions" resultMap="tree">
+        select tb3.*,tm.id tm_id,tm.name tm_name from
+		(select tb2.*,tl.id tl_id,tl.name tl_name from
+		(select tb1.*,tf.id tf_id,tf.name tf_name from
+		(select tr.id tr_id,tr.name tr_name,ta.id ta_id,ta.name ta_name
+		from tb_region tr left join tb_apartment ta on tr.id=ta.parentid) tb1
+		left join tb_floor tf on tb1.ta_id=tf.parentid) tb2
+		left join tb_layer tl on tb2.tf_id=tl.parentid) tb3
+		left join tb_room tm on tb3.tl_id=tm.parentid
+	</select>
+
+	<!--根据区域ID查询区域信息-->
+	<select id="findRegionsByRegionId" parameterType="java.util.List" resultType="com.ets.district.region.entity.tb_region">
+		select * from tb_region where id in
+		<foreach collection="bList" item="region" separator="," open="(" close=")">
+			#{region.area_id}
+		</foreach>
+	</select>
+</mapper>

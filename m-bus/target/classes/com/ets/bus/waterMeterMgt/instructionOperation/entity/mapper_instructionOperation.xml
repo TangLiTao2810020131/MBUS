@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.waterMeterMgt.instructionOperation.dao.InstructionOperationDao">
+
+    <!--获取操作指令表记录-->
+    <select id="getOperationInstructionRecord" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+          SELECT
+            moi.ID id,
+            moi.WATER_METER_INFO_ID waterMeterInfoId,
+            moi.TYPE type,
+            moi.CURRENT_STATUS currentStatus,
+            moi.CONCENTRATOR_ID concentratorId,
+            moi.WATER_METER_NUM waterMeterNum
+          FROM MB_OPERATION_INSTRUCTION moi
+          LEFT JOIN MB_CONCENTRATOR mc ON mc.id= moi.CONCENTRATOR_ID
+          WHERE
+            moi.CURRENT_STATUS = 0
+            <if test="waterMeterNum != null and waterMeterNum != '' ">
+                AND
+                moi.WATER_METER_NUM =#{waterMeterNum}
+            </if>
+            AND
+            moi.TYPE =#{operationType}
+    </select>
+
+    <!--获取操作指令表记录-->
+    <select id="getOperaInstRecordByDevice" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+          SELECT
+            moi.ID id,
+            moi.WATER_METER_INFO_ID waterMeterInfoId,
+            moi.TYPE type,
+            moi.CURRENT_STATUS currentStatus,
+            moi.CONCENTRATOR_ID concentratorId,
+            moi.WATER_METER_NUM waterMeterNum
+          FROM MB_OPERATION_INSTRUCTION moi
+          LEFT JOIN MB_CONCENTRATOR mc ON mc.id= moi.CONCENTRATOR_ID
+          WHERE
+            moi.CURRENT_STATUS = 0
+            AND
+            mc.CONCENTRATOR_NUM =#{deviceId}
+            AND
+            moi.WATER_METER_NUM is null
+            AND
+            moi.TYPE =#{operationType}
+    </select>
+
+    <!-- 更新水表房间信息 -->
+    <update id="updateWaterMeteInfo" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_WATER_METER_INFO set COLLECT_TIME=#{time},BUY_WATER_TOTAL=#{buyWaterTotal},SUPPLEMENT_WATER=#{supplementWater},ADD_NUM=#{addNum},POWER_STATUS=#{powerStatus},ATTACK_NUM=#{attackNum},CUMULATE_WATER=#{userWater},USER_WATER=#{userWater},OVER_WATER=#{overWater},VALVE_STATUS=#{valveStatus},INIT_STATUS=1,SURPLUS_WATER=#{supplementWater}+#{buyWaterTotal},UPDATE_TIME=sysdate where id=#{waterMeterInfoId}
+    </update>
+
+    <!-- 更新补水记录信息 -->
+    <update id="updateAddWaterRecord" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_SUPPLEMENT_RECORD set CURRENT_STATUS=#{currentStatus},UPDATE_TIME=sysdate where WATER_METER_INFO_ID=#{waterMeterInfoId} and CURRENT_STATUS=0
+    </update>
+
+    <!-- 更新购水记录信息 -->
+    <update id="updateBuyWaterRecord" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_BUY_RECORD set CURRENT_STATUS=#{currentStatus},UPDATE_TIME=sysdate where WATER_METER_INFO_ID=#{waterMeterInfoId} and CURRENT_STATUS=0
+    </update>
+
+    <!-- 更新采集记录表 -->
+    <update id="updateCollectRecord" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_COLLECT_RECORD set USER_WATER=#{userWater},VALVE_STATUS=#{valveStatus},SUPPLEMENT_WATER=#{supplementWater},BUY_WATER_TOTAL=#{buyWaterTotal},OVER_WATER=#{overWater},POWER_STATUS=#{powerStatus},ATTACK_NUM=#{attackNum},CURRENT_STATUS=#{currentStatus},ADD_NUM=#{addNum},UPDATE_TIME=sysdate where WATER_METER_INFO_ID=#{waterMeterInfoId} and CURRENT_STATUS=0
+    </update>
+
+    <!-- 更新操作指令表 -->
+    <update id="updateOperationInstruction">
+        update MB_OPERATION_INSTRUCTION set RESULT=#{result},CURRENT_STATUS=#{successStatus},UPDATE_TIME=sysdate where ID=#{operaId}
+    </update>
+
+    <!-- 更新指令明细表 -->
+    <update id="updateInstructionDetail">
+        update MB_INSTRUCTION_DETAIL set RESULT=#{result},CURRENT_STATUS=#{successStatus},UPDATE_TIME=sysdate
+        where
+        OPERATION_ID=#{operaId}
+        <if test="waterMeterNum != null and waterMeterNum != ''">
+            AND
+            WATER_METER_NUM=#{waterMeterNum}
+        </if>
+    </update>
+
+    <!-- 更新清零记录表 -->
+    <update id="updateClearRecord" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_CLEAR_RECORD set CURRENT_STATUS=#{currentStatus},UPDATE_TIME=sysdate where WATER_METER_INFO_ID=#{waterMeterInfoId} and CURRENT_STATUS=0
+    </update>
+
+    <!-- 清零房间 -->
+    <update id="waterMeteInfoClear" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_WATER_METER_INFO set COLLECT_TIME=null,BUY_WATER_TOTAL=0,SUPPLEMENT_WATER=0,ADD_NUM=0,POWER_STATUS=0,ATTACK_NUM=0,CUMULATE_WATER=0,USER_WATER=0,OVER_WATER=0,SURPLUS_WATER=0,INIT_STATUS=1,UPDATE_TIME=sysdate where id=#{waterMeterInfoId}
+    </update>
+
+    <!-- 更新退水记录 -->
+    <update id="updateReturnMeteInfo" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_RETURN_RECORD set CURRENT_STATUS=#{currentStatus},UPDATE_TIME=sysdate where WATER_METER_INFO_ID=#{waterMeterInfoId} and CURRENT_STATUS=0
+    </update>
+
+    <!-- 更新冲红记录信息 -->
+    <update id="updateRedrushRecord" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_REDRUSH_RECORD set CURRENT_STATUS=#{currentStatus},UPDATE_TIME=sysdate where OPERATION_ID=#{operationId}
+    </update>
+
+    <!-- 更新补水记录冲红状态 -->
+    <update id="updateRedAddRecord" parameterType="java.lang.String">
+        update MB_SUPPLEMENT_RECORD set REDRUSH=1,UPDATE_TIME=sysdate where ID=#{recordId}
+    </update>
+
+    <!-- 更新退水记录冲红状态 -->
+    <update id="updateRedReturnRecord" parameterType="java.lang.String">
+        update MB_RETURN_RECORD set REDRUSH=1,UPDATE_TIME=sysdate where ID=#{recordId}
+    </update>
+
+    <!--获取冲红记录-->
+    <select id="getRedrushByOperationId" resultType="com.ets.bus.reportQuery.entity.report.RedRushVo">
+          SELECT
+           ID id,
+           CURRENT_STATUS currentStatus,
+           RECORD_ID recordId,
+           TYPE type
+          FROM MB_REDRUSH_RECORD
+          WHERE
+           OPERATION_ID =#{operationId}
+    </select>
+
+    <!-- 更新房间参数信息 -->
+    <update id="updateWaterMeteParam" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_WATER_METER_INFO set CLOSE_VALVE_WATER=#{valveWater},MAX_OVER_WATER=#{overWater},WARN_WATER=#{warnWater},BUY_MONEY=#{buyMoney},RETURN_MONEY=#{returnMoney},HOARD_WATER=#{hoardWater},ADD_CYCLE=#{addCycle},UPDATE_TIME=sysdate where id=#{waterMeterInfoId}
+    </update>
+
+    <!-- 更新房间发参数记录 -->
+    <update id="updateRoomParamRecord" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_ROOM_PARAM_RECORD set CURRENT_STATUS=#{currentStatus},UPDATE_TIME=sysdate where OPERATION_ID=#{operationId}
+    </update>
+
+    <!--房间发参数记录-->
+    <select id="getRoomParamRecordVo" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.RoomParamRecordVo">
+          SELECT
+           ID id,
+           WARN_WATER warnWater,
+           VALVE_WATER valveWater,
+           OVER_WATER overWater,
+           BUY_MONEY buyMoney,
+           BUY_MONEY returnMoney,
+           ADD_CYCLE addCycle,
+           HOARD_WATER hoardWater
+          FROM MB_ROOM_PARAM_RECORD
+          WHERE
+           OPERATION_ID =#{operationId}
+    </select>
+
+    <!-- 更新水表房间阀门状态 -->
+    <update id="updateWaterMeteValveStatus" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
+        update MB_WATER_METER_INFO set VALVE_STATUS=#{valveStatus} where ID=#{waterMeterInfoId}
+    </update>
+
+    <!--根据水表编号获取房间ID-->
+    <select id="getWaterMeterInfoId" resultType="java.lang.String">
+          SELECT
+           mwmi.ID
+          FROM MB_WATER_METER_INFO mwmi
+          LEFT JOIN MB_WATER_METER mwm ON mwm.ID=mwmi.WATER_METER_ID
+          WHERE
+           mwmi.WATER_METER_ID IS NOT NULL
+           AND
+           mwm.WATER_METER_ID=#{waterMeterNum}
+    </select>
+
+</mapper>
+    

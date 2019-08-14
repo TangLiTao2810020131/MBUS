@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+  
+<aop:aspectj-autoproxy proxy-target-class="true"/>
+<aop:config proxy-target-class="true"/> 
+<context:component-scan base-package="com.ets">
+	  <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>  
+</context:component-scan>
+<task:annotation-driven />
+
+    <context:property-placeholder location="classpath:jdbc.properties,classpath:redis.properties,classpath:nbiot.properties,classpath:schedule.properties" />
+    <!-- 数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+        init-method="init" destroy-method="close">
+        <!-- 数据库基本信息配置 -->
+        <property name="url" value="${druid.url}" />
+        <property name="username" value="${druid.username}" />
+        <property name="password" value="${druid.password}" />
+        <property name = "driverClassName" value = "${druid.driverClassName}" />  
+
+        <!-- 初始化连接数量 -->
+        <property name="initialSize" value="${druid.initialSize}" />
+        <!-- 最小空闲连接数 -->
+        <property name="minIdle" value="${druid.minIdle}" />
+        <!-- 最大并发连接数 -->
+        <property name="maxActive" value="${druid.maxActive}" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${druid.maxWait}" />
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+        <property name="validationQuery" value="${druid.validationQuery}" />
+        <property name="testWhileIdle" value="${druid.testWhileIdle}" />
+        <property name="testOnBorrow" value="${druid.testOnBorrow}" />
+        <property name="testOnReturn" value="${druid.testOnReturn}" />
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。 -->
+        <property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+            value="${druid.maxPoolPreparedStatementPerConnectionSize}" />
+
+        <!-- 配置监控统计拦截的filters -->
+        <property name="filters" value="${druid.filters}" />
+    </bean>    
+    
+	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
+        <!-- 自动扫描mapping.xml文件，**表示迭代查找,也可在sqlMapConfig.xml中单独指定xml文件-->
+        <property name="mapperLocations" value="classpath:com/ets/**/mapper*.xml" />
+    </bean>
+    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
+    	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="basePackage" value="com.ets" />  
+    </bean> 
+    
+    <!-- mybatis spring sqlSessionTemplate,使用时直接让spring注入即可 -->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+    </bean>
+
+    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <tx:annotation-driven />
+
+<<<<<<< .mine
+||||||| .r2243
+
+
+=======
+
+>>>>>>> .r2286
+    <bean id="threadPool" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 核心线程数  -->
+        <property name="corePoolSize" value="30" />
+        <!-- 最大线程数 -->
+        <property name="maxPoolSize" value="200" />
+        <!-- 队列最大长度 >=mainExecutor.maxSize -->
+        <property name="queueCapacity" value="2000" />
+        <!-- 线程池维护线程所允许的空闲时间 -->
+        <property name="keepAliveSeconds" value="300" />
+        <!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+        </property>
+    </bean>
+
+    <!--&lt;!&ndash; 配置Job详情 &ndash;&gt;-->
+    <!--<bean name="getRoomWaterDailyJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
+        <!--<property name="jobClass" value="com.ets.bus.quartz.GetRoomWaterDaily"/>-->
+        <!--<property name="durability" value="true"/>-->
+        <!--<property name="requestsRecovery" value="false"/>-->
+    <!--</bean>-->
+
+    <!--<bean name="getRoomWaterMonthJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
+        <!--<property name="jobClass" value="com.ets.bus.quartz.GetRoomWaterMonth"/>-->
+        <!--<property name="durability" value="true"/>-->
+        <!--<property name="requestsRecovery" value="false"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="getRoomWaterDailyScheduler" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+        <!--<property name="jobDetail" ref="getRoomWaterDailyJob"/>-->
+        <!--<property name="cronExpression" value="1-2 0 0/1 * * ? *"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="getRoomWaterMonthScheduler" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
+        <!--<property name="jobDetail" ref="getRoomWaterMonthJob"/>-->
+        <!--<property name="cronExpression" value="0/5 * * * * ?"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; 配置调度任务&ndash;&gt;-->
+    <!--<bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+        <!--<property name="configLocation" value="classpath:quartz.properties"/>-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--<property name="transactionManager" ref="transactionManager"/>-->
+
+        <!--&lt;!&ndash; 任务唯一的名称，将会持久化到数据库&ndash;&gt;-->
+        <!--<property name="schedulerName" value="baseScheduler"/>-->
+
+        <!--&lt;!&ndash; 每台集群机器部署应用的时候会更新触发器&ndash;&gt;-->
+        <!--<property name="overwriteExistingJobs" value="true"/>-->
+        <!--<property name="applicationContextSchedulerContextKey" value="appli"/>-->
+
+        <!--<property name="jobFactory">-->
+            <!--<bean class="com.ets.bus.quartz.AutowiringSpringBeanJobFactory"/>-->
+        <!--</property>-->
+
+        <!--<property name="triggers">-->
+            <!--<list>-->
+                <!--<ref bean="getRoomWaterDailyScheduler"/>-->
+                <!--<ref bean="getRoomWaterMonthScheduler"/>-->
+            <!--</list>-->
+        <!--</property>-->
+
+        <!--<property name="jobDetails">-->
+            <!--<list>-->
+                <!--<ref bean="getRoomWaterDailyJob"/>-->
+                <!--<ref bean="getRoomWaterMonthJob"/>-->
+            <!--</list>-->
+        <!--</property>-->
+
+        <!--<property name="taskExecutor" ref="threadPool"/>-->
+    <!--</bean>-->
+
+     <import resource="shiro.xml" />
+     <import resource="spring-redis.xml" />
+
+	</beans>

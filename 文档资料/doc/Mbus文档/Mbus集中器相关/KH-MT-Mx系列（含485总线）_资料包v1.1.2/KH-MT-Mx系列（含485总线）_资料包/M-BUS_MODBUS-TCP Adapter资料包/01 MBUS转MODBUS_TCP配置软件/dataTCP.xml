@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<NewDataSet>
+  <BBH>
+    <rows id="1" name="bbh" value="17" />
+  </BBH>
+  <XieYiType>
+    <rows id="1" name="中国T188" value="0" />
+    <rows id="2" name="欧标一级地址" value="1" />
+    <rows id="3" name="欧标二级地址" value="2" />
+  </XieYiType>
+  <YiBiaoType>
+    <rows id="1" name="水表" value="16">
+    </rows>
+    <rows id="2" name="热量表" value="32">
+    </rows>
+    <rows id="3" name="冷量表" value="33">
+    </rows>
+    <rows id="4" name="冷热量表" value="34">
+    </rows>
+    <rows id="5" name="燃气表" value="48">
+    </rows>
+    <rows id="6" name="电表" value="54">
+    </rows>
+  </YiBiaoType>
+  <YiBiaoChangShang>
+    <中国T188>
+      <rows id="1" name="中国(热表通用901F)" value="0000" YBBBH="100">
+      </rows>
+      <rows id="2" name="中国(热表通用1F90)" value="000A" YBBBH="100">
+      </rows>
+      <rows id="3" name="中国(水表通用901F)" value="000B" YBBBH="100">
+      </rows>
+      <rows id="4" name="中国(水表通用1F90)" value="000C" YBBBH="100">
+      </rows>
+      <rows id="5" name="泰安三城水表" value="0001" YBBBH="100">
+      </rows>
+      <rows id="6" name="阳光能源热表" value="0002" YBBBH="100">
+      </rows>
+      <rows id="7" name="积成电子水表" value="0003" YBBBH="100">
+      </rows>
+      <rows id="8" name="博思达热表" value="0004" YBBBH="100">
+      </rows>
+      <rows id="9" name="天罡热表" value="0005" YBBBH="100">
+      </rows>
+      <rows id="10" name="力创热表" value="0006" YBBBH="100">
+      </rows>
+      <rows id="11" name="益都热表" value="0007" YBBBH="100">
+      </rows>
+      <rows id="12" name="丙辰水表" value="0008" YBBBH="100">
+      </rows>
+      <rows id="13" name="京源水表" value="0009" YBBBH="111">
+      </rows>
+      <rows id="14" name="甬港热表" value="000D" YBBBH="113">
+      </rows>
+      <rows id="15" name="唐山汇中热表" value="000E" YBBBH="114">
+      </rows>
+      <rows id="16" name="杭州优静热表" value="000F" YBBBH="114">
+      </rows>
+      <rows id="17" name="柏城热表" value="0010" YBBBH="115">
+      </rows>
+      <rows id="18" name="高翔水表" value="0011" YBBBH="116">
+      </rows>
+      <rows id="19" name="中原油田热表" value="0012" YBBBH="117">
+      </rows>
+      <rows id="20" name="新天科技水表" value="0013" YBBBH="118">
+      </rows>
+      <rows id="21" name="山东沂光热表" value="0014" YBBBH="119">
+      </rows>
+      <rows id="22" name="山东沂光水表" value="0015" YBBBH="119">
+      </rows>
+      <rows id="23" name="京源热表" value="0016" YBBBH="120">
+      </rows>
+      <rows id="24" name="丰源智控热表" value="0017" YBBBH="120">
+      </rows>
+      <rows id="25" name="积成水表" value="0018" YBBBH="121">
+      </rows>
+      <rows id="26" name="易通热表监听" value="0019" YBBBH="122">
+      </rows>
+      <rows id="27" name="MTK-E水表" value="001A" YBBBH="123">
+      </rows>
+      <rows id="28" name="骏普水表" value="001B" YBBBH="125">
+      </rows>
+      <rows id="29" name="迈拓热表" value="001C" YBBBH="131">
+      </rows>
+      <rows id="30" name="连利水表" value="001D" YBBBH="132">
+      </rows>
+      <rows id="31" name="天罡热表418F" value="001E" YBBBH="133">
+      </rows>
+      <rows id="32" name="DTL645_电表" value="001F" YBBBH="134">
+      </rows>
+      <rows id="33" name="宏远热表" value="0020" YBBBH="136">
+      </rows>
+      <rows id="34" name="远程热表" value="0021" YBBBH="137">
+      </rows>
+      <rows id="35" name="积成DN50" value="0022" YBBBH="138">
+      </rows>
+      <rows id="36" name="温控面板" value="0023" YBBBH="139">
+      </rows>
+      <rows id="37" name="DTL645_福达" value="0024" YBBBH="139">
+      </rows>
+      <rows id="38" name="DTL645_竞达" value="0025" YBBBH="139">
+      </rows>
+      <rows id="39" name="CQB大口径水表" value="0026" YBBBH="140">
+      </rows>
+      <rows id="40" name="集万讯水表" value="0027" YBBBH="141">
+      </rows>
+      <rows id="41" name="株洲水表" value="0028" YBBBH="143">
+      </rows>
+      <rows id="42" name="DTL645_电表1997" value="0029" YBBBH="144">
+      </rows>
+      <rows id="43" name="沈阳航发热表" value="002A" YBBBH="145">
+      </rows>
+      <rows id="44" name="腾越水表" value="002B" YBBBH="147">
+      </rows>
+      <rows id="45" name="腾越热表" value="002C" YBBBH="147">
+      </rows>
+    </中国T188>
+    <欧标一级地址>
+      <rows id="1" name="欧标一级地址(通用5B)" value="0001" YBBBH="100">
+      </rows>
+    </欧标一级地址>
+    <欧标二级地址>
+      <rows id="1" name="欧标二级地址(通用5B)" value="0002" YBBBH="100">
+      </rows>
+    </欧标二级地址>
+  </YiBiaoChangShang>
+  <SBXH>
+    <rows id="1" name="KH-MT-M5" value="5">
+    </rows>
+    <rows id="2" name="KH-MT-M20" value="20">
+    </rows>
+    <rows id="3" name="KH-MT-M100" value="100">
+    </rows>
+  </SBXH>
+</NewDataSet>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.parmSet.sysRunningParm.dao.SysRunningParmDao">
+    <!--查询删除状态为0的那条数据-->
+<select id="info" resultType="com.ets.bus.parmSet.sysRunningParm.entity.SysRunningParm">
+    select * from MB_SYSOPERAT_PARAM where DEL_STATUS=0
+</select>
+    <!--根据id得到对应的系统运行参数-->
+    <select id="getSysRunningParmById" parameterType="java.lang.String" resultType="com.ets.bus.parmSet.sysRunningParm.entity.SysRunningParm">
+        select * from MB_SYSOPERAT_PARAM where ID=#{id}
+    </select>
+    <!--根据id更新系统运行参数-->
+    <update id="updateSysRunningParmById" parameterType="java.lang.String">
+     update MB_SYSOPERAT_PARAM set DEL_STATUS=1,EFFECT_STATUS=0 where ID=#{id}
+    </update>
+    <!--新增系统运行参数-->
+    <insert id="addSysRunningParm" parameterType="com.ets.bus.parmSet.sysRunningParm.entity.SysRunningParm">
+       insert into MB_SYSOPERAT_PARAM values(#{id},#{del_status},#{effect_status},#{warn_water},#{valve_water},#{over_water},#{buy_money},#{return_money},#{add_cycle},TO_DATE(#{create_time},'yyyy-MM-dd HH24:mi:ss'),TO_DATE(#{effect_time},'yyyy-MM-dd HH24:mi:ss'),#{hoard_water})
+    </insert>
+
+    <insert id="insertDefult" parameterType="java.lang.String">
+       insert into MB_SYSOPERAT_PARAM values(#{id},0,0,1,1,2,5,5,0,sysdate,sysdate,20)
+    </insert>
+
+
+</mapper>

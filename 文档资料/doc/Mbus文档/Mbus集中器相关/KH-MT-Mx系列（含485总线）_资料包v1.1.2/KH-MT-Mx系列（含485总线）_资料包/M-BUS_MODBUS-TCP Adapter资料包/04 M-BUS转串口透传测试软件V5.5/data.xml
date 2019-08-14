@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<NewDataSet>
+  <BBH>
+    <rows id="1" name="bbh" value="6" />
+  </BBH>
+  <XieYiType>
+    <rows id="1" name="中国T188" value="0" />
+    <rows id="2" name="欧标一级地址" value="1" />
+    <rows id="3" name="欧标二级地址" value="2" />
+  </XieYiType>
+  <YiBiaoType>
+    <rows id="1" name="冷水水表" value="16">
+    </rows>
+    <rows id="2" name="生活热水水表" value="17">
+    </rows>
+    <rows id="3" name="直饮水水表" value="18">
+    </rows>
+    <rows id="4" name="中水水表" value="19">
+    </rows>
+    <rows id="5" name="热量表(计热量)" value="32">
+    </rows>
+    <rows id="6" name="热量表(计冷量)" value="33">
+    </rows>
+    <rows id="7" name="燃气表" value="48">
+    </rows>
+    <rows id="8" name="电度表" value="64">
+    </rows>
+  </YiBiaoType>
+  <YiBiaoChangShang>
+    <中国T188>
+      <rows id="1" name="中国(通用)" value="0000" YBBBH="101">
+      </rows>
+    </中国T188>
+    <欧标一级地址>
+      <rows id="1" name="欧标一级地址(通用5B)" value="0001" YBBBH="101">
+      </rows>
+    </欧标一级地址>
+    <欧标二级地址>
+      <rows id="1" name="欧标二级地址(通用5B)" value="0002" YBBBH="101">
+      </rows>
+    </欧标二级地址>
+  </YiBiaoChangShang>
+  <SBXH>
+    <rows id="1" name="KH-MR-M5" value="5">
+    </rows>
+    <rows id="2" name="KH-MR-M20" value="20">
+    </rows>
+    <rows id="3" name="KH-MR-M100" value="100">
+    </rows>
+  </SBXH>
+</NewDataSet>

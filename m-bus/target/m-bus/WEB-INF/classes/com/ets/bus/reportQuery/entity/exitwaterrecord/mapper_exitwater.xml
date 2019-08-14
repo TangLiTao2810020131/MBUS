@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.reportQuery.dao.exitwaterrecord.ExitWaterRecordDao">
+
+    <sql id="where">
+        <where>
+            (mr.DEL_STATUS=0 OR mr.DEL_STATUS IS NULL)
+            <if test="room_type_id != null and room_type_id != '' "> and mr.type_num = '${room_type_id}'</if>
+            <if test="floor_id != null and floor_id != '' "> and mw.floor_id = '${floor_id}'</if>
+            <if test="room_num != null and room_num != '' "> and mw.room_num = '${room_num}'</if>
+            <if test="room_id != null and room_id != '' "> and mw.room_id = '${room_id}'</if>
+            <if test="area_id != null and area_id != '' "> and mw.area_id = '${area_id}'</if>
+            <if test="build_id != null and build_id != '' "> and mw.build_id = '${build_id}'</if>
+            <if test="apartment_id != null and apartment_id != '' "> and mw.apartment_id = '${apartment_id}'</if>
+            <if test="apartment_name != null and apartment_name != '' "> and ta.name = '${apartment_name}'</if>
+            <if test="floor_name != null and floor_name != '' "> and tl.name = '${floor_name}'</if>
+            <if test="startTime != null and startTime != '' or endTime!=null and endTime!='' "> and mrr.create_time between to_date('${startTime}','yyyy-MM-dd HH24:mi:ss') and to_date('${endTime}','yyyy-MM-dd HH24:mi:ss')</if>
+        </where>
+    </sql>
+
+    <sql id="select">
+        from mb_return_record mrr
+        left join mb_water_meter_info mw on mw.id=mrr.water_meter_info_id
+        left join tb_region tr on mw.area_id=tr.id
+        left join tb_apartment ta on mw.apartment_id=ta.id
+        left join tb_floor tf on mw.build_id=tf.id
+        left join tb_layer tl on mw.floor_id=tl.id
+        left join mb_room_type_param mr on mw.room_type_id=mr.type_num
+        left join mb_concentrator mc on mrr.concentrator_id=mc.id
+        left join mb_worker tu on mrr.user_id=tu.id
+    </sql>
+
+    <select id="getExitWaterRecords" parameterType="java.util.Map" resultType="com.ets.bus.reportQuery.entity.exitwaterrecord.ExitWaterRecord">
+        select
+        tr.name area_name,
+        ta.name apartment_name,
+        tl.name floor_name,
+        tu.realname user_name,
+        mw.room_num room_num,
+        mw.buy_water_total buy_water_total,
+        mr.type_name room_type_name,
+        mrr.id id,
+        mrr.create_time create_time,
+        mc.ip_address ip_address,
+        mrr.return_money return_money,
+        mrr.return_water return_water,
+        mrr.current_status current_status
+        <include refid="select"/>
+        <include refid="where"/>
+        order by mrr.create_time desc
+    </select>
+
+    <select id="findExitRecord" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.exitwaterrecord.ExitWaterRecord">
+        select
+        mrr.serial_number serial_number,
+        tu.realname user_name,
+        tr.name area_name,
+        ta.name apartment_name,
+        tf.name build_name,
+        tl.name floor_name,
+        mw.room_num room_num,
+        mr.type_name room_type_name,
+        mrr.current_status current_status,
+        mrr.return_water return_water,
+        mrr.return_money return_money,
+        mrr.create_time create_time,
+        mrr.update_time update_time,
+        mrr.type type
+        <include refid="select"/>
+        where mrr.id=#{id}
+        and (mr.DEL_STATUS=0 OR mr.DEL_STATUS IS NULL)
+    </select>
+
+</mapper>

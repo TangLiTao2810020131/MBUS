@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>水表管理-购水管理-现金购水</title>
+  <link rel="stylesheet" href="../../../css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../css/common-layer.css" />
+  <style>
+  	.layui-form-item .layui-inline{margin-right: 55px;}
+  	.layui-form-item{margin-bottom: 10px;}
+  </style>
+<body style="background: #fff;overflow-x:hidden ;" class="innerBody">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend class="window-leg">基本信息</legend>
+</fieldset>
+<div class="layui-form layui-form-pane ml30">
+	<div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">公寓名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">房间编号</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+	    </div>
+  	</div>
+  	<div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">模块状态</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">采集时间</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+	    </div>
+  	</div>
+  	<div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">剩余水量</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+	      <span class="unit_">（吨）</span>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label marginL">水量单价</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled=""  class="layui-input layui-disabled">
+	      </div>
+	      <span class="unit_">（元）</span>
+	    </div>
+  	</div>
+</div>
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend class="window-leg">购水信息</legend>
+</fieldset>
+<form class="layui-form layui-form-pane ml30" action="" id="formHtml" style="width: ;margin-top: 20px;" lay-filter="updForm">
+	<input type="hidden" name="id" >              
+
+	<div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">购水人姓名</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">购水金额</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	      <span class="unit_">（元）</span>
+	    </div> 
+  	</div>
+  	<div class="layui-form-item">
+  		<div class="layui-inline">
+	      <label class="layui-form-label">购买水量</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	      <span class="unit_">（吨）</span>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label marginL">实收金额</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	      <span class="unit_">（元）</span>
+	    </div>
+  	</div>
+  	
+    <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">找零</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	      <span class="unit_">（元）</span>
+		  </div>
+ 	</div>
+  	<div class="layui-form-item window-block-btn">
+	    <div class="layui-input-block">
+	    	<button type="button" class="layui-btn layui-btn-primary window-btn" id="canleBtn">取消</button>
+	      <button type="button" class="layui-btn window-btn" lay-submit="" lay-filter="confirmBtn">确定</button>	      
+	    </div>
+ 	</div>
+</form>
+
+
+</body>
+
+<script src="../../../layui.all.js"></script>
+<script type="text/javascript">
+	 //主动加载jquery模块
+	layui.use(['jquery', 'layer'], function(){
+		var $ = layui.jquery //重点处
+		,layer = layui.layer;
+	
+		//得到父页面的id值
+		var id = (window.parent.id_);
+		var index = (window.parent.index_);
+		console.log(index+'、'+id);
+		
+		layui.use('form', function(){  
+		 	var form = layui.form;
+		 	//------授权提交-------
+			form.on('submit(confirmBtn)', function (data) {
+			    var obj = data.field;
+			    console.log(obj);
+			     //以下是ajax
+			});
+			//取消
+			$("body").on("click","#canleBtn",function(){
+				parent.layer.close(index);//关闭layer
+			})
+		})	
+	})
+   
+</script>
+</html>

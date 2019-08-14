@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.waterMeterMgt.waterReset.dao.WaterResetDao">
+
+    <!-- 向控水换房记录表插入一条记录 -->
+    <insert id="insertClearRecord" parameterType="com.ets.bus.waterMeterMgt.waterReset.entity.ClearRecordVo">
+        INSERT INTO
+          MB_CLEAR_RECORD(ID,WATER_METER_INFO_ID,TYPE,CURRENT_STATUS,USER_WATER,SUPPLEMENT_WATER,BUY_WATER_TOTAL,CASH_BUY_WATER,CARD_BUY_WATER,RETURN_WATER,SURPLUS_WATER,CLOSE_VALVE_WATER,CUMULATE_WATER,REMARK,USER_ID,CONCENTRATOR_ID,OPERATION_ID,CREATE_TIME)
+        VALUES(#{id},#{waterMeterInfoId},#{type},#{currentStatus},#{userWater},#{supplementWater},#{buyWaterTotal},#{cashBuyWater},#{cardBuyWater},#{returnWater},#{surplusWater},#{closeValveWater},#{cumulateWater},#{remark},#{userId},#{concentratorId},#{operationId},sysdate)
+    </insert>
+
+</mapper>
+    

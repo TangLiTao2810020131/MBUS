@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.waterMeterMgt.waterAddMgt.dao.WaterAddMgtDao">
+
+    <!--查询补水周期-->
+    <select id="getAddCycleById" resultType="java.lang.Integer">
+        SELECT
+          mwmi.ADD_CYCLE
+        FROM MB_WATER_METER_INFO mwmi
+        WHERE
+          mwmi.ID=#{id}
+    </select>
+
+    <!--周期内是否有补水记录-->
+    <select id="getAddRecordByCycle" resultType="com.ets.bus.waterMeterMgt.waterAddMgt.entity.AddRecordVo">
+        SELECT
+          msr.ID id
+        FROM MB_SUPPLEMENT_RECORD msr
+        WHERE
+          msr.WATER_METER_INFO_ID=#{id}
+        AND  msr.CURRENT_STATUS <![CDATA[<>]]> 2
+        <if test="cycle != null and cycle == 0 ">
+            and TO_CHAR(msr.CREATE_TIME,'yyyy-MM-dd')=TO_CHAR(sysdate,'yyyy-MM-dd')
+        </if>
+        <if test="cycle != null and cycle == 1 ">
+            and TO_CHAR(msr.CREATE_TIME,'yyyy-MM')=TO_CHAR(sysdate,'yyyy-MM')
+        </if>
+
+    </select>
+
+    <!-- 向补水记录表插入一条补水记录 -->
+    <insert id="insertAddRecord" parameterType="com.ets.bus.waterMeterMgt.waterAddMgt.entity.AddRecordVo">
+        INSERT INTO
+          MB_SUPPLEMENT_RECORD(ID,WATER_METER_INFO_ID,SERIAL_NUMBER,USER_ID,SUPPLEMENT_WATER,REMARK,CURRENT_STATUS,TYPE,CONCENTRATOR_ID,OPERAT_MONEY,OPERATION_ID,CREATE_TIME)
+        VALUES(#{id},#{waterMeterInfoId},#{serialNumber},#{userId},#{addWater},#{remark},#{currentStatus},#{type},#{concentratorId},#{operatMoney},#{operationId},sysdate)
+    </insert>
+
+    <!--根据楼层ID查询所有房间类型-->
+    <select id="getRoomTypeByFloorId" resultType="com.ets.bus.waterMeterMgt.waterAddMgt.entity.RoomTypeVo">
+        SELECT
+        mrtp.ID id,
+        mrtp.TYPE_NUM typeNum,
+        mrtp.TYPE_NAME typeName,
+        mrtp.DEL_STATUS delStatus,
+        mrtp.WARN_WATER warnWater,
+        mrtp.VALVE_WATER valveWater,
+        mrtp.OVER_WATER overWater,
+        mrtp.HOARD_WATER hoardWater,
+        mrtp.BUY_MONEY buyMoney,
+        mrtp.RETURN_MONEY returnMoney,
+        mrtp.ADD_CYCLE addCycle,
+        mrtp.CREATE_TIME createTime,
+        mrtp.EFFECT_TIME effectTime
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        WHERE
+        mwmi.FLOOR_ID=#{floorId}
+        AND (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+        GROUP by mrtp.ID,mrtp.TYPE_NUM,mrtp.TYPE_NAME,mrtp.DEL_STATUS,mrtp.WARN_WATER,mrtp.VALVE_WATER,
+                mrtp.OVER_WATER,
+                mrtp.HOARD_WATER,
+                mrtp.BUY_MONEY,
+                mrtp.RETURN_MONEY,
+                mrtp.ADD_CYCLE,
+                mrtp.CREATE_TIME,
+                mrtp.EFFECT_TIME
+        ORDER BY mrtp.TYPE_NUM
+    </select>
+
+    <select id="getRoomsByFloorId" parameterType="java.lang.String" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.WaterMeterInfoVo">
+        select
+           tr.name  roomNum,
+           mwmi.SURPLUS_WATER surplusWater,
+           mwmi.HOARD_WATER-mwmi.SURPLUS_WATER allowWater
+        from MB_WATER_METER_INFO mwmi
+        left join tb_room tr on mwmi.ROOM_ID=tr.ID
+        left join TB_LAYER tl on mwmi.FLOOR_ID=tl.ID
+        where mwmi.FLOOR_ID=#{floorId}
+    </select>
+</mapper>
+    

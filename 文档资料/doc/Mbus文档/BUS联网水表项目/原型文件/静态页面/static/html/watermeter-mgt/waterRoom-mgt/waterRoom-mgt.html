@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>水表管理-控水换房管理</title>
+    <link rel="stylesheet" href="../../../css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="../../../css/common.css" />
+</head>
+<body class="inner-body" style="background: #f2f2f2; position: relative;">
+    <!-----------树菜单--------------->
+    <div id="treeBox" style="width: 200px; background: #FFFFFF; float: left; height: 100%;">
+        <div class="treename">
+            <span>公寓房间列表</span>
+        </div>
+        <div class="layui-form1" id="tree">
+            <ul id="tree">
+            </ul>
+            <!--<div id="xtree" class="xtree_contianer"></div>-->
+        </div>
+    </div>
+    <!-------默认表格开始----------->
+    <div class="tableHtml" style="margin-left: 210px; height: 100%; background: #FFFFFF;">
+        <div class="top-btn">
+            <div class="layui-btn-group" style="position: relative;">
+                <button class="layui-btn" id="old-roomBtn">
+                    设为原房间</button>
+                <button class="layui-btn" id="new-roomBtn">
+                    设为新房间</button>
+                <button class="layui-btn" id="look-roomBtn">
+                    查看房间信息</button>
+            </div>
+            <div class="search-btn-group">
+                <input type="text" autocomplete="off" class="layui-input layui-input_" placeholder="请输入">
+                <button class="layui-btn layui-btns">
+                    查询</button>
+                <button class="layui-btn layui-btns layui-bg-orange" id="superBtn">
+                    高级查询</button>
+            </div>
+        </div>
+        <div class="tableDiv">
+            <table id="layui-table" lay-filter="tableBox" class="layui-table">
+            </table>
+        </div>
+    </div>
+    <!-----------------默认表格结束------------>
+    <!--高级查询-->
+    <form class="layui-form" action="" id="formHtml" lay-filter="updForm">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label" title="房间类型">
+                房间类型</label>
+            <div class="layui-input-inline">
+                <select name="">
+                    <option value="0">全部</option>
+                    <option value="1">学生公寓</option>
+                    <option value="2">教师公寓</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label" title="公寓">
+                公寓</label>
+            <div class="layui-input-inline">
+                <input type="text" name="" placeholder="请输入" lay-verify="required" autocomplete="off"
+                    class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label" title="楼层">
+                楼层</label>
+            <div class="layui-input-inline">
+                <input type="text" name="" placeholder="请输入" lay-verify="required" autocomplete="off"
+                    class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label" title="房间号">
+                房间号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="" placeholder="请输入" lay-verify="required" autocomplete="off"
+                    class="layui-input">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="button" class="layui-btn" lay-submit="" lay-filter="confirmBtn">
+                查询</button>
+            <button type="button" class="layui-btn layui-btn-primary" id="closeBtn">
+                收起</button>
+        </div>
+    </div>
+    </form>
+    <!--右边弹出层   开始------->
+    <div class="right-layer" style="display: none;">
+        <!------原房间信息----->
+        <div class="layui-form oldroom-info">
+            <h3 style="padding: 5px 0 5px 20px; font-weight: bold;">
+                原房间信息</h3>
+            <a href="javascript:void(0)" class="right-layer-shrink" title="收缩房间信息"><i style="font-size: 18px;
+                font-weight: bold;" class="layui-icon layui-icon-spread-left"></i></a>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="公寓名称">
+                        公寓名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="楼层">
+                        楼层</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="房间编号">
+                        房间编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="房间类型">
+                        房间类型</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="集中器IP">
+                        集中器IP</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="持卡购水量">
+                        持卡购水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="总补水量">
+                        总补水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="总退水量">
+                        总退水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="总用水量">
+                        总用水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="现金购水量">
+                        现金购水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="剩余水量">
+                        剩余水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--新房间信息-->
+        <div class="layui-form newroom-info">
+            <h3 style="padding: 0px 0 5px 20px; font-weight: bold;">
+                新房间信息</h3>
+            <a href="javascript:void(0)" class="right-layer-shrink" title="收缩房间信息"><i style="font-size: 18px;
+                font-weight: bold;" class="layui-icon layui-icon-spread-left"></i></a>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="公寓名称">
+                        公寓名称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="楼层">
+                        楼层</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="房间编号">
+                        房间编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="房间类型">
+                        房间类型</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="集中器IP">
+                        集中器IP</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="持卡购水量">
+                        持卡购水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="总补水量">
+                        总补水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="总退水量">
+                        总退水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="总用水量">
+                        总用水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="现金购水量">
+                        现金购水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label" title="剩余水量">
+                        剩余水量</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" class="layui-input layui-disabled" readonly="readonly">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="layui-btn" id="subBtn" style="position: relative; left: 50%; transform: translateX(-50%);">
+            确认更换</button>
+    </div>
+    <!--右边弹出层   结束------->
+</body>
+<script src="../../../layui.all.js"></script>
+<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//主动加载jquery模块
+layui.use(['jquery', 'layer'], function(){
+	var $ = layui.jquery //重点处
+	,layer = layui.layer;
+	table = layui.table;//表格，注意此处table必须是全局变量
+	var arr = [[ 
+	    {type:'checkbox'}
+      ,{field: 'quyu', title: '区域', }
+      ,{field: 'gongyu', title: '公寓'}
+      ,{field: 'louceng', title: '楼层'}
+      ,{field: 'fangjianhao', title: '房间号'} 
+      ,{field: 'mkzt', title: '初始化状态'}
+      ,{field: 'jizhongqi', title: '阀门状态'}
+      
+    ]];
+	var limitArr =[10,20,30];
+	var urls = '../../../tableJson.js';
+	com.tableRender('#layui-table','tableId','full-50',limitArr,urls,arr);//加载表格,注意tableId是自定义的，在表格重载需要！！
+	/*树形菜单*/
+	com.normalTree("#tree","../../../treeJson.js");
+
+	/*-----设为原房间-----*/
+ 	$("#old-roomBtn").click(function(){	
+	  var checkStatus = table.checkStatus('tableId'); //test即为基础参数id对应的值
+    //数据只能是一条
+    if (checkStatus.data.length == 0) {
+        parent.layer.open({
+            title: '温馨提示'
+            , content: '请勾选一条目标数据！'
+        });
+        return false;
+    } else if (checkStatus.data.length > 1) {
+        parent.layer.open({
+            title: '温馨提示'
+            , content: '只能勾选一条数据！'
+        });
+        return false;
+    }
+  	console.log(checkStatus.data);
+	})
+ 	/*-----设为新房间-----*/
+ 	$("#new-roomBtn").click(function(){	
+	 	var checkStatus = table.checkStatus('tableId'); //test即为基础参数id对应的值
+    //数据只能是一条
+    if (checkStatus.data.length == 0) {
+        parent.layer.open({
+            title: '温馨提示'
+            , content: '请勾选一条目标数据！'
+        });
+        return false;
+    } else if (checkStatus.data.length > 1) {
+        parent.layer.open({
+            title: '温馨提示'
+            , content: '只能勾选一条数据！'
+        });
+        return false;
+    }
+  	console.log(checkStatus.data);
+	})
+ 	/*-----查看房间信息-----*/
+ 	var bol = 0;
+ 		
+ 	$("#look-roomBtn").click(function(){	//点击查看房间信息按钮
+	 	if(!bol){
+ 			$(this).text("关闭房间信息");
+ 			bol = 1;
+ 		}else{
+ 			$(this).text("查看房间信息");
+ 			bol = 0;
+ 		}
+ 		$(".right-layer").animate({width:'toggle'},300);
+	})
+	$(".right-layer-shrink").click(function(){	//点击收缩图标
+		$("#look-roomBtn").text("查看房间信息");
+		bol = 0;
+ 		$(".right-layer").animate({width:'toggle'},300);
+	})
+ 	
+
+})	
+</script>
+</html>

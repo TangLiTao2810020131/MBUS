@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.systemMgt.clctApplMgt.dao.ClctApplMgtDao">
+    <sql id="where">
+        <where>
+            <if test="collect_address != null and collect_address != '' "> and collect_address = '${collect_address}'</if>
+            <if test="application_number != null and application_number != '' "> and application_number = '${application_number}'</if>
+            <if test="collect_name != null and collect_name != '' "> and collect_name = '${collect_name}'</if>
+            and  del_status=0
+        </where>
+    </sql>
+    <select id="getClctApplMgts" parameterType="java.util.Map" resultType="com.ets.bus.systemMgt.clctApplMgt.entity.ClctApplMgt">
+        select * from mb_collect
+        <include refid="where"/>
+    </select>
+
+    <!--获取总记录数-->
+    <select id="getCount" resultType="long" parameterType="java.util.Map">
+        select count(*) from mb_collect
+        <include refid="where"/>
+    </select>
+
+    <!--添加采集信息-->
+    <insert id="addClctApplMgt" parameterType="com.ets.bus.systemMgt.clctApplMgt.entity.ClctApplMgt">
+       insert into mb_collect
+       values(#{application_number},#{collect_name},#{concentrator_id},to_date(#{failure},'yyyy-mm-dd hh24:mi:ss'),to_number(#{auto_collect_frequency}),#{instruction_number},#{id},to_number(#{del_status}),#{collect_key},#{collect_address})
+    </insert>
+
+    <!--编辑采集信息-->
+    <update id="editClctApplMgt"  parameterType="com.ets.bus.systemMgt.clctApplMgt.entity.ClctApplMgt">
+        update mb_collect
+        set application_number=#{application_number},collect_name=#{collect_name},collect_address=#{collect_address},auto_collect_frequency=to_number(#{auto_collect_frequency}),collect_key=#{collect_key},failure=to_date(#{failure},'yyyy-mm-dd hh24:mi:ss')
+        where id=#{id}
+    </update>
+
+    <select id="findClctApplMgtById" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.clctApplMgt.entity.ClctApplMgt">
+        select * from mb_collect where id=#{id}
+    </select>
+    
+    <delete id="delClctApplMgts" parameterType="java.util.ArrayList">
+        delete from mb_collect where id in 
+        <foreach collection="array" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据采集id查询命令编号-->
+    <select id="findInstruction" parameterType="java.lang.String" resultType="java.lang.String">
+        select instruction_num from MB_INSTRUCTION_DETAIL where COLLECT_ID=#{id}
+    </select>
+
+    <!--查询所有的采集信息-->
+    <select id="findClctApplMgts" resultType="com.ets.bus.systemMgt.clctApplMgt.entity.ClctApplMgt">
+        select * from mb_collect where DEL_STATUS=0
+    </select>
+
+    <!--根据应用编号查询应用信息-->
+    <select id="checkApplicationNumber" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.clctApplMgt.entity.ClctApplMgt">
+        select * from mb_collect where application_number=#{applicationNumber} and DEL_STATUS=0
+    </select>
+
+    <!--根据应用名称查询应用信息-->
+    <select id="checkApplicationName" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.clctApplMgt.entity.ClctApplMgt">
+        select * from mb_collect where collect_name=#{collectName}
+    </select>
+
+    <!--批量更新采集表删除状态-->
+    <update id="updateClctApplMgtDelStatus" parameterType="java.util.List">
+        update mb_collect set del_status=1
+        where id in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>

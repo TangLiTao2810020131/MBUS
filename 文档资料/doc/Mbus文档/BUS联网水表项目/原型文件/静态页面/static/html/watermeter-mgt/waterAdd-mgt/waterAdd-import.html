@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>水表管理-补水管理-按导入补水</title>
+  <link rel="stylesheet" href="../../../css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../css/common-layer.css" />
+</head>
+<body style="background: #fff;overflow-x:hidden ;" class="innerBody">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend class="window-leg">下载模板</legend>
+</fieldset>
+<div class="layui-btn-group" style="position: relative;top: 0;left: 50px;">
+    <button class="layui-btn" id="downBtn">下载模板</button>
+</div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend class="window-leg">导入文件</legend>
+</fieldset>
+<div class="import-col">
+	<input type="file" name="file" id="import">
+</div>
+<div class="import-msg">
+	<p><span style="font-weight: bold;">提示：</span>导入文件中有<span style="color: red;">3</span> 条数据异常。请修正后重新选择。</p>
+</div>
+<div class="bottomBtn" style="border-top: 1px solid #e6e6e6;">
+	<button type="button" class="layui-btn" lay-submit="" lay-filter="importBtn" id="importBtn">导入</button>
+	<button type="button" class="layui-btn layui-btn-primary" id="cancelBtn">取消</button>
+</div>
+
+
+</body>
+<script src="../../../layui.all.js"></script>
+<script type="text/javascript" src="../../../js/common.js" ></script>
+<script type="text/javascript">
+	 //主动加载jquery模块
+	layui.use(['jquery', 'layer'], function(){
+		var $ = layui.jquery //重点处
+		,layer = layui.layer;
+		var index = (window.parent.index_);
+		console.log(index);
+		
+		//取消
+		$("body").on("click","#cancelBtn",function(){
+			parent.layer.close(index);//关闭layer
+		})
+		
+	})
+   
+</script>
+</html>

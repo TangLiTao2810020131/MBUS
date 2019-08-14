@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.systemMgt.floorMgt.dao.FloorMgtDao">
+
+    <!--获取房间管理指令列表-->
+    <select id="selectRecordList" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        SELECT
+        moi.ID id,
+        moi.INSTRUCTION_NUM instructionNum,
+        ta.NAME apartmentName,
+        moi.TYPE type,
+        CASE moi.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '下发成功'
+        WHEN 2 THEN '下发失败'
+        ELSE '未知' END
+        currentStatusName,
+        moi.CREATE_TIME createTime,
+        moi.RESULT result
+        FROM MB_OPERATION_INSTRUCTION moi
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = moi.APARTMENT_ID
+        WHERE
+        moi.WATER_METER_INFO_ID=#{id}
+        <if test="currentStatus != null and currentStatus != '' ">
+            and moi.CURRENT_STATUS=#{currentStatus}
+        </if>
+        <if test="date != null and date != '' ">
+            and TO_CHAR(moi.CREATE_TIME,'yyyy-MM-dd') = #{date}
+        </if>
+        ORDER BY  moi.CREATE_TIME DESC
+    </select>
+
+    <!--若当前存在未执行完毕的指令，则不允许对相同的房间重复操作同样的指令-->
+    <select id="checkNotFinishInsByIds" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        SELECT
+        moi.ID id
+        FROM
+        MB_OPERATION_INSTRUCTION moi
+        WHERE
+        CURRENT_STATUS = 0
+        <if test="type != null">
+            AND
+            moi.TYPE = #{type}
+        </if>
+        <if test="types != null">
+            AND
+            moi.TYPE in
+            <foreach collection="types" item="t" index="index" open="(" close=")" separator=",">
+                #{t}
+            </foreach>
+        </if>
+        AND
+        moi.WATER_METER_INFO_ID in
+        <foreach collection="arr" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+
+    </select>
+
+    <!--根据ID数组获取绑定集中器和水表的水表房间-->
+    <select id="getWaterMeterInfoByIds" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.WaterMeterInfoVo">
+        SELECT
+        mwmi.ID id,
+        mwmi.APARTMENT_ID apartmentId,
+        mwmi.FLOOR_ID floorId,
+        mwmi.INIT_STATUS initStatus,
+        mwmi.VALVE_STATUS valveStatus,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.SURPLUS_WATER surplusWater,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.ROOM_TYPE_ID roomTypeId,
+        mrtp.RETURN_MONEY returnMoney,
+        mrtp.BUY_MONEY price,
+        mrtp.ADD_CYCLE addCycle,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        mwmi.CONCENTRATOR_ID concentratorId,
+        mwm.WATER_METER_ID waterMeterNum,
+        mrtp.HOARD_WATER maxWater,
+        mrtp.WARN_WATER warnWater,
+        mrtp.OVER_WATER maxOverWater,
+        mrtp.VALVE_WATER closeValveWater
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_WATER_METER mwm ON mwm.ID = mwmi.WATER_METER_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        WHERE
+          mwmi.WATER_METER_ID is not null
+          AND
+          mwmi.CONCENTRATOR_ID is not null
+          AND
+          (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+          AND
+          mwmi.ID in
+          <foreach item="id" collection="ids" open="(" separator="," close=")">
+                #{id}
+          </foreach>
+    </select>
+    <!--根据ID获取绑定集中器和水表的水表房间-->
+    <select id="getWaterMeterInfoById" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.WaterMeterInfoVo" parameterType="java.lang.String">
+        SELECT
+        mwmi.ID id,
+        mwmi.APARTMENT_ID apartmentId,
+        mwmi.FLOOR_ID floorId,
+        mwmi.INIT_STATUS initStatus,
+        mwmi.VALVE_STATUS valveStatus,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.SURPLUS_WATER surplusWater,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.ROOM_TYPE_ID roomTypeId,
+        mrtp.RETURN_MONEY returnMoney,
+        mrtp.BUY_MONEY price,
+        mrtp.ADD_CYCLE addCycle,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        mwmi.CONCENTRATOR_ID concentratorId,
+        mwm.WATER_METER_ID waterMeterNum,
+        mrtp.HOARD_WATER maxWater,
+        mrtp.WARN_WATER warnWater,
+        mrtp.OVER_WATER maxOverWater,
+        mrtp.VALVE_WATER closeValveWater
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_WATER_METER mwm ON mwm.ID = mwmi.WATER_METER_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        WHERE
+        mwmi.WATER_METER_ID is not null
+        AND
+        mwmi.CONCENTRATOR_ID is not null
+        AND
+        (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+        AND
+        mwmi.ID=#{id}
+    </select>
+
+
+
+    <!--插入换表记录表-->
+    <insert id="insertReplaceRecord" parameterType="com.ets.bus.systemMgt.floorMgt.entity.ReplaceRecord" >
+        insert into MB_REPLACE_RECORD values(#{id},#{water_meter_info_id},#{newWaterMeterId},#{oldWaterMeterId},#{replaceMoney},#{currentStatus},#{replaceWaterNum},#{waterType},to_date(#{openTime},'yyyy-mm-dd hh24:mi:ss'),sysdate,#{operationUser},#{userId},sysdate,#{remark},#{operationId})
+    </insert>
+    <select id="getNumByWaterMeterId" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.floorMgt.entity.ReplaceRecord">
+        select  mrr.id id,mrr.WATER_METER_INFO_ID water_meter_info_id,mrr.REPLACE_WATER_NUM replaceWaterNum from MB_REPLACE_RECORD mrr where WATER_METER_INFO_ID=#{id} and REPLACE_TIME=(select max(REPLACE_TIME) from MB_REPLACE_RECORD )
+    </select>
+    <update id="updateReplaceRecord" parameterType="com.ets.bus.systemMgt.floorMgt.entity.ReplaceRecord">
+        update MB_REPLACE_RECORD set WATER_METER_INFO_ID=#{water_meter_info_id},NEW_WATER_METER_ID=#{newWaterMeterId},OLD_WATER_METER_ID=#{oldWaterMeterId},REPLACE_MONEY=#{replaceMoney},CURRENT_STATUS=#{currentStatus},REPLACE_WATER_NUM=#{replaceWaterNum},WATER_TYPE=#{waterType},OPEN_TIME=to_date(#{openTime},'yyyy-mm-dd hh24:mi:ss'),REPLACE_TIME=sysdate,OPERATION_USER=#{operationUser},USER_ID=#{userId},CREATE_TIME=sysdate,REMARK=#{remark},OPERATION_ID=#{operationId} where ID=#{id}
+    </update>
+
+    <!--根据id获取指令列表-->
+    <select id="findInstructionsRecord" parameterType="java.lang.String" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        SELECT
+        moi.ID id,
+        moi.INSTRUCTION_NUM instructionNum,
+        ta.NAME apartmentName,
+        moi.TYPE type,
+        CASE moi.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '下发成功'
+        WHEN 2 THEN '下发失败'
+        ELSE '未知' END
+        currentStatusName,
+        moi.CREATE_TIME createTime,
+        moi.RESULT result,
+        moi.INSTRUCTION_DETAIL instructionDetail,
+        mw.REALNAME userName
+        FROM MB_OPERATION_INSTRUCTION moi
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = moi.APARTMENT_ID
+        LEFT JOIN MB_WORKER mw ON  moi.USER_ID=mw.id
+        WHERE moi.id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>参数设置-读写卡参数</title>
+		<link rel="stylesheet" href="../../../css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../../../css/common-layer.css"/>
+	</head>
+	<body class="parm parms">
+		<form class="layui-form" action="" style="color: #666; background: #FFFFFF; padding-top: 30px;">
+		  <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">参数卡版本</label>
+		      <div class="layui-input-inline">
+		        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled" value="0">
+		      </div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">基本信息扇区地址</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">金额信息区扇区地址</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">记录信息区扇区地址</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		  </div>
+		  
+		  <div class="layui-form-item">
+		    
+		    <div class="layui-inline">
+		      <label class="layui-form-label">水表信息区扇区地址</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">扩展信息区扇区地址</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">小钱包信息区扇区地址</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">是否使用CRC校验</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		  </div>
+		  
+		  <div class="layui-form-item">
+		    
+		    <div class="layui-inline">
+		      <label class="layui-form-label">用户的卡密码模式</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">保留值1</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		     <div class="layui-inline">
+		      <label class="layui-form-label">保留值2</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		    </div>
+		  </div>
+		 
+		  <div class="layui-form-item" style="padding-bottom: 20px;">
+		    <div class="layui-input-block">
+		      <button class="layui-btn" type="button" lay-submit lay-filter="save" style="margin-left: 84px;">&nbsp;保  存&nbsp;</button>
+		    </div>
+		  </div>
+		</form>
+	</body>
+	<script src="../../../layui.all.js"></script>
+	<script type="text/javascript" src="../../../js/common.js" ></script>
+	<script>
+		layui.use(['form', 'layedit', 'laydate'], function(){
+		  var form = layui.form
+		  ,layer = layui.layer
+		  ,layedit = layui.layedit
+		  ,laydate = layui.laydate;
+		  
+		  //日期
+		  laydate.render({
+		    elem: '#date'
+		  });
+		  laydate.render({
+		    elem: '#date1'
+		  });
+		
+		  
+		  //监听提交
+		  form.on('submit(save)', function(data){
+		    console.log(JSON.stringify(data.field));
+		  });
+		 
+		
+		  
+		  
+		});
+	</script>
+</html>

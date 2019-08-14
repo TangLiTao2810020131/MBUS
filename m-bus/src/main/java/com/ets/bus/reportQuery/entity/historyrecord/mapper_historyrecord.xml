@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.reportQuery.dao.historyrecord.HistoryRecordDao">
+
+    <sql id="where">
+        <where>
+                <if test="area_id != null and area_id != '' "> and tr.id = '${area_id}'</if>
+                <if test="build_id != null and build_id != '' "> and tf.id = '${build_id}'</if>
+                <if test="apartment_id != null and apartment_id != '' "> and ta.id = '${apartment_id}'</if>
+                <if test="floor_id != null and floor_id != '' "> and tl.id = '${floor_id}'</if>
+                <if test="room_num != null and room_num != '' "> and room_num = '${room_num}'</if>
+                <if test="apartment_name != null and apartment_name != '' "> and ta.name = '${apartment_name}'</if>
+                <if test="floor_name != null and floor_name != '' "> and tl.name = '${floor_name}'</if>
+                <if test="startTime != null and startTime != '' or endTime!=null and endTime!='' "> and mc.create_time between to_date('${startTime}','yyyy-MM-dd HH24:mi:ss') and to_date('${endTime}','yyyy-MM-dd HH24:mi:ss')</if>
+        </where>
+    </sql>
+    <sql id="select">
+        from mb_collect_record mc
+        left join mb_water_meter_info mwm on mc.water_meter_info_id=mwm.id
+        left join tb_region tr on mwm.area_id=tr.id
+        left join tb_apartment ta on mwm.apartment_id=ta.id
+        left join tb_floor tf on mwm.build_id=tf.id
+        left join tb_layer tl on mwm.floor_id=tl.id
+        left join tb_room  tro on mwm.room_id=tro.id
+        left join mb_water_meter mw on mwm.water_meter_id=mw.id
+    </sql>
+    <select id="selectHistoryRecords" parameterType="java.util.Map" resultType="com.ets.bus.reportQuery.entity.historyrecord.HistoryRecord">
+        select
+        mc.id id,
+        tr.name areaName,
+        ta.name apartmentName,
+        tf.name buildName,
+        tl.name floorName,
+        tro.name roomNum,
+        mw.water_meter_id waterMeterNum,
+        case  mc.current_status
+        when 0 then '未下发'
+        when 1 then '下发成功'
+        when 2 then '下发失败'
+        else '其他' end currentStatusName,
+        mc.create_time createTime,
+        mc.buy_water_total buyWaterTotal,
+        mc.supplement_water supplementWater,
+        mc.over_water overWater,
+        mc.user_water userWater
+        <include refid="select"/>
+        <include refid="where"/>
+        order by mc.create_time desc
+    </select>
+
+    <select id="findHistoryRecordById" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.historyrecord.HistoryRecord">
+        select
+        mc.id id,
+        tr.name areaName,
+        ta.name apartmentName,
+        tf.name buildName,
+        tl.name floorName,
+        tro.name roomNum,
+        mw.water_meter_id waterMeterNum,
+        case  mc.current_status
+        when 0 then '未下发'
+        when 1 then '下发成功'
+        when 2 then '下发失败'
+        else '其他' end currentStatusName,
+        mc.create_time createTime,
+        mc.buy_water_total buyWaterTotal,
+        mc.supplement_water supplementWater,
+        mc.over_water overWater,
+        mc.user_water userWater
+        <include refid="select"/>
+        where mc.id=#{id}
+    </select>
+</mapper>

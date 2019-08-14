@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>报表查询-职工操作日志-详情页面</title>
+  <link rel="stylesheet" href="../../../css/layui.css" media="all">	
+	<link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+</head>
+<body class="inner-body" style="background:#f2f2f2;position: relative;overflow: hidden;">
+<!-----------树菜单--------------->
+<div id="treeBox" style="width: 200px;background: #FFFFFF;float: left;height: 100%;">
+	
+	<div class="treename">
+		<span>职工列表</span>
+	</div>
+	<div class="layui-form1" id="tree">
+		<ul id="tree"></ul>
+		<!--<div id="xtree" class="xtree_contianer"></div>-->
+	</div>
+</div>
+
+<!-------默认表格开始----------->
+
+<div class="tableHtml" style="margin-left: 210px;height: 100%;background: #FFFFFF;">
+  <div class="top-btn">
+	    <div class="search-btn-group" style="margin-right: 10px;">
+		  	<input type="text"  autocomplete="off" class="layui-input" placeholder="请输入">
+		 	<button class="layui-btn" style="padding: 0 18px;">查 询</button>
+		</div>
+	</div>
+	<div class="tableDiv" style="padding-right: 10px;">
+		<table id="layui-table" lay-filter="tableBox" class="layui-table"></table>
+	</div>
+</div>
+<!-----------------默认表格结束------------>
+
+</body>
+<script src="../../../layui.all.js"></script>
+<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//主动加载jquery模块
+layui.use(['jquery', 'layer'], function(){
+	var $ = layui.jquery //重点处
+	,layer = layui.layer;
+	table = layui.table;//表格，注意此处table必须是全局变量
+	var arr = [[ 
+	    {type:'checkbox'}
+      ,{field: 'quyu', title: '操作时间', }
+      ,{field: 'gongyu', title: '业务类型'}
+      ,{field: 'louceng', title: '操作员'}
+      ,{field: 'fangjianhao', title: '操作信息'} 
+    ]];
+	var limitArr =[10,20,30];
+	var urls = '../../../tableJson.js';
+	com.tableRender('#layui-table','tableId','full-45',limitArr,urls,arr);//加载表格,注意tableId是自定义的，在表格重载需要！！
+	/*树形菜单*/
+	com.normalTree("#tree","../../../treeJson.js");
+	//table表格重载刷新
+	function reTable(res){
+		reloadTable(res);
+	}
+	//点击某个树节点，表格重载
+	
+	//查询
+
+
+})	
+</script>
+</html>

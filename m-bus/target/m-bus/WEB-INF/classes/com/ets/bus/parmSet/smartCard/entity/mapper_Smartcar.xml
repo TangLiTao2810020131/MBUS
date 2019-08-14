@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.parmSet.smartCard.dao.SmartCardDao">
+
+    <!--查询条件-->
+    <sql id="where">
+        <where>
+            <if test="terminalNum!=null and terminalNum!=''">and mct.terminal_num=#{terminalNum}</if>
+            and  mct.DEL_STATUS=0
+        </where>
+    </sql>
+
+    <!--查询一卡通终端集合-->
+    <select id="getCardTerminalList" resultType="com.ets.bus.parmSet.smartCard.entity.CardTerminalVo">
+         SELECT
+           mct.id,
+           mct.terminal_num terminalNum,
+           mct.terminal_address terminalAddress,
+           case mct.terminal_type
+             when 0 then '购水终端'
+             when 1 then '退水终端'
+             else '其它' end terminalTypeName,
+           mct.terminal_fun terminalFun,
+           case mct.terminal_status
+             when 0 then '在线'
+             when 1 then '离线'
+             else '其它' end terminalStatusName,
+           mct.min_water minWater,
+           mct.min_money minMoney,
+           mct.day_restrict dayRestrict,
+           mct.heartbeat_time heartbeatTime,
+           mct.create_time createTime,
+           mct.collect_time collectTime
+        FROM MB_CARD_TERMINAL mct
+        <include refid="where"/>
+        ORDER BY mct.CREATE_TIME
+    </select>
+
+    <!--新增-->
+    <insert id="addSmartCard" parameterType="com.ets.bus.parmSet.smartCard.entity.CardTerminalVo">
+        insert into
+        MB_CARD_TERMINAL(id,terminal_num,terminal_address,terminal_type,del_status,terminal_status,terminal_fun,min_water,min_money,day_restrict,heartbeat_time,collect_time,create_time)
+        values(#{id},#{terminalNum},#{terminalAddress},#{terminalType},#{delStatus},#{terminalStatus},#{terminalFun},#{minWater},#{minMoney},#{dayRestrict},to_number(#{heartbeatTime}),to_date(#{collectTime},'yyyy-mm-dd hh24:mi:ss'),sysDate)
+    </insert>
+
+    <!--更新删除状态-->
+    <update id="updatedelStatus" parameterType="java.util.List">
+        update MB_CARD_TERMINAL
+        set DEL_STATUS=1
+        where id in
+        <foreach collection="array" item="id" separator="," close=")" open="(">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--启用-->
+    <update id="updateStartStatus" parameterType="java.util.List">
+        update MB_CARD_TERMINAL
+        set USE_STATUS=0
+        where id in
+        <foreach collection="array" item="id" separator="," close=")" open="(">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--禁用-->
+    <update id="updateEndStatus" parameterType="java.util.List">
+        update MB_CARD_TERMINAL
+        set USE_STATUS=1
+        where id in
+        <foreach collection="array" item="id" separator="," close=")" open="(">
+            #{id}
+        </foreach>
+    </update>
+
+    <!--根据终端编号查询终端信息-->
+    <select id="checkTerminalNum" parameterType="java.lang.String" resultType="com.ets.bus.parmSet.smartCard.entity.CardTerminalVo">
+        select * from MB_CARD_TERMINAL
+        where TERMINAL_NUM=#{terminalNum} and DEL_STATUS=0
+    </select>
+
+    <!--根据终端IP地址查询终端信息-->
+    <select id="checkTerminalAddress" parameterType="java.lang.String" resultType="com.ets.bus.parmSet.smartCard.entity.CardTerminalVo">
+        select * from MB_CARD_TERMINAL
+        where TERMINAL_ADDRESS=#{terminalAddress} and DEL_STATUS=0
+    </select>
+
+    <!--根据id查询信息-->
+    <select id="findCardTerminalVoById" parameterType="java.lang.String" resultType="com.ets.bus.parmSet.smartCard.entity.CardTerminalVo">
+          SELECT
+           mct.id,
+           mct.terminal_num terminalNum,
+           mct.terminal_address terminalAddress,
+           mct.terminal_type terminalType,
+           case mct.terminal_type
+             when 0 then '购水终端'
+             when 1 then '退水终端'
+             else '其它' end terminalTypeName,
+           mct.terminal_fun terminalFun,
+           mct.terminal_status terminalStatus,
+           case mct.terminal_status
+             when 0 then '在线'
+             when 1 then '离线'
+             else '其它' end terminalStatusName,
+           mct.min_water minWater,
+           mct.min_money minMoney,
+           mct.day_restrict dayRestrict,
+           mct.heartbeat_time heartbeatTime,
+           mct.create_time createTime,
+           mct.collect_time collectTime
+        FROM MB_CARD_TERMINAL mct
+        where mct.id=#{id}
+    </select>
+
+    <!--编辑-->
+    <update id="editSmartCard" parameterType="com.ets.bus.parmSet.smartCard.entity.CardTerminalVo">
+        update MB_CARD_TERMINAL
+        set
+        TERMINAL_NUM=#{terminalNum},
+        TERMINAL_ADDRESS=#{terminalAddress},
+        TERMINAL_TYPE=#{terminalType},
+        TERMINAL_STATUS=#{terminalStatus},
+        TERMINAL_FUN=#{terminalFun},
+        MIN_WATER=#{minWater},
+        MIN_MONEY=#{minMoney},
+        DAY_RESTRICT=#{dayRestrict},
+        HEARTBEAT_TIME=to_number(#{heartbeatTime}),
+        COLLECT_TIME=to_date(#{collectTime},'yyyy-mm-dd hh24:mi:ss')
+        where
+        id=#{id}
+    </update>
+
+</mapper>
+    

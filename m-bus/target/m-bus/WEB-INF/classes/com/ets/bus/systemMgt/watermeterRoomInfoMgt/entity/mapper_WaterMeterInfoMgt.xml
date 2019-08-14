@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ets.bus.systemMgt.watermeterRoomInfoMgt.dao.WaterMeterInfoMgtDao">
+    <!--新增房间信息表（新增房间时）-->
+    <insert id="saveWatermeterRoomInfoMgt" parameterType="com.ets.bus.systemMgt.watermeterRoomInfoMgt.entity.WaterMeterInfoMgt">
+        insert into MB_WATER_METER_INFO(ID, AREA_ID, APARTMENT_ID, FLOOR_ID, ROOM_ID, ROOM_NUM, CREATE_TIME,BUILD_ID,CLOSE_VALVE_WATER,WARN_WATER,MAX_OVER_WATER,HOARD_WATER,BUY_MONEY,RETURN_MONEY,ADD_CYCLE,ROOM_TYPE_ID) values (#{id},#{areaId},#{apartmentId},#{floorId},#{roomId},#{roomNum},sysdate,#{buildId},#{closeValveWater},#{warn_water},#{max_over_water},#{maxWater},#{buy_money},#{return_money},#{add_cycle},#{roomTypeId})
+    </insert>
+
+    <!--绑定房间-->
+    <update id="updateWatermeterRoomInfoMgtByRoomId" parameterType="java.util.Map" >
+
+     update MB_WATER_METER_INFO set WATER_METER_ID=#{waterMeterId},OPEN_TIME=sysdate,UPDATE_TIME=sysdate where id=#{id}
+    </update>
+
+
+    <!--检测水表是否绑定过水表-->
+    <select id="isCheckWaterMeter" parameterType="java.lang.String" resultType="int">
+        select count(*) from MB_WATER_METER_INFO where WATER_METER_ID=#{id}
+    </select>
+
+    <!--根据房间的Id 删除水表信息表中数据-->
+    <delete id="delWatermeterRoomInfoMgtByRoomId" parameterType="java.lang.String">
+        delete from MB_WATER_METER_INFO where ROOM_ID in
+        <foreach item="roomId" collection="array" open="(" separator="," close=")">
+            #{roomId}
+        </foreach>
+    </delete>
+    <!--根据区域的Id查看该区域下的水表个数-->
+    <select id="isCheckRegionWaterMeter" parameterType="java.lang.String" resultType="long">
+     select count(*) from MB_WATER_METER_INFO where WATER_METER_ID is not null and AREA_ID in
+     <foreach item="regionId" collection="array" open="(" separator="," close=")">
+        #{regionId}
+    </foreach>
+    </select>
+    <!--根据公寓的Id查看该公寓下的水表个数-->
+    <select id="isCheckApartmentWaterMeter" parameterType="java.lang.String" resultType="long">
+        select count(*) from MB_WATER_METER_INFO where WATER_METER_ID is not null and APARTMENT_ID in
+        <foreach item="apartmentId" collection="array" open="(" separator="," close=")">
+            #{apartmentId}
+        </foreach>
+    </select>
+    <!--根据楼栋的Id查看该楼栋下的水表个数-->
+    <select id="isCheckFloorWaterMeter" parameterType="java.lang.String" resultType="long">
+        select count(*) from MB_WATER_METER_INFO where WATER_METER_ID is not null and BUILD_ID in
+        <foreach item="floorId" collection="array" open="(" separator="," close=")">
+            #{floorId}
+        </foreach>
+    </select>
+    <!--根据楼层的Id查看该楼栋下的水表个数-->
+    <select id="isCheckLayerWaterMeter" parameterType="java.lang.String" resultType="long">
+        select count(*) from MB_WATER_METER_INFO where WATER_METER_ID is not null and FLOOR_ID in
+        <foreach item="layerId" collection="array" open="(" separator="," close=")">
+            #{layerId}
+        </foreach>
+    </select>
+    <!--根据房间的Id查看该楼栋下的水表个数-->
+    <select id="isCheckRoomWaterMeter" parameterType="java.lang.String" resultType="long">
+        select count(*) from MB_WATER_METER_INFO where WATER_METER_ID is not null and ROOM_ID in
+        <foreach item="roomId" collection="array" open="(" separator="," close=")">
+            #{roomId}
+        </foreach>
+    </select>
+    <!--根据id得到水表信息的详细信息-->
+    <select id="getWaterMeterRoomInfoById" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.waterMeterMgt.entity.RoomWaterMeterVo">
+   select
+        mwmi.ID id,
+        tre.NAME regionName,
+        ta.NAME apartmentName,
+        tf.NAME floorName,
+        tl.NAME layerName,
+        tr.Name roomNum,
+        mwmi.UPDATE_TIME update_time,
+        mwmi.CREATE_TIME create_time,
+        mwm.id water_meter_id,
+        mwm.Type type,
+        mwmi.OPEN_TIME openTime
+        FROM  MB_WATER_METER_INFO mwmi
+        left join mb_water_meter mwm on mwmi.water_meter_id=mwm.id
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        where mwmi.ID=#{id}
+    </select>
+    <update id="updateWaterMeterInfoByWaterMeterId" parameterType="java.lang.String">
+        update MB_WATER_METER_INFO set WATER_METER_ID=#{waterMeterId} where id=#{id}
+    </update>
+    <select id="getInfoByRoomId" resultType="com.ets.bus.systemMgt.watermeterRoomInfoMgt.entity.WaterMeterInfoMgt" parameterType="java.lang.String">
+        select
+        mwmi.ID id,
+        mwmi.ROOM_TYPE_ID roomTypeId,
+        tr.ID roomId
+        FROM  MB_WATER_METER_INFO mwmi
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        left join MB_ROOM_TYPE_PARAM mrtp on mwmi.ROOM_TYPE_ID=mrtp.TYPE_NUM
+        where
+        (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+        AND
+        tr.id=#{id}
+    </select>
+    <update id="updateInfoById" parameterType="com.ets.bus.systemMgt.watermeterRoomInfoMgt.entity.WaterMeterInfoMgt">
+        UPDATE MB_WATER_METER_INFO SET CLOSE_VALVE_WATER=#{closeValveWater},WARN_WATER=#{warn_water},MAX_OVER_WATER=#{max_over_water},HOARD_WATER=#{maxWater},BUY_MONEY=#{buy_money},RETURN_MONEY=#{return_money},ADD_CYCLE=#{add_cycle},ROOM_TYPE_ID=#{roomTypeId} WHERE ID=#{id}
+    </update>
+    <select id="isCheckWaterMeterBind" parameterType="java.lang.String" resultType="long">
+        select count(*) from MB_WATER_METER_INFO where WATER_METER_ID is not null and WATER_METER_ID in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="findWatermeterInfoByRoomTypeId" parameterType="java.util.List" resultType="com.ets.bus.systemMgt.watermeterRoomInfoMgt.entity.WaterMeterInfoMgt">
+        select * from MB_WATER_METER_INFO where ROOM_TYPE_ID
+        in
+        <foreach collection="array" item="typeNum" open="(" close=")" separator=",">
+            #{typeNum}
+        </foreach>
+    </select>
+
+</mapper>

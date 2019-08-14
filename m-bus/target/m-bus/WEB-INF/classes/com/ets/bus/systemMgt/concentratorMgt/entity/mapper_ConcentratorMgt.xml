@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.systemMgt.concentratorMgt.dao.ConcentratorMgtDao">
+
+    <!--查询集中器集合-->
+    <select id="selectConcentratorList" resultType="com.ets.bus.systemMgt.concentratorMgt.entity.ConcentratorVo">
+        SELECT
+        mc.id id,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        mc.IP_ADDRESS ipAddress,
+        mc.CONCENTRATOR_VERSION concentratorVersion,
+        ta.NAME apartmentName,
+        tre.NAME areaName
+        FROM MB_CONCENTRATOR mc
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mc.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = ta.PARENTID
+        WHERE
+        1=1
+        <if test="areaId != null and areaId != '' ">
+            and tre.ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mc.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="areaName != null and areaName != '' ">
+            and tre.NAME=#{areaName}
+        </if>
+        <if test="apartmentName != null and apartmentName != '' ">
+            and ta.NAME=#{apartmentName}
+        </if>
+        <if test="concentratorNum != null and concentratorNum != '' ">
+            and mc.concentrator_num=#{concentratorNum}
+        </if>
+        ORDER BY  mc.CREATE_TIME DESC
+    </select>
+
+    <!--获取集中器操作指令列表-->
+    <select id="selectRecordList" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        SELECT
+        moi.ID id,
+        moi.INSTRUCTION_NUM instructionNum,
+        ta.NAME apartmentName,
+        moi.TYPE type,
+        CASE moi.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '下发成功'
+        WHEN 2 THEN '下发失败'
+        ELSE '未知' END
+        currentStatusName,
+        moi.CREATE_TIME createTime,
+        moi.RESULT result
+        FROM MB_OPERATION_INSTRUCTION moi
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = moi.APARTMENT_ID
+        WHERE
+        moi.CONCENTRATOR_ID=#{id}
+        <if test="currentStatus != null and currentStatus != '' ">
+            and moi.CURRENT_STATUS=#{currentStatus}
+        </if>
+        <if test="date != null and date != '' ">
+            and TO_CHAR(moi.CREATE_TIME,'yyyy-MM-dd') = #{date}
+        </if>
+        ORDER BY  moi.CREATE_TIME DESC
+    </select>
+
+    <!--根据id查询集中器集合-->
+    <select id="findConcentratormgtById" parameterType="java.lang.String" resultType="com.ets.bus.systemMgt.concentratorMgt.entity.ConcentratorVo">
+        SELECT
+        mc.ID id,
+        mc.concentrator_num concentratorNum,
+        mc.IP_ADDRESS ipAddress,
+        mc.CONCENTRATOR_VERSION concentratorVersion,
+        mc.CONCENTRATOR_PWD concentratorPwd,
+        mc.COMMUNICATION_MODE communicationMode,
+        mc.REMARK remark,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        mc.CREATE_TIME createTime,
+        mc.UPDATE_TIME updateTime,
+        ta.NAME apartmentName,
+        ta.ID apartmentId,
+        tre.NAME areaName
+        FROM MB_CONCENTRATOR mc
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mc.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = ta.PARENTID
+        where mc.ID=#{id}
+    </select>
+
+    <!--若当前存在未执行完毕的指令，则不允许对相同的集中器重复操作同样的指令-->
+    <select id="checkNotFinishInsByConId" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        SELECT
+        moi.ID id
+        FROM
+        MB_OPERATION_INSTRUCTION moi
+        WHERE
+        CURRENT_STATUS = 0
+        AND
+        moi.TYPE = #{type}
+        AND
+        moi.CONCENTRATOR_ID in
+        <foreach collection="arr" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--查询水表房间信息和绑定的最新房间类型信息-->
+    <select id="getWaterMeterInfoAndParam" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.WaterMeterInfoVo">
+      SELECT
+        mwmi.ID id,
+        mwmi.APARTMENT_ID apartmentId,
+        mwmi.FLOOR_ID floorId,
+        mwmi.INIT_STATUS initStatus,
+        mwmi.VALVE_STATUS valveStatus,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.SURPLUS_WATER surplusWater,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.ROOM_TYPE_ID roomTypeId,
+        mrtp.RETURN_MONEY returnMoney,
+        mrtp.BUY_MONEY price,
+        mrtp.ADD_CYCLE addCycle,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        mwmi.CONCENTRATOR_ID concentratorId,
+        mwm.WATER_METER_ID waterMeterNum,
+        mrtp.HOARD_WATER maxWater,
+        mrtp.WARN_WATER warnWater,
+        mrtp.OVER_WATER maxOverWater,
+        mrtp.VALVE_WATER closeValveWater
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_WATER_METER mwm ON mwm.ID = mwmi.WATER_METER_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        WHERE
+          mwmi.WATER_METER_ID is not null
+          AND
+          mwmi.CONCENTRATOR_ID is not null
+          AND
+          (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+          AND
+          mwmi.CONCENTRATOR_ID=#{concentratorId}
+    </select>
+
+    <!--获取集中器绑定采集的下发周期-->
+    <select id="getCollectParam" resultType="com.ets.bus.systemMgt.concentratorMgt.entity.CollectVo">
+        SELECT
+        mct.ID id,
+        mct.APPLICATION_NUMBER applicationNumber,
+        mct.COLLECT_NAME collectName,
+        mct.ID concentratorId,
+        mct.AUTO_COLLECT_FREQUENCY autoCollectFrequency,
+        mct.COLLECT_ADDRESS collectAddress
+        FROM
+        MB_CONCENTRATOR mc
+        LEFT JOIN MB_COLLECT mct ON mc.COLLECT_ID = mct.ID
+        WHERE
+        mc.ID=#{concentratorId}
+    </select>
+
+    <select id="findInstructionsById" parameterType="java.lang.String" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.OperationInstructionVo">
+        SELECT
+        moi.ID id,
+        moi.INSTRUCTION_NUM instructionNum,
+        ta.NAME apartmentName,
+        moi.TYPE type,
+        CASE moi.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '下发成功'
+        WHEN 2 THEN '下发失败'
+        ELSE '未知' END
+        currentStatusName,
+        moi.CREATE_TIME createTime,
+        moi.CURRENT_STATUS currentStatus,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        moi.RESULT result,
+        moi.instruction_detail instructionDetail
+        FROM MB_OPERATION_INSTRUCTION moi
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = moi.APARTMENT_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = moi.CONCENTRATOR_ID
+        WHERE moi.id=#{id}
+    </select>
+</mapper>
+    

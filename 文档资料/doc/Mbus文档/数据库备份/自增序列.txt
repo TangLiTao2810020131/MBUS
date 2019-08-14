@@ -1,0 +1,19 @@
+create sequence SEQ_INST_DETAIL --字段名
+minvalue 0        --最小值
+maxvalue 99999999      --设置最大值
+start with 0      --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+nocache;	
+
+
+create sequence SEQ_OP_INST --字段名
+minvalue 0        --最小值
+maxvalue 99999999      --设置最大值
+start with 0      --从1开始计数
+increment by 1    --每次加1个
+nocycle           --一直累加，不循环
+nocache;	
+
+
+SEQ_OP_INST.nextval

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.parmSet.readWriteCardparm.dao.ParamCardVersionDao">
+    <select id="getParamCard" resultType="com.ets.bus.parmSet.readWriteCardparm.entity.ParamCardVersion">
+        select * from MB_PARAM_CARD_VERSION
+    </select>
+
+    <insert id="insertDefultVersion" parameterType="java.lang.String">
+        INSERT INTO
+          MB_PARAM_CARD_VERSION(ID,VERSION_NUM,VERSION_NAME,LAWFUL_STATUS,REMARK,CREATE_TIME)
+        VALUES(#{id},'1','v1.0',0,'默认',sysdate)
+    </insert>
+</mapper>

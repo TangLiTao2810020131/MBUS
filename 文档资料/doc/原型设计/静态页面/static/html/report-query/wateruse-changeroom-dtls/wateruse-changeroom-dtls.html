@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>报表查询-用水换房明细</title>
+  <link rel="stylesheet" href="../../../css/layui.css" media="all">	
+	<link rel="stylesheet" type="text/css" href="../../../css/common.css"/>
+</head>
+<body class="inner-body" style="background:#f2f2f2;position: relative;">
+<!-----------树菜单--------------->
+<div id="treeBox" style="width: 200px;background: #FFFFFF;float: left;height: 100%;">
+	<div class="treename">
+		<span>公寓房间列表</span>
+	</div>
+	<div class="layui-form1" id="tree">
+		<ul id="tree"></ul>
+		<!--<div id="xtree" class="xtree_contianer"></div>-->
+	</div>
+</div>
+
+<!-------默认表格开始----------->
+
+<div class="tableHtml" style="margin-left: 210px;height: 100%;background: #FFFFFF;">
+  <div class="top-btn">
+		<div class="layui-btn-group">
+	    <button class="layui-btn" id="exportBtn"> &nbsp;导 &nbsp;出&nbsp; </button>
+	  </div>
+	  <div class="search-btn-group">
+	  	<input type="text"  autocomplete="off" class="layui-input layui-input_" placeholder="请输入房间号">
+	  	<input type="text" name="date" id="date2" lay-verify="date" placeholder="请选择开始时间" autocomplete="off" class="layui-input layui-input_">
+		<input type="text" name="date" id="date1" lay-verify="date" placeholder="请选择结束时间" autocomplete="off" class="layui-input layui-input_">
+ 		<button class="layui-btn layui-btns">查询</button>
+		
+				<button class="layui-btn layui-btns layui-bg-orange" id="superBtn">高级查询</button>
+
+		</div>
+	</div>
+	<div class="tableDiv">
+		<table id="layui-table" lay-filter="tableBox" class="layui-table"></table>
+	</div>
+</div>
+<!-----------------默认表格结束------------>
+<!--高级查询-->
+<form class="layui-form" action="" id="formHtml" lay-filter="updForm">
+	  <div class="layui-form-item">
+  		<div class="layui-inline">
+	      <label class="layui-form-label" title="公寓">公寓</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label" title="集中器">集中器</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" placeholder="请输入" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	    </div>
+	</div>
+  	<div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button type="button" class="layui-btn" lay-submit="" lay-filter="confirmBtn">查询</button>
+	      <button type="button" class="layui-btn layui-btn-primary" id="closeBtn">收起</button>
+	    </div>
+ 		</div>
+</form>
+</body>
+<script src="../../../layui.all.js"></script>
+<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//主动加载jquery模块
+layui.use(['jquery', 'layer'], function(){
+	var $ = layui.jquery //重点处
+	,layer = layui.layer;
+	//执行一个laydate实例
+  var laydate = layui.laydate;
+ 	laydate.render({
+    elem: '#date1' //指定元素
+  });
+  	laydate.render({
+    elem: '#date2' //指定元素
+  });
+	table = layui.table;//表格，注意此处table必须是全局变量
+	var arr = [[ 
+	    {type:'checkbox'}
+      ,{field: 'quyu', title: '区域'}
+      ,{field: 'gongyu', title: '公寓'}
+      ,{field: 'fangjianhao', title: '原房间号'} 
+      ,{field: 'jizhongqi', title: '操作日期'}
+      ,{field: 'jizhongqi', title: '集中器'}
+      ,{field: 'ysl', title: '原剩余水量（吨）'}
+      ,{field: 'ysl', title: '原用水量（吨）'}
+      ,{field: 'ysl', title: '原现金购水量（吨）'}
+      ,{field: 'ysl', title: '原补水量（吨）'}
+      ,{field: 'ysl', title: '原退水量（吨）'}
+    ]];
+	var limitArr =[10,20,30];
+	var urls = '../../../tableJson.js';
+
+	com.tableRender('#layui-table','tableId','full-50',limitArr,urls,arr);//加载表格,注意tableId是自定义的，在表格重载需要！！
+		
+	/*树形菜单*/
+	com.normalTree("#tree","../../../treeJson.js");
+	
+
+})	
+</script>
+</html>

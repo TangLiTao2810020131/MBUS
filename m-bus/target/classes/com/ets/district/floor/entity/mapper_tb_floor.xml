@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.district.floor.dao.FloorDao">
+	<sql id="where">
+			<if test="code!= null and code != '' "> and code like '%${code}%'</if>
+			<if test="floorname != null and floorname != '' "> and name like '%${floorname}%'</if>
+	</sql>
+
+	<!-- 获取列表 -->
+	<select id="select" parameterType="map"  resultType="com.ets.district.room.entity.tb_room">
+		select * from
+		(
+		select * from
+		(
+		select u.*,rownum rn from
+		(
+		select * from TB_FLOOR u where parentid = #{parentid}
+		<include refid="where"></include>
+		) u
+		where rownum <![CDATA[<=]]> #{page}
+		order by code asc
+		)
+		where rn > #{limit}
+		)
+	</select>
+     
+     <!-- 获取总记录数 -->
+    <select id="selectCount" parameterType="map"  resultType="long">
+    	select count(*) from tb_floor u where parentid = #{parentid}
+	</select>
+    
+    <!-- 获取单条数据 -->
+    <select id="info" parameterType="java.lang.String"  resultType="com.ets.district.floor.entity.tb_floor">
+    	select * from tb_floor where id = #{id}
+    </select>
+    <!--新增楼栋信息-->
+    <insert id="insert" parameterType="com.ets.district.floor.entity.tb_floor">
+    	insert into tb_floor values(#{id},#{code},#{name},#{parentid},#{ctime},#{remark})
+    </insert>
+    <!--编辑楼栋信息-->
+    <update id="update" parameterType="com.ets.district.floor.entity.tb_floor">
+    	update tb_floor set name=#{name},code=#{code},remark=#{remark} where id=#{id}
+    </update>
+	<select id="getFloors" resultType="com.ets.district.floor.entity.tb_floor">
+		select * from TB_FLOOR where PARENTID=#{parentId}
+	</select>
+	<!--检验楼栋编码的唯一性-->
+	<select id="isCheckFloorCode" parameterType="com.ets.district.floor.entity.tb_floor" resultType="long">
+		select count(*) from TB_FLOOR where code=#{code} and PARENTID=#{parentid}
+	</select>
+	<!--根据ID批量删除楼栋信息-->
+	<delete id="deleteFloorById" parameterType="java.lang.String" >
+		delete from TB_FLOOR where id in
+		<foreach item="empnoItem" collection="array" open="(" separator="," close=")">
+			#{empnoItem}
+		</foreach>
+	</delete>
+
+	<!--根据楼栋id查询楼栋信息-->
+	<select id="findFloorById" parameterType="java.util.List" resultType="com.ets.district.floor.entity.tb_floor">
+		select * from tb_floor where id in
+		<foreach collection="bList" item="floor" separator="," open="(" close=")">
+			#{floor.build_id}
+		</foreach>
+	</select>
+	<!--根据父级Id-->
+	<select id="selectFloorByParentId" parameterType="java.lang.String" resultType="com.ets.district.floor.entity.tb_floor">
+		select * from TB_FLOOR where PARENTID=#{father}
+	</select>
+</mapper>

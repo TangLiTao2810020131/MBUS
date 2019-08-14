@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>水表管理-补水管理-按房间补水</title>
+  <link rel="stylesheet" href="../../../css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../css/common-layer.css" />
+  <style>
+  	.layui-form-item{margin-bottom: 10px;}
+  </style>
+</head>
+<body style="background: #fff;overflow-x:hidden ;" class="innerBody">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend class="window-leg">基本信息</legend>
+</fieldset>
+<div class="layui-form layui-form-pane ml30">
+	<div class="layui-form-item ">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">公寓名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">房间编号</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+	    </div>
+  	</div>
+  	<div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">模块状态</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">采集时间</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+	    </div>
+  	</div>
+  	<div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">剩余水量</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" value="20.0" readonly="readonly" disabled="disabled" class="layui-input layui-disabled">
+	      </div>
+		 <span class="unit_">（吨）</span>
+	    </div>
+	   
+  	</div>
+</div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend class="window-leg">补水信息</legend>
+</fieldset>
+<form class="layui-form layui-form-pane ml30" action="" id="formHtml" style="width: ;margin-top: 20px;" lay-filter="updForm">
+	<input type="hidden" name="id" >              
+
+	<div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">补水量</label>
+	      <div class="layui-input-inline">
+	        <input type="text" name="" lay-verify="required" autocomplete="off" class="layui-input">
+	      </div>
+	      <span class="unit_">（吨）</span>
+	    </div>
+  	</div>
+  	<div class="layui-form-item layui-form-text">
+	    <label class="layui-form-label w650">普通文本域</label>
+	    <div class="layui-input-block  w650">
+	      <textarea placeholder="请输入内容" class="layui-textarea" style="resize:none;"></textarea>
+	    </div>
+   </div>
+  	<div class="layui-form-item  window-block-btn">
+	    <div class="layui-input-block">
+	    	<button type="button" class="layui-btn layui-btn-primary window-btn" id="canleBtn">取消</button>
+	      <button type="button" class="layui-btn window-btn" lay-submit="" lay-filter="confirmBtn">确定</button>
+	      
+	    </div>
+ 	</div>
+</form>
+
+
+</body>
+
+<script src="../../../layui.all.js"></script>
+<script src="../../../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	 //主动加载jquery模块
+	layui.use(['jquery', 'layer'], function(){
+		var $ = layui.jquery //重点处
+		,layer = layui.layer;
+	
+		//得到父页面的id值
+	
+		var index = (window.parent.index_);
+		console.log(index);
+		
+		layui.use('form', function(){  
+		 	var form = layui.form;
+		 	//------授权提交-------
+			form.on('submit(confirmBtn)', function (data) {
+			    var obj = data.field;
+			    console.log(obj);
+			     //以下是ajax
+			});
+			//取消
+			$("body").on("click","#canleBtn",function(){
+				parent.layer.close(index);//关闭layer
+			})
+			
+			//测试
+			$("body").on("click","#testBtn",function(){
+				/*弹窗里嵌套弹窗*/
+				 com.pageOpen("test","html/watermeter-mgt/waterAddtion-mgt/test.html",['300', '200px']);
+	
+			})
+		})	
+	})
+   
+</script>
+</html>

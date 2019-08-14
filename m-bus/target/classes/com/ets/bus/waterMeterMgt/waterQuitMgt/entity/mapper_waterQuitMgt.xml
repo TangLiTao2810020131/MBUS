@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.waterMeterMgt.waterQuitMgt.dao.WaterQuitMgtDao">
+
+    <!-- 向退水记录表插入一条退水记录 -->
+    <insert id="insertReturnRecord" parameterType="com.ets.bus.waterMeterMgt.waterQuitMgt.entity.ReturnRecordVo">
+        INSERT INTO
+          MB_RETURN_RECORD(ID,WATER_METER_INFO_ID,SERIAL_NUMBER,USER_ID,CURRENT_STATUS,RETURN_WATER,RETURN_MONEY,REMARK,TYPE,CONCENTRATOR_ID,OPERATION_ID,CREATE_TIME)
+        VALUES(#{id},#{waterMeterInfoId},#{serialNumber},#{userId},#{currentStatus},#{returnWater},#{returnMoney},#{remark},#{type},#{concentratorId},#{operationId},sysdate)
+    </insert>
+
+</mapper>
+    

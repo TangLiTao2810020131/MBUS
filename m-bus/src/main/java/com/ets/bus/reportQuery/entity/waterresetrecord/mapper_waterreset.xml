@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.reportQuery.dao.waterresetrecord.WaterResetRecordDao">
+
+    <sql id="where">
+        <where>
+            <if test="roomTypeId != null and roomTypeId != '' "> and mwmi.room_type_id = '${roomTypeId}'</if>
+            <if test="floorName != null and floorName != '' "> and tl.name = '${floorName}'</if>
+            <if test="apartmentName != null and apartmentName != '' "> and ta.name = '${apartmentName}'</if>
+            <if test="roomNum != null and roomNum != '' "> and mwmi.room_num = '${roomNum}'</if>
+            <if test="room_id != null and room_id != '' "> and mwmi.room_id = '${room_id}'</if>
+            <if test="area_id != null and area_id != '' "> and mwmi.area_id = '${area_id}'</if>
+            <if test="apartment_id != null and apartment_id != '' "> and mwmi.apartment_id = '${apartment_id}'</if>
+            <if test="build_id != null and build_id != '' "> and mwmi.build_id = '${build_id}'</if>
+            <if test="floor_id != null and floor_id != '' "> and mwmi.floor_id = '${floor_id}'</if>
+            <if test="startTime != null and startTime != '' or endTime!=null and endTime!='' "> and mc.create_time between to_date('${startTime}','yyyy-MM-dd HH24:mi:ss') and to_date('${endTime}','yyyy-MM-dd HH24:mi:ss')</if>
+        </where>
+    </sql>
+    <select id="selectWaterResetRecord" resultType="com.ets.bus.reportQuery.entity.waterresetrecord.WaterResetRecord" parameterType="Map">
+        select
+        mc.id id,
+        tr.name areaName,
+        ta.name apartmentName,
+        tl.name floorName,
+        mwmi.room_num roomNum,
+        mc.USER_WATER userWater,
+        mc.SUPPLEMENT_WATER supplementWater,
+        mc.BUY_WATER_TOTAL buyWaterTotal,
+        mc.RETURN_WATER returnWater,
+        mc.SURPLUS_WATER surplusWater,
+        mc.CLOSE_VALVE_WATER closeValveWater,
+        mc.CUMULATE_WATER cumulateWater,
+        mc.REMARK remark,
+        mw.REALNAME userName,
+        mc.CREATE_TIME createTime,
+        mc.UPDATE_TIME updateTime,
+        case mc.REDRUSH
+        when 0 then '否'
+        when 1 then '是'
+        else '未知' end redrushName,
+        mc.OPERAT_MONEY operatMoney
+        from MB_CLEAR_RECORD mc
+        left join MB_WATER_METER_INFO mwmi on mc.WATER_METER_INFO_ID=mwmi.ID
+        left join TB_REGION tr on mwmi.AREA_ID=tr.ID
+        left join TB_APARTMENT ta on mwmi.APARTMENT_ID=ta.ID
+        left join TB_FLOOR tf on mwmi.BUILD_ID=tf.ID
+        left join TB_LAYER tl on mwmi.FLOOR_ID=tl.ID
+        left join MB_WORKER mw on mc.USER_ID=mw.ID
+        <include refid="where"/>
+        order by mc.CREATE_TIME desc
+    </select>
+
+    <select id="findWaterReset" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.waterresetrecord.WaterResetRecord">
+        select distinct
+        mc.id id,
+        tr.name areaName,
+        ta.name apartmentName,
+        tf.name buildName,
+        tl.name floorName,
+        mwmi.room_num roomNum,
+        mc.USER_WATER userWater,
+        mc.SUPPLEMENT_WATER supplementWater,
+        mc.BUY_WATER_TOTAL buyWaterTotal,
+        mc.RETURN_WATER returnWater,
+        mc.SURPLUS_WATER surplusWater,
+        mc.CLOSE_VALVE_WATER closeValveWater,
+        mc.CUMULATE_WATER cumulateWater,
+        mc.REMARK remark,
+        mw.REALNAME userName,
+        mc.CREATE_TIME createTime,
+        mc.UPDATE_TIME updateTime,
+        case mc.REDRUSH
+        when 0 then '否'
+        when 1 then '是'
+        else '未知' end redrushName,
+        mc.OPERAT_MONEY operatMoney,
+        case mc.CURRENT_STATUS
+        when 0 then '未下发'
+        when 1 then '下发成功'
+        when 2 then '下发失败'
+        else '其他' end currentStatusName,
+        case mc.TYPE
+        when 0 then '初始化'
+        when 1 then '清零'
+        when 2 then '导入清零'
+        else '其他' end typeName,
+        mp.TYPE_NAME roomTypeName
+        from MB_CLEAR_RECORD mc
+        left join MB_WATER_METER_INFO mwmi on mc.WATER_METER_INFO_ID=mwmi.ID
+        left join TB_REGION tr on mwmi.AREA_ID=tr.ID
+        left join TB_APARTMENT ta on mwmi.APARTMENT_ID=ta.ID
+        left join TB_FLOOR tf on mwmi.BUILD_ID=tf.ID
+        left join TB_LAYER tl on mwmi.FLOOR_ID=tl.ID
+        left join MB_WORKER mw on mc.USER_ID=mw.ID
+        left join MB_ROOM_TYPE_PARAM mp on mwmi.ROOM_TYPE_ID=mp.TYPE_NUM
+        where mc.id=#{id}
+
+    </select>
+</mapper>

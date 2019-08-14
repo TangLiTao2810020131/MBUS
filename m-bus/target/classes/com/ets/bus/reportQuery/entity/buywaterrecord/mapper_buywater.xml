@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.reportQuery.dao.buywaterrecord.BuyWaterRecordDao">
+
+    <!--查询条件-->
+    <sql id="where">
+        <where>
+            (mr.DEL_STATUS=0 OR mr.DEL_STATUS IS NULL)
+            <if test="type != null and type != '' "> and mb.type = '${type}'</if>
+            <if test="area_id != null and area_id != '' "> and tr.id = '${area_id}'</if>
+            <if test="build_id != null and build_id != '' "> and tf.id = '${build_id}'</if>
+            <if test="apartment_id != null and apartment_id != '' "> and ta.id = '${apartment_id}'</if>
+            <if test="floor_id != null and floor_id != '' "> and tl.id = '${floor_id}'</if>
+            <if test="payer_name != null and payer_name != '' "> and mb.payer_name = '${payer_name}'</if>
+            <if test="room_num != null and room_num != '' "> and room_num = '${room_num}'</if>
+            <if test="apartment_name != null and apartment_name != '' "> and ta.name = '${apartment_name}'</if>
+            <if test="floor_name != null and floor_name != '' "> and tl.name = '${floor_name}'</if>
+            <if test="startTime != null and startTime != '' or endTime!=null and endTime!='' "> and mb.create_time between to_date('${startTime}','yyyy-MM-dd HH24:mi:ss') and to_date('${endTime}','yyyy-MM-dd HH24:mi:ss')</if>
+        </where>
+    </sql>
+
+    <!--多表联合查询联合表-->
+    <sql id="select">
+        from mb_buy_record mb
+        left join mb_water_meter_info mw on mw.id=mb.water_meter_info_id
+        left join tb_region tr on mw.area_id=tr.id
+        left join tb_apartment ta on mw.apartment_id=ta.id
+        left join tb_floor tf on mw.build_id=tf.id
+        left join tb_layer tl on mw.floor_id=tl.id
+        left join mb_room_type_param mr on mw.room_type_id=mr.type_num
+        left join mb_concentrator mc on mb.concentrator_id=mc.id
+        left join mb_worker tu on mb.user_id=tu.id
+    </sql>
+
+    <!--查询所有的购水记录-->
+    <select id="getBuyWaterRecords" parameterType="java.util.Map" resultType="com.ets.bus.reportQuery.entity.buywaterrecord.BuyWaterRecord">
+        select
+        tr.name area_name,
+        ta.name apartment_name,
+        tl.name floor_name,
+        mw.room_num room_num,
+        mr.type_name room_type_name,
+        mb.id id,
+        mb.create_time create_time,
+        mb.payer_name payer_name,
+        mb.buy_money buy_money,
+        mb.buy_water buy_water,
+        tu.realname user_name,
+        mb.current_status current_status
+        <include refid="select"/>
+        <include refid="where"/>
+        order by mb.create_time desc
+    </select>
+
+    <!--根据购水表id查询购水信息-->
+    <select id="findBuyWaterRecordById" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.buywaterrecord.BuyWaterRecord">
+        select
+        mb.serial_number serial_number,
+        tu.workername user_name,
+        tr.name area_name,
+        ta.name apartment_name,
+        tf.name build_name,
+        tl.name floor_name,
+        mw.room_num room_num,
+        mr.type_name room_type_name,
+        mb.id id,
+        mb.create_time create_time,
+        mb.update_time update_time,
+        mb.payer_name payer_name,
+        mb.buy_money buy_money,
+        mb.buy_water buy_water,
+        mb.type type,
+        mb.actual_money actual_money,
+        mb.return_money return_money
+        <include refid="select"/>
+        where mb.id=#{id}
+        and (mr.DEL_STATUS=0 OR mr.DEL_STATUS IS NULL)
+    </select>
+</mapper>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>参数设置-系统运行参数</title>
+		<link rel="stylesheet" href="../../../css/layui.css" media="all">
+		<link rel="stylesheet" type="text/css" href="../../../css/common-layer.css"/>
+	</head>
+	<body class="parm">
+		<form class="layui-form" action="" style="color: #666;background: #FFFFFF;">
+		  <div class="layui-card-header">表单组合1</div>
+		  <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">报警水量</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">吨</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">关阀水量</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">吨</div>
+		    </div>
+		  </div>
+		   <div class="layui-card-header">表单组合2</div>
+		  <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">最大透支量</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">吨</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">最大囤积量</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">吨</div>
+		    </div>
+		  </div>
+		  
+		  <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div>
+		  
+		 <div class="layui-form-item">
+		    <div class="layui-inline" >
+		      <label class="layui-form-label">参数生效时间</label>
+		      <div class="layui-input-inline" style="width: 180px;">
+		        <input name="date" class="layui-input" id="date" type="text" placeholder="请选择时间" autocomplete="off" lay-verify="date">
+		      </div>
+		    </div>
+		  </div>
+		 
+		 <!-- <div class="layui-form-item" style="padding-bottom:20px;">
+		    <div class="layui-input-block">
+		      <button class="layui-btn" type="button" lay-submit lay-filter="save" style="margin-left: 84px;">&nbsp;保   存&nbsp;</button>
+		    </div>
+		  </div>-->
+		   <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期111</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div> <div class="layui-form-item">
+		    <div class="layui-inline">
+		      <label class="layui-form-label">购水单价</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		    <div class="layui-inline">
+		      <label class="layui-form-label">退水单价2222</label>
+		      <div class="layui-input-inline">
+		        <input name="" class="layui-input" type="text" autocomplete="off" lay-verify="required" value="">
+		      </div>
+		      <div class="dun">元/m3</div>
+		    </div>
+		  </div>
+
+		  <div class="layui-form-item">
+		    <label class="layui-form-label">软件补水周期2222222222222</label>
+		    <div class="layui-input-block">
+		      <input type="radio" name="dates" value="" title="每日补一次" checked>
+		      <input type="radio" name="dates" value="" title="每月补一次" >
+		      <input type="radio" name="dates" value="" title="不限制补水周期">
+		    </div>
+		  </div>
+		  <div class="layui-form-item layui-layout-admin" style="height: 150px;background: #FFFFFF;">
+            <div class="layui-input-block">
+              <div class="layui-footer" style="left: 0;text-align: center;background: #FFFFFF;padding-bottom: 10px;">
+                <button class="layui-btn" lay-submit="" lay-filter="component-form-demo1">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+              </div>
+            </div>
+          </div>
+		</form>
+	</body>
+	<script src="../../../layui.all.js"></script>
+	<script type="text/javascript" src="../../../js/common.js" ></script>
+	<script>
+		layui.use(['form', 'layedit', 'laydate'], function(){
+		  var $ = layui.jquery 
+	      ,layer = layui.layer
+		  ,form = layui.form
+		  ,layer = layui.layer
+		  ,layedit = layui.layedit
+		  ,laydate = layui.laydate;
+		  
+		  //日期
+		  laydate.render({
+		    elem: '#date'
+		  });
+		  laydate.render({
+		    elem: '#date1'
+		  });
+		  
+		  //设置页面高度
+		  var pageH = $("#layui-body",parent.document).height();
+		  console.log(pageH);
+		  $(".layui-form").css({
+		  	"height":pageH,
+		  	"maxHeight":pageH,
+		  	"overflow":"auto"
+		  })
+		  //监听提交
+		  form.on('submit(save)', function(data){
+		    console.log(JSON.stringify(data.field))
+		  });
+		 
+		  
+		  
+		});
+	</script>
+</html>

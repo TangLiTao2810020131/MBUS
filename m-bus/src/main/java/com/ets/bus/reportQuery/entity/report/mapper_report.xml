@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.reportQuery.dao.ReportDao">
+
+    <!--查询冲红记录-->
+    <select id="selectRedrushList" resultType="com.ets.bus.reportQuery.entity.report.RedRushVo" parameterType="Map">
+        SELECT
+        mrr.ID id,
+        mrr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mrr.CONCENTRATOR_ID concentratorIp,
+        mrr.CREATE_TIME createTime,
+        mrr.REDRUSH_WATER redrushWater,
+        N'-' userName,
+        mw.REALNAME operatName,
+        CASE mrr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mrr.CURRENT_STATUS currentStatus
+        FROM MB_REDRUSH_RECORD mrr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mrr.USER_ID
+        WHERE
+        1=1
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="roomNumOut != null and roomNumOut != '' ">
+            and tr.NAME=#{roomNumOut}
+        </if>
+        <if test="startTime != null">
+            and mrr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mrr.CREATE_TIME <![CDATA[<]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and mrr.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null and currentStatus != ''">
+            and mrr.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY mrr.CREATE_TIME DESC
+    </select>
+
+    <!--查询换表记录-->
+    <select id="selectReplaceRecordList" resultType="com.ets.bus.reportQuery.entity.report.ReplaceRecordVo" parameterType="Map">
+        SELECT
+        mrr.ID id,
+        ta.NAME apartmentName,
+        tr.NAME roomNum,
+        mrtp.TYPE_NAME roomTypeName,
+        mrr.WATER_TYPE waterType,
+        mrr.OPEN_TIME openTime,
+        mrr.REPLACE_TIME replaceTime,
+        mrr.REPLACE_WATER_NUM replaceWaterNum,
+        mrr.REPLACE_MONEY replaceMoney,
+        mrr.CURRENT_STATUS currentStatus,
+        mrr.OPERATION_USER operationUser
+        FROM MB_REPLACE_RECORD mrr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        WHERE
+        (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="openTime != null and openTime != ''">
+            and mrr.OPEN_TIME <![CDATA[>=]]> #{openTime}
+        </if>
+        <if test="changeTime != null and changeTime != ''">
+            and mrr.REPLACE_TIME <![CDATA[<]]> #{changeTime}
+        </if>
+        <if test="roomTypeId != null and roomTypeId != '' ">
+            and mwmi.ROOM_TYPE_ID = #{roomTypeId}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY mrr.CREATE_TIME DESC
+    </select>
+
+    <!--查询控水换房记录-->
+    <select id="selectReplaceRoomRecordList" resultType="com.ets.bus.reportQuery.entity.report.ReplaceRoomRecordVo" parameterType="Map">
+        SELECT
+        mrr.ID id,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tr.NAME roomNum,
+        mrr.CREATE_TIME createTime,
+        mc.IP_ADDRESS concentratorIp,
+        mrr.SURPLUS_WATER surplusWater,
+        mrr.USER_WATER userWater,
+        mrr.CASH_BUY_WATER cashBuyWater,
+        mrr.SUPPLEMENT_WATER supplementWater,
+        mrr.BUY_WATER_TOTAL buyWaterTotal,
+        mrr.RETURN_WATER returnWater,
+        mrr.CURRENT_STATUS currentStatus,
+        mw.REALNAME userName
+        FROM MB_REPLACEROOM_RECORD mrr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.OLD_WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_WORKER mw ON mrr.USER_ID = mw.id
+        WHERE
+        1=1
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="apartmentName != null and apartmentName != '' ">
+            and ta.NAME=#{apartmentName}
+        </if>
+        <if test="startTime != null">
+            and mrr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mrr.CREATE_TIME <![CDATA[<]]> #{endTime}
+        </if>
+        <if test="concentratorIp != null and concentratorIp != '' ">
+            and mc.IP_ADDRESS = #{concentratorIp}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY mrr.CREATE_TIME DESC
+    </select>
+
+    <!--查询用水房间日报-->
+    <select id="selectRoomDailyList" resultType="com.ets.bus.reportQuery.entity.report.WaterDailyVo" parameterType="Map">
+        SELECT
+        mwd.ID id,
+        mwd.WATER_METER_INFO_ID waterMeterInfoId,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        tf.NAME buildName,
+        mc.IP_ADDRESS concentratorIp,
+        mrtp.TYPE_NAME roomTypeName,
+        mwd.USE_TIME useTime,
+        mwd.SURPLUS_WATER surplusWater,
+        mwmi.SURPLUS_WATER currSurplusWater,
+        mwd.USER_WATER userWater,
+        mwd.CASH_BUY_WATER cashBuyWater,
+        mwd.CARD_BUY_WATER cardBuyWater,
+        mwd.BUY_WATER_TOTAL buyWaterTotal,
+        mwd.SUPPLEMENT_WATER supplementWater,
+        mwd.RETURN_WATER returnWater
+        FROM MB_WATER_DAILY mwd
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mwd.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        WHERE
+        (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="apartmentName != null and apartmentName != '' ">
+            and ta.NAME=#{apartmentName}
+        </if>
+        <if test="floorNum != null and floorNum != '' ">
+            and tl.NAME=#{floorNum}
+        </if>
+        <if test="concentratorIp != null and concentratorIp != '' ">
+            and mc.IP_ADDRESS=#{concentratorIp}
+        </if>
+        <if test="roomTypeId != null and roomTypeId != '' ">
+            and mwmi.ROOM_TYPE_ID=#{roomTypeId}
+        </if>
+        <if test="startTime != null">
+            and mwd.USE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and mwd.USE_TIME <![CDATA[<]]> #{endTime}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY mwd.USE_TIME DESC
+    </select>
+
+    <!--查询用水房间月报-->
+    <select id="selectRoomMonthList" resultType="com.ets.bus.reportQuery.entity.report.WaterDailyVo" parameterType="Map">
+        SELECT
+        mwd.WATER_METER_INFO_ID waterMeterInfoId,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mc.IP_ADDRESS concentratorIp,
+        mrtp.TYPE_NAME roomTypeName,
+        TO_CHAR(mwd.USE_TIME,'yyyy-MM') useMonth,
+        sum(mwd.SURPLUS_WATER) surplusWater,
+        mwmi.SURPLUS_WATER currSurplusWater,
+        sum(mwd.USER_WATER) userWater,
+        sum(mwd.CASH_BUY_WATER) cashBuyWater,
+        sum(mwd.CARD_BUY_WATER) cardBuyWater,
+        sum(mwd.SUPPLEMENT_WATER) supplementWater,
+        sum(mwd.RETURN_WATER) returnWater
+        FROM MB_WATER_DAILY mwd
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mwd.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        WHERE
+        (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="apartmentName != null and apartmentName != '' ">
+            and ta.NAME=#{apartmentName}
+        </if>
+        <if test="floorNum != null and floorNum != '' ">
+            and tl.NAME=#{floorNum}
+        </if>
+        <if test="concentratorIp != null and concentratorIp != '' ">
+            and mc.IP_ADDRESS=#{concentratorIp}
+        </if>
+        <if test="roomTypeId != null and roomTypeId != '' ">
+            and mwmi.ROOM_TYPE_ID=#{roomTypeId}
+        </if>
+        <if test="monthTime != null and monthTime != ''">
+            and TO_CHAR(mwd.USE_TIME,'yyyy-MM') = #{monthTime}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        GROUP BY mwd.WATER_METER_INFO_ID, TO_CHAR(mwd.USE_TIME,'yyyy-MM'),tre.NAME,ta.NAME,tl.NAME,tr.NAME,mc.IP_ADDRESS,mrtp.TYPE_NAME,mwmi.ROOM_NUM,mwmi.SURPLUS_WATER
+        ORDER BY useMonth DESC
+    </select>
+
+    <!--根据id查询冲红记录-->
+    <select id="findRedRecord" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.report.RedRushVo">
+        SELECT
+        mrr.SERIAL_NUMBER serialNumber,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mrr.CONCENTRATOR_ID concentratorIp,
+        mrr.CREATE_TIME createTime,
+        mrr.UPDATE_TIME updateTime,
+        mrr.REDRUSH_MONEY redrushMoney,
+        mrr.REDRUSH_WATER redrushWater,
+        mrr.remark remark,
+        mrr.type type,
+        N'-' userName,
+        mw.REALNAME operatName,
+        CASE mrr.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        mrr.CURRENT_STATUS currentStatus
+        FROM MB_REDRUSH_RECORD mrr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_WORKER mw ON mw.ID = mrr.USER_ID
+        where mrr.ID=#{id}
+    </select>
+
+    <!--根据id查询换表历史记录-->
+    <select id="findReplaceWaterRecord" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.report.ReplaceRecordVo">
+        SELECT
+        trg.NAME areaName,
+        ta.NAME apartmentName,
+        tf.name buildName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mrtp.TYPE_NAME roomTypeName,
+        mrr.WATER_TYPE waterType,
+        mrr.OPEN_TIME openTime,
+        mrr.REPLACE_TIME replaceTime,
+        mrr.REPLACE_WATER_NUM replaceWaterNum,
+        mrr.REPLACE_MONEY replaceMoney,
+        mrr.CURRENT_STATUS currentStatus,
+        mrr.CREATE_TIME createTime,
+        mrr.OPERATION_USER operationUser,
+        mrr.NEW_WATER_METER_ID newWaterMeterId,
+        mrr.OLD_WATER_METER_ID oldWaterMeterId
+        FROM MB_REPLACE_RECORD mrr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        LEFT JOIN tb_region trg on trg.ID=mwmi.AREA_ID
+        LEFT JOIN TB_LAYER tl on tl.ID=mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf on tf.id=mwmi.BUILD_ID
+        where
+        (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+        and
+        mrr.ID=#{id}
+    </select>
+
+    <!--根据id查询控水换房明细-->
+    <select id="findReplaceRoomRecord" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.report.ReplaceRoomRecordVo">
+        SELECT
+        mrr.ID id,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tf.name buildName,
+        tl.name floorName,
+        tr.NAME roomNum,
+        to_char(mrr.CREATE_TIME,'yyyy-mm-dd hh24:mi:ss') createTime,
+        mc.IP_ADDRESS concentratorIp,
+        mrr.SURPLUS_WATER surplusWater,
+        mrr.USER_WATER userWater,
+        mrr.CASH_BUY_WATER cashBuyWater,
+        mrr.SUPPLEMENT_WATER supplementWater,
+        mrr.RETURN_WATER returnWater,
+        mrr.CURRENT_STATUS currentStatus,
+        mrr.UPDATE_TIME updateTime,
+        mw.REALNAME userName,
+        mr.TYPE_NAME roomTypeName,
+        mrr.BUY_WATER_TOTAL buyWaterTotal,
+        mrr.OVER_WATER overWater,
+        mrr.CURRENT_STATUS currentStatus
+        FROM MB_REPLACEROOM_RECORD mrr
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mrr.OLD_WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN TB_FLOOR tf on tf.id=mwmi.BUILD_ID
+        LEFT JOIN TB_LAYER tl on tl.id=mwmi.FLOOR_ID
+        LEFT JOIN MB_WORKER mw on mw.ID=mrr.USER_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mr on  mwmi.ROOM_TYPE_ID=mr.TYPE_NUM
+        where
+        (mr.DEL_STATUS=0 OR mr.DEL_STATUS IS NULL)
+        and
+        mrr.ID=#{id}
+    </select>
+
+    <!--根据id查询房间用水日报-->
+    <select id="findRoomDaily" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.report.WaterDailyVo">
+        SELECT
+        mwd.ID id,
+        mwd.WATER_METER_INFO_ID waterMeterInfoId,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tf.NAME buildName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mc.IP_ADDRESS concentratorIp,
+        mrtp.TYPE_NAME roomTypeName,
+        mwd.USE_TIME useTime,
+        mwd.SURPLUS_WATER surplusWater,
+        mwmi.SURPLUS_WATER currSurplusWater,
+        mwd.USER_WATER userWater,
+        mwd.CASH_BUY_WATER cashBuyWater,
+        mwd.CARD_BUY_WATER cardBuyWater,
+        mwd.SUPPLEMENT_WATER supplementWater,
+        mwd.RETURN_WATER returnWater,
+        mwd.CREATE_TIME createTime
+        FROM MB_WATER_DAILY mwd
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = mwd.WATER_METER_INFO_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_FLOOR tf ON mwmi.BUILD_ID=tf.ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        where
+        (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+        and
+        mwd.ID=#{id}
+    </select>
+
+    <!--根据房间id查询房间信息-->
+    <select id="findReplaceNewRoomRecord" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.report.ReplaceRoomRecordVo">
+        select
+        tr.name areaName,
+        ta.name apartmentName,
+        tf.name buildName,
+        tl.name floorName,
+        mw.room_num roomNum,
+        mt.type_name roomTypeName
+        from MB_REPLACEROOM_RECORD mr
+        left join mb_water_meter_info mw on mr.NEW_WATER_METER_INFO_ID=mw.ID
+        left join tb_region tr on mw.AREA_ID=tr.ID
+        left join TB_APARTMENT ta on mw.APARTMENT_ID=ta.ID
+        left join TB_FLOOR tf on mw.BUILD_ID=tf.ID
+        left join TB_LAYER tl on mw.FLOOR_ID=tl.ID
+        left join MB_ROOM_TYPE_PARAM mt on mw.ROOM_TYPE_ID=mt.TYPE_NUM
+        WHERE
+        (mt.DEL_STATUS=0 OR mt.DEL_STATUS IS NULL)
+    </select>
+
+    <!--历史命令列表-->
+    <select id="selectHistoryCommandList" resultType="com.ets.bus.reportQuery.entity.report.HistoryCommandVo" parameterType="Map">
+        SELECT
+        moi.ID id,
+        moi.RESULT result,
+        moi.INSTRUCTION_DETAIL instructionDetatil,
+        moi.INSTRUCTION_NUM instructionNum,
+        mwm.WATER_METER_ID wateMeterNum,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        moi.CREATE_TIME createTime,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        N'-' userName,
+        mw.REALNAME operatName,
+        CASE moi.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        moi.CURRENT_STATUS currentStatus,
+        CASE moi.type
+        WHEN 0 THEN '购水'
+        WHEN 1 THEN '退水'
+        WHEN 2 THEN '补水'
+        WHEN 3 THEN '换房'
+        WHEN 4 THEN '更换水表'
+        WHEN 5 THEN '普通指令'
+        WHEN 6 THEN '清零'
+        WHEN 7 THEN '冲红'
+        WHEN 8 THEN '获取水表状态'
+        WHEN 9 THEN '校时'
+        WHEN 10 THEN '集中器发参数'
+        WHEN 11 THEN '集中器及水表发参数'
+        WHEN 12 THEN '水表发参数'
+        WHEN 13 THEN '重启'
+        WHEN 14 THEN '一般开阀'
+        WHEN 15 THEN '一般关阀'
+        WHEN 16 THEN '强制开阀'
+        WHEN 17 THEN '强制关阀'
+        WHEN 18 THEN '更换水表'
+        ELSE '未知' END
+        typeName,
+        moi.type type
+        FROM MB_OPERATION_INSTRUCTION moi
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = moi.WATER_METER_INFO_ID
+        left join MB_WATER_METER mwm on mwm.id=mwmi.WATER_METER_ID
+        left join MB_CONCENTRATOR mc on mc.ID=moi.CONCENTRATOR_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = moi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = ta.PARENTID
+        LEFT JOIN MB_WORKER mw ON mw.ID = moi.USER_ID
+        WHERE
+        1=1
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="roomNumOut != null and roomNumOut != '' ">
+            and tr.NAME=#{roomNumOut}
+        </if>
+        <if test="startTime != null">
+            and moi.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and moi.CREATE_TIME <![CDATA[<]]> #{endTime}
+        </if>
+        <if test="operatId != null and operatId != '' ">
+            and moi.USER_ID = #{operatId}
+        </if>
+        <if test="currentStatus != null and currentStatus != ''">
+            and moi.CURRENT_STATUS = #{currentStatus}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+        ORDER BY moi.CREATE_TIME DESC
+    </select>
+
+    <!--根据Id查看该详细信息-->
+    <select id="findHistoryCommand" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.report.HistoryCommandVo">
+        SELECT
+        moi.ID id,
+        moi.RESULT result,
+        moi.INSTRUCTION_DETAIL instructionDetatil,
+        moi.INSTRUCTION_NUM instructionNum,
+        mwm.WATER_METER_ID wateMeterNum,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        moi.CREATE_TIME createTime,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        N'-' userName,
+        mw.REALNAME operatName,
+        CASE moi.CURRENT_STATUS
+        WHEN 0 THEN '未下发'
+        WHEN 1 THEN '操作成功'
+        WHEN 2 THEN '操作失败'
+        ELSE '未知' END
+        currentStatusName,
+        moi.CURRENT_STATUS currentStatus,
+        CASE moi.type
+        WHEN 0 THEN '购水'
+        WHEN 1 THEN '退水'
+        WHEN 2 THEN '补水'
+        WHEN 3 THEN '换房'
+        WHEN 4 THEN '更换水表'
+        WHEN 5 THEN '普通指令'
+        WHEN 6 THEN '清零'
+        WHEN 7 THEN '冲红'
+        WHEN 8 THEN '获取水表状态'
+        WHEN 9 THEN '校时'
+        WHEN 10 THEN '集中器发参数'
+        WHEN 11 THEN '集中器及水表发参数'
+        WHEN 12 THEN '水表发参数'
+        WHEN 13 THEN '重启'
+        WHEN 14 THEN '一般开阀'
+        WHEN 15 THEN '一般关阀'
+        WHEN 16 THEN '强制开阀'
+        WHEN 17 THEN '强制关阀'
+         WHEN 18 THEN '更换水表'
+        ELSE '未知' END
+        typeName,
+        moi.type type
+        FROM MB_OPERATION_INSTRUCTION moi
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = moi.WATER_METER_INFO_ID
+        left join MB_WATER_METER mwm on mwm.id=mwmi.WATER_METER_ID
+        left join MB_CONCENTRATOR mc on mc.ID=moi.CONCENTRATOR_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = moi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = ta.PARENTID
+        LEFT JOIN MB_WORKER mw ON mw.ID = moi.USER_ID
+        where moi.ID=#{id}
+    </select>
+
+    <!--最新抄表列表-->
+    <select id="selectNewReadMeterList" resultType="com.ets.bus.reportQuery.entity.historyrecord.HistoryRecord" parameterType="java.util.Map">
+        SELECT
+        MCR.ID id,
+        MCR.USER_WATER userWater,
+        MCR.SUPPLEMENT_WATER surplusWater,
+        CASE MCR.VALVE_STATUS
+        WHEN 0 THEN '关阀'
+        WHEN 1 THEN '一般开阀'
+        WHEN 2 THEN '水用完'
+        WHEN 3 THEN '窃水关阀'
+        ELSE '未知' END
+        valveStatusName,
+        MCR.VALVE_STATUS valveStatus,
+        CASE MCR.MODULE_STATUS
+        WHEN 0 THEN '未知'
+        WHEN 1 THEN '正常'
+        ELSE '未知' END
+        moduleStatusName,
+        MCR.MODULE_STATUS moduleStatus,
+        case  MCR.current_status
+        when 0 then '未下发'
+        when 1 then '下发成功'
+        when 2 then '下发失败'
+        else '其他' end
+        currentStatusName,
+        MCR.CURRENT_STATUS currentStatus,
+        MCR.create_time createTime,
+        MCR.buy_water_total buyWaterTotal,
+        MCR.supplement_water supplementWater,
+        MCR.over_water overWater,
+        mwm.WATER_METER_ID waterMeterNum,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tf.NAME buildName,
+        tr.NAME roomNum
+        FROM
+        MB_COLLECT_RECORD MCR
+        INNER JOIN (
+        SELECT
+        MCR.WATER_METER_INFO_ID,
+        MAX (MCR.CREATE_TIME) AS "atime"
+        FROM
+        MB_COLLECT_RECORD MCR
+        GROUP BY
+        MCR.WATER_METER_INFO_ID
+        ) B ON MCR.WATER_METER_INFO_ID = B.WATER_METER_INFO_ID
+        AND MCR .CREATE_TIME = B."atime"
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = MCR.WATER_METER_INFO_ID
+        left join MB_WATER_METER mwm on mwm.id=mwmi.WATER_METER_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        left join tb_floor tf on tf.id=mwmi.build_id
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        WHERE
+        1=1
+        <if test="roomNum != null and roomNum != '' ">
+            and tr.NAME=#{roomNum}
+        </if>
+        <if test="apartmentName != null and apartmentName != '' ">
+            and ta.NAME=#{apartmentName}
+        </if>
+        <if test="startTime != null">
+            and mrr.CREATE_TIME <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null ">
+            and mrr.CREATE_TIME <![CDATA[<]]> #{endTime}
+        </if>
+        <if test="areaId != null and areaId != '' ">
+            and mwmi.AREA_ID=#{areaId}
+        </if>
+        <if test="apartmentId != null and apartmentId != '' ">
+            and mwmi.APARTMENT_ID=#{apartmentId}
+        </if>
+        <if test="buildId != null and buildId != '' ">
+            and mwmi.BUILD_ID=#{buildId}
+        </if>
+        <if test="floorId != null and floorId != '' ">
+            and mwmi.FLOOR_ID=#{floorId}
+        </if>
+    </select>
+  <select id="findNewReadMeter" resultType="com.ets.bus.reportQuery.entity.historyrecord.HistoryRecord" parameterType="java.lang.String">
+SELECT
+        MCR.ID id,
+        MCR.USER_WATER userWater,
+        MCR.SUPPLEMENT_WATER surplusWater,
+        CASE MCR.VALVE_STATUS
+        WHEN 0 THEN '关阀'
+        WHEN 1 THEN '一般开阀'
+        WHEN 2 THEN '水用完'
+        WHEN 3 THEN '窃水关阀'
+        ELSE '未知' END
+        valveStatusName,
+        MCR.VALVE_STATUS valveStatus,
+        CASE MCR.MODULE_STATUS
+        WHEN 0 THEN '未知'
+        WHEN 1 THEN '正常'
+        ELSE '未知' END
+        moduleStatusName,
+        MCR.MODULE_STATUS moduleStatus,
+        case  MCR.current_status
+        when 0 then '未下发'
+        when 1 then '下发成功'
+        when 2 then '下发失败'
+        else '其他' end
+        currentStatusName,
+        MCR.CURRENT_STATUS currentStatus,
+        MCR.create_time createTime,
+        MCR.buy_water_total buyWaterTotal,
+        MCR.supplement_water supplementWater,
+        MCR.over_water overWater,
+        mwm.WATER_METER_ID waterMeterNum,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tl.NAME floorName,
+        tf.NAME buildName,
+        tr.NAME roomNum
+        FROM
+        MB_COLLECT_RECORD MCR
+        INNER JOIN (
+        SELECT
+        WATER_METER_INFO_ID,
+        MAX (CREATE_TIME) AS "atime"
+        FROM
+        MB_COLLECT_RECORD
+        GROUP BY
+        WATER_METER_INFO_ID
+        ) B ON MCR .WATER_METER_INFO_ID = B.WATER_METER_INFO_ID
+        AND MCR .CREATE_TIME = B."atime"
+        LEFT JOIN MB_WATER_METER_INFO mwmi ON mwmi.id = MCR.WATER_METER_INFO_ID
+        left join MB_WATER_METER mwm on mwm.id=mwmi.WATER_METER_ID
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        left join tb_floor tf on mwmi.build_id=tf.id
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        where MCR.id=#{id}
+    </select>
+
+    <!--查询水表信息表-->
+    <select id="getMeterInfoList" resultType="com.ets.bus.waterMeterMgt.waterPurchaseMgt.entity.WaterMeterInfoVo">
+        SELECT
+        mwmi.ID id,
+        tre.NAME areaName,
+        ta.NAME apartmentName,
+        tf.NAME buildName,
+        tl.NAME floorName,
+        tr.NAME roomNum,
+        mwmi.INIT_STATUS initStatus,
+        mwmi.VALVE_STATUS valveStatus,
+        mwmi.MODULE_STATUS moduleStatus,
+        mwmi.SURPLUS_WATER surplusWater,
+        mwmi.CASH_BUY_WATER cashBuyWater,
+        mwmi.CARD_BUY_WATER cardBuyWater,
+        mwmi.HOARD_WATER maxWater,
+        mwmi.SUPPLEMENT_WATER supplementWater,
+        mwmi.RETURN_WATER returnWater,
+        mwmi.USER_WATER userWater,
+        mwmi.OVER_WATER overWater,
+        mwmi.ROOM_TYPE_ID roomTypeId,
+        mwmi.ADD_NUM addNum,
+        mwmi.UPDATE_TIME updateTime,
+        mrtp.TYPE_NAME roomTypeName,
+        mwm.WATER_METER_ID waterMeterNum,
+        mc.CONCENTRATOR_NUM concentratorNum,
+        mc.ID concentratorId,
+        mwmi.BUY_WATER_TOTAL buyWaterTotal
+        FROM MB_WATER_METER_INFO mwmi
+        LEFT JOIN TB_ROOM tr ON tr.ID = mwmi.ROOM_ID
+        LEFT JOIN TB_LAYER tl ON tl.ID = mwmi.FLOOR_ID
+        LEFT JOIN TB_FLOOR tf ON tf.ID = mwmi.BUILD_ID
+        LEFT JOIN TB_APARTMENT ta ON ta.ID = mwmi.APARTMENT_ID
+        LEFT JOIN TB_REGION tre ON tre.ID = mwmi.AREA_ID
+        LEFT JOIN MB_CONCENTRATOR mc ON mc.ID = mwmi.CONCENTRATOR_ID
+        LEFT JOIN MB_ROOM_TYPE_PARAM mrtp ON mrtp.TYPE_NUM = mwmi.ROOM_TYPE_ID
+        LEFT JOIN MB_WATER_METER mwm ON mwm.ID = mwmi.WATER_METER_ID
+        WHERE
+        mwmi.WATER_METER_ID is not null
+        AND
+        mwmi.CONCENTRATOR_ID is not null
+        AND
+        (mrtp.DEL_STATUS=0 OR mrtp.DEL_STATUS IS NULL)
+
+        ORDER BY  mwmi.CREATE_TIME, mwm.WATER_METER_ID ASC
+    </select>
+    <!--批量插入日表记录-->
+    <insert id="batchInsertDaily" parameterType="java.util.List">
+
+        INSERT ALL
+        <foreach collection="list" index="index" item="item">
+            INTO MB_WATER_DAILY
+            (ID,WATER_METER_INFO_ID,USE_TIME,SUPPLEMENT_WATER,BUY_WATER_TOTAL,CASH_BUY_WATER,CARD_BUY_WATER,RETURN_WATER,USER_WATER,SURPLUS_WATER,CREATE_TIME)
+            VALUES
+            (
+            #{item.id},#{item.waterMeterInfoId},#{item.useTime},#{item.supplementWater},#{item.buyWaterTotal},#{item.cashBuyWater},#{item.cardBuyWater},#{item.returnWater}
+            ,#{item.userWater},#{item.surplusWater},sysdate
+            )
+        </foreach>
+        SELECT 1 FROM DUAL
+    </insert>
+
+</mapper>

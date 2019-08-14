@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.parmSet.roomTypeParm.dao.RoomTypeDao">
+    <sql id="where">
+        <where>
+            <if test="type_name != null and type_name != '' "> and type_name = '${type_name}'</if>
+        </where>
+    </sql>
+
+    <select id="findRoomTypes" parameterType="java.util.Map" resultType="com.ets.bus.parmSet.roomTypeParm.entity.RoomType">
+         select * from mb_room_type_param where del_status=0
+         order by type_num desc
+        <include refid="where"></include>
+    </select>
+
+    <!--添加房间类型-->
+    <insert id="addRoomType" parameterType="com.ets.bus.parmSet.roomTypeParm.entity.RoomType">
+        insert into mb_room_type_param
+        values(#{id},#{type_num},#{type_name},#{del_status},#{effect_status},#{warn_water},#{valve_water},#{over_water},#{hoard_water},#{buy_money},#{return_money},#{add_cycle},sysdate,to_date(#{effect_time},'yyyy-mm-dd hh24:mi:ss'))
+    </insert>
+
+    <!--根据id查询房间类型信息-->
+    <select id="findRoomType" parameterType="java.lang.String" resultType="com.ets.bus.parmSet.roomTypeParm.entity.RoomType">
+        select * from mb_room_type_param where id=#{id}
+    </select>
+
+    <!--批量删除房间类型信息-->
+    <delete id="delRoomType" parameterType="java.util.ArrayList">
+        delete from mb_room_type_param where id in
+        <foreach collection="array" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--编辑房间类型信息-->
+    <update id="editRoomType" parameterType="com.ets.bus.parmSet.roomTypeParm.entity.RoomType">
+        update mb_room_type_param
+        set type_num=#{type_num},type_name=#{type_name},buy_money=#{buy_money},return_money=#{return_money},warn_water=#{warn_water},valve_water=#{valve_water},
+        over_water=#{over_water},hoard_water=#{hoard_water}
+        where id=#{id}
+    </update>
+
+    <!--根据房间类型编号查询房间类型信息-->
+    <select id="checkRoomTypeNum" parameterType="java.lang.String" resultType="com.ets.bus.parmSet.roomTypeParm.entity.RoomType">
+        select * from mb_room_type_param where type_num=#{roomTypeNum} and del_status=0
+    </select>
+
+    <!--根据房间类型名称查询房间类型信息-->
+    <select id="checkRoomTypeName" parameterType="java.lang.String" resultType="com.ets.bus.parmSet.roomTypeParm.entity.RoomType">
+        select * from mb_room_type_param where type_name=#{roomTypeName} and del_status=0
+    </select>
+
+    <select id="getAllRoomType" resultType="com.ets.bus.parmSet.roomTypeParm.entity.RoomType">
+        select * from MB_ROOM_TYPE_PARAM where DEL_STATUS=0
+    </select>
+
+    <!--根据id更新房间类型删除状态信息-->
+    <update id="updateRoomTypeDelStatus" parameterType="java.lang.String">
+        update mb_room_type_param set del_status=1 where id=#{id}
+    </update>
+
+    <!--根据id更新房间类型删除状态信息(批量)-->
+    <update id="updateRoomTypeStatusPl" parameterType="java.util.List">
+        update mb_room_type_param set del_status=1 where id
+        in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findRoomTypeByArray" parameterType="java.util.List" resultType="com.ets.bus.parmSet.roomTypeParm.entity.RoomType">
+        select * from mb_room_type_param where id
+        in
+        <foreach collection="array" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    <select id="infoRoomType" parameterType="java.lang.String" resultType="com.ets.bus.parmSet.roomTypeParm.entity.RoomType">
+        select * from MB_ROOM_TYPE_PARAM where id=#{id}
+    </select>
+
+</mapper>

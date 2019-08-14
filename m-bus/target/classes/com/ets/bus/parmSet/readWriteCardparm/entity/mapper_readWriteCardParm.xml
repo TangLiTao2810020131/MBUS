@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.parmSet.readWriteCardparm.dao.ReadWriteCardParmDao">
+    <select id="getreadWriteCardParmByVersionNum" resultType="com.ets.bus.parmSet.readWriteCardparm.entity.ReadWriteCardParm" parameterType="java.lang.String">
+        select rw.* from MB_RW_CARD_PARAM rw left join MB_PARAM_CARD_VERSION pcv on pcv.VERSION_NUM=rw.VERSION_NUM and pcv.VERSION_NUM=#{version_num}
+    </select>
+    <!--根据删除状态获取读写卡参数-->
+    <select id="getParmByDelstatus" resultType="com.ets.bus.parmSet.readWriteCardparm.entity.ReadWriteCardParm">
+        select * from MB_RW_CARD_PARAM where DEL_STATUS='0'
+    </select>
+    <!--根据id得到读写卡参数-->
+    <select id="getParmById" parameterType="java.lang.String" resultType="com.ets.bus.parmSet.readWriteCardparm.entity.ReadWriteCardParm">
+        select * from MB_RW_CARD_PARAM where ID=#{id}
+    </select>
+    <!--修改删除状态（删除操作）-->
+    <select id="UpdateParmById" parameterType="java.lang.String">
+        update MB_RW_CARD_PARAM set DEL_STATUS='1' where ID=#{id}
+    </select>
+    <!--新增读写卡参数-->
+    <insert id="addParm" parameterType="com.ets.bus.parmSet.readWriteCardparm.entity.ReadWriteCardParm">
+        insert  into MB_RW_CARD_PARAM values(#{id},#{version_num},#{base_address},#{money_address},#{record_address},#{watermete_address},#{extend_address},#{purse_address},#{use_crc},#{card_pass_mode},#{retention_one},#{retention_two},#{del_status},TO_DATE(#{create_time},'yyyy-MM-dd HH24:mi:ss'))
+    </insert>
+</mapper>

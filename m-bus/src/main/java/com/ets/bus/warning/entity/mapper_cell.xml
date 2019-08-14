@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.bus.warning.dao.WarningDao">
+
+   <sql id="where">
+      <where>
+         <if test="startTime != null and startTime != '' or endTime!=null and endTime!='' "> and mw.create_time between to_date('${startTime}','yyyy-MM-dd HH24:mi:ss') and to_date('${endTime}','yyyy-MM-dd HH24:mi:ss')</if>
+         <if test="type!=null and type!=''">and mw.type=to_number(#{type})</if>
+         <if test="area_id != null and area_id != '' "> and tr.id = '${area_id}'</if>
+         <if test="apartment_id != null and apartment_id != '' "> and ta.id = '${apartment_id}'</if>
+         <if test="build_id != null and build_id != '' "> and tf.id = '${build_id}'</if>
+         <if test="floor_id != null and floor_id != '' "> and tl.id = '${floor_id}'</if>
+         <if test="room_num != null and room_num != '' "> and room_num = '${room_num}'</if>
+         <if test="flag!=null and flag!=''"> and mw.type=#{flag}</if>
+      </where>
+   </sql>
+   <sql id="select">
+       from mb_warning mw
+       left join mb_water_meter mwm on mw.water_meter_id=mwm.water_meter_id
+       left join mb_water_meter_info mwmi on mwmi.water_meter_id=mwm.id
+       left join tb_region tr on mwmi.area_id=tr.id
+       left join tb_floor tf on mwmi.build_id=tf.id
+       left join tb_apartment ta on mwmi.apartment_id=ta.id
+       left join tb_layer tl on mwmi.floor_id=tl.id
+       left join mb_concentrator mc on mw.concentrator_id=mc.id
+   </sql>
+    <select id="selectAllCell" parameterType="java.util.Map" resultType="com.ets.bus.warning.entity.Warning">
+       select
+       mw.id id,
+       tr.name areaName,
+       ta.name apartmentName,
+       tf.name buildName,
+       tl.name floorName,
+       mwmi.room_num roomNum,
+       mw.water_meter_id waterNum,
+       mw.create_time warningTime,
+       mc.ip_address ipAddress,
+       case mw.type
+       when 0 then '电池电量报警'
+       when 1 then '低水量报警'
+       when 2 then '磁攻击报警'
+       else '其他' end typeName
+       <include refid="select"/>
+       <include refid="where"/>
+    </select>
+
+   <!--根据id查询报警信息-->
+   <select id="findWarningById" parameterType="java.lang.String" resultType="com.ets.bus.warning.entity.Warning">
+      select
+      mw.id id,
+      tr.name areaName,
+      ta.name apartmentName,
+      tf.name buildName,
+      tl.name floorName,
+      mwmi.room_num roomNum,
+      mw.water_meter_id waterNum,
+      mw.create_time warningTime,
+      mc.ip_address ipAddress,
+      case mw.type
+      when 0 then '电池电量报警'
+      when 1 then '低水量报警'
+      when 2 then '磁攻击报警'
+      else '其他' end typeName
+      <include refid="select"/>
+      where mw.id=#{id}
+   </select>
+
+</mapper>

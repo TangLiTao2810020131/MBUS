@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.district.layer.dao.LayerDao">
+	<sql id="where">
+			<if test="code!= null and code != '' "> and code like '%${code}%'</if>
+			<if test="layername != null and layername != '' "> and name like '%${layername}%'</if>
+	</sql>
+
+<!-- 获取列表 -->
+	<select id="select" parameterType="map"  resultType="com.ets.district.layer.entity.tb_layer">
+			select * from 
+				(
+					select * from 
+					(
+						select u.*,rownum rn from 
+						(
+							select * from tb_layer u where parentid = #{parentid}
+							 <include refid="where"></include>
+						) u 
+						where rownum <![CDATA[<=]]> #{page}
+                        order by code asc
+					) 
+					where rn > #{limit}
+				)
+    </select>
+     
+     <!-- 获取总记录数 -->
+    <select id="selectCount" parameterType="map"  resultType="long">
+    	select count(*) from tb_layer u where parentid = #{parentid}
+	</select>
+    
+    <!-- 获取单条数据 -->
+    <select id="info" parameterType="java.lang.String"  resultType="com.ets.district.layer.entity.tb_layer">
+    	select * from tb_layer where id = #{id}
+    </select>
+    
+    <insert id="insert" parameterType="com.ets.district.layer.entity.tb_layer">
+    	insert into tb_layer values(#{id},#{code},#{name},#{parentid},#{ctime},#{remark})
+    </insert>
+    
+    <update id="update" parameterType="com.ets.district.layer.entity.tb_layer">
+    	update tb_layer set name=#{name},code=#{code},remark=#{remark} where id=#{id}
+    </update>
+	<select id="getLayers" resultType="com.ets.district.layer.entity.tb_layer">
+		select * from TB_LAYER where PARENTID=#{parentId}
+	</select>
+
+	<select id="isCheckLayerCode" parameterType="com.ets.district.layer.entity.tb_layer" resultType="long">
+		select count(*) from TB_LAYER where PARENTID=#{parentid} and  CODE=#{code}
+	</select>
+	<delete id="deleteLayerById" parameterType="java.lang.String" >
+		delete from TB_LAYER where id in
+		<foreach item="empnoItem" collection="array" open="(" separator="," close=")">
+			#{empnoItem}
+		</foreach>
+	</delete>
+
+	<!--根据楼层id查询楼层信息-->
+	<select id="findLayerById" parameterType="java.util.List" resultType="com.ets.district.layer.entity.tb_layer">
+		select * from tb_layer where id in
+		<foreach collection="bList" item="layer" separator="," open="(" close=")">
+			#{layer.floor_id}
+		</foreach>
+	</select>
+	<!--根据父级Id-->
+	<select id="selectLayerByParentId" parameterType="java.lang.String" resultType="com.ets.district.layer.entity.tb_layer">
+		select * from tb_layer where PARENTID=#{father}
+</select>
+</mapper>

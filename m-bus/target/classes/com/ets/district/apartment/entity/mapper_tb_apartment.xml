@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ets.district.apartment.dao.ApartmentDao">
+		<sql id="where">
+			<if test="parentid != null and parentid != '' "> parentid = #{parentid}</if>
+			<if test="code != null and code != '' "> and code like '%${code}%'</if>
+			<if test="apartmentname != null and apartmentname != '' "> and name like '%${apartmentname}%'</if>
+		</sql>
+
+<!-- 获取列表 -->
+	<select id="select" parameterType="map"  resultType="com.ets.district.apartment.entity.tb_apartment">
+			select * from 
+				(
+					select * from 
+					(
+						select u.*,rownum rn from 
+						(
+							select * from tb_apartment u where
+							 <include refid="where"></include>
+
+						) u 
+						where rownum <![CDATA[<=]]> #{page}
+                        order by code asc
+					) 
+					where rn > #{limit}
+				)
+    </select>
+     
+     <!-- 获取总记录数 -->
+    <select id="selectCount" parameterType="map"  resultType="long">
+    	select count(*) from tb_apartment u  where parentid = #{parentid}
+	</select>
+    
+    <!-- 获取单条数据 -->
+    <select id="info" parameterType="java.lang.String"  resultType="com.ets.district.apartment.entity.tb_apartment">
+    	select * from tb_apartment where id = #{id}
+    </select>
+    
+    <insert id="insert" parameterType="com.ets.district.apartment.entity.tb_apartment">
+    	insert into tb_apartment values(#{id},#{code},#{name},#{parentid},#{ctime},#{remark})
+    </insert>
+    
+    <update id="update" parameterType="com.ets.district.apartment.entity.tb_apartment">
+    	update tb_apartment set name=#{name},code=#{code},remark=#{remark} where id=#{id}
+    </update>
+	<select id="getApartments" resultType="com.ets.district.apartment.entity.tb_apartment">
+		select * from TB_APARTMENT where PARENTID=#{parentId}
+	</select>
+	<select id="isCheckApartmentCode" parameterType="com.ets.district.apartment.entity.tb_apartment" resultType="long">
+		select  count(*) from TB_APARTMENT where CODE=#{code} and PARENTID=#{parentid}
+	</select>
+	<delete id="deleteApartmentById" parameterType="java.lang.String" >
+		delete from TB_APARTMENT where id in
+		<foreach item="empnoItem" collection="array" open="(" separator="," close=")">
+			#{empnoItem}
+		</foreach>
+	</delete>
+
+	<!--根据公寓ID查询公寓信息-->
+	<select id="findApartmentById" parameterType="java.util.List" resultType="com.ets.district.apartment.entity.tb_apartment">
+		select * from tb_apartment where id in
+		<foreach collection="bList" item="apartment" separator="," open="(" close=")">
+			#{apartment.apartment_id}
+		</foreach>
+	</select>
+
+	<!--获取所有的公寓信息-->
+	<select id="findApartments" resultType="com.ets.district.apartment.entity.tb_apartment">
+		select * from tb_apartment
+	</select>
+
+	<!--根据父级Id-->
+	<select id="selectApartmentByParentId" parameterType="java.lang.String" resultType="com.ets.district.apartment.entity.tb_apartment">
+		select * from TB_APARTMENT where PARENTID=#{father}
+	</select>
+
+</mapper>
