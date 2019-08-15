@@ -99,4 +99,6 @@
      <import resource="shiro.xml" />
      <import resource="spring-redis.xml" />
 
+    <!--创建新的分支-->
+
 	</beans>
