@@ -16,12 +16,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="${ctx}/resources/css/admin.css" media="all">
     <link rel="stylesheet" href="${ctx}/resources/plugins/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <link rel="stylesheet" href="${ctx}/resources/css/addClass.css"/>
+    <link rel="stylesheet" type="text/css" href="${ctx}/resources/css/common.css"/>
     <style type="text/css">
 		.demoTable .layui-inline{margin-top:10px;}
 		.layui-fluid{margin-bottom:10px;}
 	</style>
 </head>
-<body class="layui-layout-body" >
+
+<body class="inner-body" style="background:#f2f2f2;position: relative; ">
+<div style="border-top: 1px solid #e6e6e6;"></div>
+
+<div class="tableHtml" style="height: 100%;background: #FFFFFF;">
+    <div class="top-btn" id="buttons">
+        <div class="layui-btn-group" style="position: relative;height: 36px">
+            <%--<button class="layui-btn" id="exportBtn" style="display: block"></button>--%>
+        </div>
+        <div class="search-btn-group">
+            <input type="text" name="workerAccount" id="workerAccount" placeholder="请输入登录用户账号" autocomplete="off" class="layui-input" maxlength="20">
+            <input type="text" name="workerName" id="workerName" placeholder="请输入登录用户名" autocomplete="off" class="layui-input" maxlength="20">
+            <input type="text" name="loginTime" id="loginTime" placeholder="请输入登录时间" autocomplete="off" class="layui-input" maxlength="20" >
+            <%--<button class="layui-btn layui-btns" id="find">查询</button>--%>
+            <button data-type="reload"
+                    class="layui-btn" lay-submit="">
+                查询
+            </button>
+
+        </div>
+        <div>
+            <table class="layui-hide" id="demo" lay-filter="myTable"></table>
+        </div>
+
+    </div>
+
+</div>
+<%--<body class="layui-layout-body" >
 
 
 <div class="layui-body">
@@ -57,7 +85,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
                                 <div class="layui-inline">
                                     <button data-type="reload" class="layui-btn layuiadmin-btn-list" lay-submit="" lay-filter="LAY-app-contlist-search">
-                                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                        &lt;%&ndash;<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>&ndash;%&gt;
+                                    搜索
                                     </button>
                                 </div>
                             </div>
@@ -69,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
         </div>
     </div>
-</div>
+</div>--%>
 
 
 <script src="${ctx}/resources/js/jquery-1.11.2.min.js"></script>
@@ -106,21 +135,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             table.render({
                 elem: '#demo'
                 ,cols: [[ //标题栏
-                    {field: 'workerAccount', title: '登录用户账号', minWidth:120,width:avg,unresize:true,align:'center'},
-                    {field: 'workerName', title: '登录用户名', minWidth:120,width:avg,unresize:true,align:'center'},
-                    {field: 'ipaddress', title: '登录IP', minWidth:120,width:avg,unresize:true,align:'center'}
-                    ,{field: 'loginTime', title: '登录时间', minWidth:120,width:avg,unresize:true,align:'center'}
-                    ,{field: 'loginState', title: '登录状态',minWidth:120,width:avg,unresize:true,align:'center'}
-                    ,{field: 'isclose', title: '操作', width:avg,toolbar:'#handle',unresize:true,align:'center'}
+                    {field: 'workerAccount', title: '登录用户账号', minWidth:120,unresize:true,align:'center'},
+                    {field: 'workerName', title: '登录用户名', minWidth:120,unresize:true,align:'center'},
+                    {field: 'ipaddress', title: '登录IP', minWidth:120,unresize:true,align:'center'}
+                    ,{field: 'loginTime', title: '登录时间', minWidth:120,unresize:true,align:'center'}
+                    ,{field: 'loginState', title: '登录状态',minWidth:120,unresize:true,align:'center'}
+                    // ,{field: 'isclose', title: '操作', width:avg,toolbar:'#handle',unresize:true,align:'center'}
                 ]]
                 //,data: ${list}
                 ,url: '${ctx}/loginLog/listData.action'
                 ,id:'myTable'
-                ,even: true
+                ,even: false
                 ,page: true //是否显示分页
                 ,limits: [15,20,50]
                 ,limit:15 //每页默认显示的数量
                 ,height:clientHeight-100
+                ,width:clientWidth
             });
 
             var $ = layui.$;
@@ -162,7 +192,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 }
             });
 
-            $('.demoTable .layui-btn').on('click', function(){
+            $('.search-btn-group .layui-btn').on('click', function(){
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
             });

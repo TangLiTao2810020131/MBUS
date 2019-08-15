@@ -36,7 +36,8 @@
 			<input type="text" autocomplete="off" id="type_name" class="layui-input layui-input_" maxlength="20" placeholder="请输入类型名称">
 	 		<button class="layui-btn layui-btns" id="find">查询</button>
 
-	</div></div>
+	</div>
+  </div>
 	<div class="tableDiv">
 		<table id="layui-table" lay-filter="tableBox" class="layui-table"></table>
 	</div>

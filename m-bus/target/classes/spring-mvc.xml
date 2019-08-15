@@ -28,6 +28,9 @@
          <property name="prefix" value="/WEB-INF/jsp/" />
          <property name="suffix" value=".jsp" />
      </bean>
+    <bean id="springContextHolder" class="com.ets.utils.SpringContextHolder">
+
+    </bean>
      
      <!-- 解决返回JSON乱码问题 -->
      <mvc:annotation-driven>

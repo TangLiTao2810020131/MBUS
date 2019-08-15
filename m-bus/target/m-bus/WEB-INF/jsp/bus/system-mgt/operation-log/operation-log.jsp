@@ -16,11 +16,41 @@
 	<link rel="stylesheet" href="${ctx}/resources/css/admin.css" media="all">
 	<link rel="stylesheet" href="${ctx}/resources/plugins/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
 	<link rel="stylesheet" href="${ctx}/resources/css/addClass.css"/>
+	<link rel="stylesheet" type="text/css" href="${ctx}/resources/css/common.css"/>
 	<style type="text/css">
 		.demoTable .layui-inline{margin-top:10px;}
 		.layui-fluid{margin-bottom:10px;}
 	</style>
 </head>
+
+<body class="inner-body" style="background:#f2f2f2;position: relative; ">
+<div style="border-top: 1px solid #e6e6e6;"></div>
+
+<div class="tableHtml" style="height: 100%;background: #FFFFFF;">
+	<div class="top-btn" id="buttons">
+		<div class="layui-btn-group" style="position: relative;height: 36px">
+			<%--<button class="layui-btn" id="exportBtn" style="display: block"></button>--%>
+		</div>
+		<div class="search-btn-group">
+			<input type="text" name="startdate" id="startdate" placeholder="请选择开始时间" autocomplete="off" class="layui-input" maxlength="20">
+			<input type="text" name="enddate" id="enddate" placeholder="请选择结束时间" autocomplete="off" class="layui-input" maxlength="20">
+			<input type="text" name="workerName" id="workerName" placeholder="请输入操作职工" autocomplete="off" class="layui-input" maxlength="20">
+			<%--<button class="layui-btn layui-btns" id="find">查询</button>--%>
+			<button data-type="reload"
+					class="layui-btn" lay-submit="">
+				查询
+			</button>
+
+		</div>
+		<div>
+			<table class="layui-hide" id="demo" lay-filter="myTable"></table>
+		</div>
+
+	</div>
+
+</div>
+
+<%--
 <body class="layui-layout-body" >
 
 
@@ -57,7 +87,8 @@
 
 							<div class="layui-inline">
 								<button data-type="reload" class="layui-btn layuiadmin-btn-list" lay-submit="" lay-filter="LAY-app-contlist-search">
-									<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+									&lt;%&ndash;<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>&ndash;%&gt;
+									搜索
 								</button>
 							</div>
 						</div>
@@ -69,6 +100,7 @@
 	</div>
 	</div>
 </div>
+--%>
 
 
 <script src="${ctx}/resources/js/jquery-1.11.2.min.js"></script>
@@ -150,11 +182,11 @@
             table.render({
                 elem: '#demo'
                 ,cols: [[ //标题栏
-                    {field: 'workerName', title: '操作职工',minWidth:120,width:avg,unresize:true,align:'center'}
-                    ,{field: 'moduleName', title: '操作业务',minWidth:120,width:avg,unresize:true,align:'center'}
-                    ,{field: 'operaContent', title: '业务信息',minWidth:120,width:avg,unresize:true,align:'center'}
-                    ,{field: 'operaTime', title: '操作时间',minWidth:120,width:avg,unresize:true,align:'center'}
-                    ,{field: 'isclose', title: '操作', width:avg-15,toolbar:'#handle',unresize:true,align:'center'}
+                    {field: 'workerName', title: '操作职工',minWidth:120,unresize:true,align:'center'}
+                    ,{field: 'moduleName', title: '操作业务',minWidth:120,unresize:true,align:'center'}
+                    ,{field: 'operaContent', title: '业务信息',minWidth:120,unresize:true,align:'center'}
+                    ,{field: 'operaTime', title: '操作时间',minWidth:120,unresize:true,align:'center'}
+                    // ,{field: 'isclose', title: '操作', width:avg-15,toolbar:'#handle',unresize:true,align:'center'}
                 ]]
                 //,data: ${list}
                 ,url: '${ctx}/operationlog/listData.action'
@@ -162,7 +194,7 @@
                 //method: 'post' //如果无需自定义HTTP类型，可不加该参数
                 //,skin: 'line' //表格风格
                 ,id:'myTable'
-                ,even: true
+                ,even: false
                 ,page: true //是否显示分页
                 ,limits: [15,20,50]
                 ,limit:15 //每页默认显示的数量
@@ -170,6 +202,7 @@
                 // ,defaultToolbar: ['filter', 'print', 'exports']  //默认工具栏模板
                 //,done:function(obj){console.log(obj);} //表格数据渲染完成后执行的回调函数
                 ,height:clientHeight-100
+				, width:clientWidth
             });
 
             var $ = layui.$;
@@ -231,7 +264,7 @@
 				}
             });
 
-            $('.demoTable .layui-btn').on('click', function(){
+            $('.search-btn-group .layui-btn').on('click', function(){
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
             });

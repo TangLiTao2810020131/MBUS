@@ -39,7 +39,10 @@
             <button class="layui-btn" id="bindRoom">绑定房间</button>
            <%-- </shiro:hasPermission>--%>
            <%--<shiro:hasPermission name="批量增加水表">--%>
-           <button class="layui-btn" id="importBtn">批量增加水表</button>
+           <%--<button class="layui-btn" id="importBtn">批量增加水表</button>--%>
+           <%-- </shiro:hasPermission>--%>
+           <%--<shiro:hasPermission name="批量增加水表">--%>
+           <button class="layui-btn" id="cancelBindBtn">解除房间绑定</button>
            <%-- </shiro:hasPermission>--%>
         </div>
         <div class="search-btn-group">
@@ -178,8 +181,34 @@
             });
             return num;
         }
+
+        /*----检验解除绑定的水表是否存在数据------*/
+        function checkWaterMeterExitData(ids){
+            var num;
+            $.ajax({
+                type : "POST", //提交方式
+                url : "${ctx}/watermeterroominfomgt/checkWaterMeterExitData.action", //路径
+                data :{'ids':ids}, //数据，这里使用的是Json格式进行传输
+                dataType : "json",
+                async : false,
+                success : function(result) { //返回数据根据结果进行相应的处理
+                    num = result;
+                }
+            });
+            return num;
+        }
+
+
         $("#bindRoom").click(function(obj){
             var checkStatus = table.checkStatus('tableId');
+            //数据至少是一条
+            if (checkStatus.data.length != 1) {
+                parent.layer.open({
+                    title: '温馨提示'
+                    , content: '只能勾选一条目标数据！'
+                });
+                return false;
+            }
             var id=checkStatus.data[0].id;
             var num=isCheckWaterMeter(id);
             if (num != 0) {
@@ -194,7 +223,16 @@
         })
         /*----删除-----*/
         $("#delBtn").click(function(){
-            var checkStatus = table.checkStatus('tableId');//test即为基础参数id对应的值
+            var checkStatus = table.checkStatus('tableId'); //test即为基础参数id对应的值
+            //数据至少是一条
+            if (checkStatus.data.length == 0) {
+                parent.layer.open({
+                    title: '温馨提示'
+                    , content: '请至少勾选一条目标数据！'
+                });
+                return false;
+            }
+            //var checkStatus = table.checkStatus('tableId');//test即为基础参数id对应的值
             var ids = "";
             for (var i = 0; i < checkStatus.data.length; i++) {
                 ids += checkStatus.data[i].id + ",";
@@ -245,6 +283,7 @@
             com.pageOpen("批量增加", "${ctx}/waterMeterMgt/waterImport.action", ['1000px', '565px']);
         })
 
+<<<<<<< .mine
         $(function(){
             //查询重载表格
             $("#simple,#gj").on("click",function(){
@@ -257,6 +296,95 @@
                 )
             });
         });
+||||||| .r2243
+        //表格重载
+        // $(function(){
+        //     //查询重载表格
+        //     $("#simple,#gj").on("click",function(){
+        //         com.reloadTable(
+        //             {
+        //                 water_meter_id:$("#water_meter_id").val(),
+        //                 type:$('#type').val(),
+        //                 update_time:$('#update_time').val()
+        //             }
+        //         )
+        //     });
+        // });
+=======
+        // 解除房间的绑定
+        $("#cancelBindBtn").click(function(){
+            var checkStatus = table.checkStatus('tableId'); //test即为基础参数id对应的值
+            //数据至少是一条
+            if (checkStatus.data.length == 0) {
+                parent.layer.open({
+                    title: '温馨提示'
+                    , content: '请至少勾选一条目标数据！'
+                });
+                return false;
+            }
+            var ids = "";
+            for (var i = 0; i < checkStatus.data.length; i++) {
+                ids += checkStatus.data[i].id + ",";
+            }
+            ids = ids.substring(0, ids.length - 1);
+            debugger
+            var num=isCheckWaterMeterBind(ids);
+            if (num != checkStatus.data.length) {
+                parent.layer.open({
+                    title: '温馨提示'
+                    , content: '选择的数据中存在未绑定的房间的水表,不能解除绑定！'
+                })
+                return false ;
+            }
+
+            var num2=checkWaterMeterExitData(ids);
+            if (num2 != 0) {
+                parent.layer.open({
+                    title: '温馨提示'
+                    , content: '选择的数据中有水表存在数据,请清零后再解除绑定！'
+                })
+                return false ;
+            }
+
+
+            layer.confirm("确定解除绑定吗？", {
+                btn : [ "确定", "取消" ] //按钮
+            }, function(index) {
+                $.ajax({
+                    type : "POST", //提交方式
+                    url : "${ctx}/waterMeterMgt/cancelBind.action", //路径
+                    data : {
+                        "id" : ids
+                    }, //数据，这里使用的是Json格式进行传输
+                    dataType : "json",
+                    success : function(result) { //返回数据根据结果进行相应的处理
+                        layer.msg("解除绑定成功", {
+                            icon : 1,
+                            time : 2000 //2秒关闭（如果不配置，默认是3秒）
+                        }, function() {
+                            window.location.reload();
+                        });
+                    }
+                });
+            });
+
+            return false;
+        });
+
+        //表格重载
+        // $(function(){
+        //     //查询重载表格
+        //     $("#simple,#gj").on("click",function(){
+        //         com.reloadTable(
+        //             {
+        //                 water_meter_id:$("#water_meter_id").val(),
+        //                 type:$('#type').val(),
+        //                 update_time:$('#update_time').val()
+        //             }
+        //         )
+        //     });
+        // });
+>>>>>>> .r2286
 
 
     })

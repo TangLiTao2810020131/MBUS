@@ -80,5 +80,6 @@
         left join TB_LAYER tl on mwmi.FLOOR_ID=tl.ID
         where mwmi.FLOOR_ID=#{floorId}
     </select>
+
 </mapper>
     

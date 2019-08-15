@@ -105,11 +105,20 @@
         UPDATE MB_WATER_METER_INFO SET CLOSE_VALVE_WATER=#{closeValveWater},WARN_WATER=#{warn_water},MAX_OVER_WATER=#{max_over_water},HOARD_WATER=#{maxWater},BUY_MONEY=#{buy_money},RETURN_MONEY=#{return_money},ADD_CYCLE=#{add_cycle},ROOM_TYPE_ID=#{roomTypeId} WHERE ID=#{id}
     </update>
     <select id="isCheckWaterMeterBind" parameterType="java.lang.String" resultType="long">
-        select count(*) from MB_WATER_METER_INFO where WATER_METER_ID is not null and WATER_METER_ID in
+        select count(1) from MB_WATER_METER_INFO where WATER_METER_ID is not null and WATER_METER_ID in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </select>
+
+    <select id="checkWaterMeterExitData" parameterType="java.lang.String" resultType="long">
+        select count(1) from MB_WATER_METER_INFO where WATER_METER_ID is not null and WATER_METER_ID in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        and INIT_STATUS = 1
+    </select>
+
 
     <select id="findWatermeterInfoByRoomTypeId" parameterType="java.util.List" resultType="com.ets.bus.systemMgt.watermeterRoomInfoMgt.entity.WaterMeterInfoMgt">
         select * from MB_WATER_METER_INFO where ROOM_TYPE_ID

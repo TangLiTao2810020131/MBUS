@@ -19,7 +19,7 @@
 </context:component-scan>
 <task:annotation-driven />
 
-    <context:property-placeholder location="classpath:jdbc.properties,classpath:redis.properties,classpath:nbiot.properties" />
+    <context:property-placeholder location="classpath:jdbc.properties,classpath:redis.properties,classpath:nbiot.properties,classpath:schedule.properties" />
     <!-- 数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
         init-method="init" destroy-method="close">
@@ -79,6 +79,7 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
+    <tx:annotation-driven />
 
     <bean id="threadPool" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <!-- 核心线程数  -->

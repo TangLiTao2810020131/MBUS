@@ -13,7 +13,8 @@
             moi.TYPE type,
             moi.CURRENT_STATUS currentStatus,
             moi.CONCENTRATOR_ID concentratorId,
-            moi.WATER_METER_NUM waterMeterNum
+            moi.WATER_METER_NUM waterMeterNum,
+            moi.INSTRUCTION_DETAIL instructionDetail
           FROM MB_OPERATION_INSTRUCTION moi
           LEFT JOIN MB_CONCENTRATOR mc ON mc.id= moi.CONCENTRATOR_ID
           WHERE
@@ -49,7 +50,16 @@
 
     <!-- 更新水表房间信息 -->
     <update id="updateWaterMeteInfo" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
-        update MB_WATER_METER_INFO set COLLECT_TIME=#{time},BUY_WATER_TOTAL=#{buyWaterTotal},SUPPLEMENT_WATER=#{supplementWater},ADD_NUM=#{addNum},POWER_STATUS=#{powerStatus},ATTACK_NUM=#{attackNum},CUMULATE_WATER=#{userWater},USER_WATER=#{userWater},OVER_WATER=#{overWater},VALVE_STATUS=#{valveStatus},INIT_STATUS=1,SURPLUS_WATER=#{supplementWater}+#{buyWaterTotal},UPDATE_TIME=sysdate where id=#{waterMeterInfoId}
+        <choose>
+            <when test="returnWater !=null and returnWater != ''">
+                update MB_WATER_METER_INFO set COLLECT_TIME=#{time},BUY_WATER_TOTAL=#{buyWaterTotal},SUPPLEMENT_WATER=#{supplementWater},ADD_NUM=#{addNum},POWER_STATUS=#{powerStatus},ATTACK_NUM=#{attackNum},CUMULATE_WATER=#{userWater},USER_WATER=#{userWater},OVER_WATER=#{overWater},VALVE_STATUS=#{valveStatus},INIT_STATUS=1,SURPLUS_WATER=#{supplementWater}+#{buyWaterTotal},RETURN_WATER=#{returnWater},UPDATE_TIME=sysdate where id=#{waterMeterInfoId}
+            </when>
+            <otherwise>
+                update MB_WATER_METER_INFO set COLLECT_TIME=#{time},BUY_WATER_TOTAL=#{buyWaterTotal},SUPPLEMENT_WATER=#{supplementWater},ADD_NUM=#{addNum},POWER_STATUS=#{powerStatus},ATTACK_NUM=#{attackNum},CUMULATE_WATER=#{userWater},USER_WATER=#{userWater},OVER_WATER=#{overWater},VALVE_STATUS=#{valveStatus},INIT_STATUS=1,SURPLUS_WATER=#{supplementWater}+#{buyWaterTotal},UPDATE_TIME=sysdate where id=#{waterMeterInfoId}
+            </otherwise>
+        </choose>
+
+
     </update>
 
     <!-- 更新补水记录信息 -->
@@ -90,7 +100,7 @@
 
     <!-- 清零房间 -->
     <update id="waterMeteInfoClear" parameterType="com.ets.bus.waterMeterMgt.instructionOperation.entity.InstructionData">
-        update MB_WATER_METER_INFO set COLLECT_TIME=null,BUY_WATER_TOTAL=0,SUPPLEMENT_WATER=0,ADD_NUM=0,POWER_STATUS=0,ATTACK_NUM=0,CUMULATE_WATER=0,USER_WATER=0,OVER_WATER=0,SURPLUS_WATER=0,INIT_STATUS=1,UPDATE_TIME=sysdate where id=#{waterMeterInfoId}
+        update MB_WATER_METER_INFO set COLLECT_TIME=null,BUY_WATER_TOTAL=0,SUPPLEMENT_WATER=0,ADD_NUM=0,POWER_STATUS=0,ATTACK_NUM=0,CUMULATE_WATER=0,USER_WATER=0,OVER_WATER=0,SURPLUS_WATER=0,INIT_STATUS=1,RETURN_WATER=0,UPDATE_TIME=sysdate where id=#{waterMeterInfoId}
     </update>
 
     <!-- 更新退水记录 -->

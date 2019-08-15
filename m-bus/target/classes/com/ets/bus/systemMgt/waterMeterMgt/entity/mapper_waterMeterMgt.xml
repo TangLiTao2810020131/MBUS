@@ -67,6 +67,14 @@
             #{id}
         </foreach>
     </delete>
+    <!--批量解除绑定-->
+    <update id="cancelBind" parameterType="java.lang.String">
+        update MB_WATER_METER_INFO set WATER_METER_ID = null where WATER_METER_ID in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
     <sql id="where1">
         <where>
             mwmi.water_meter_id IS NULL

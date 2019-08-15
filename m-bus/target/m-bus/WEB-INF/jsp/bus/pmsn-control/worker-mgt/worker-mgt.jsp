@@ -13,120 +13,92 @@
 	<link rel="stylesheet" href="${ctx}/resources/css/layui.css" media="all">
 	<link rel="stylesheet" href="${ctx}/resources/css/addClass.css" />
 	<link rel="stylesheet" href="${ctx}/resources/css/admin.css" media="all">
+	<%--<link rel="stylesheet" type="text/css" href="${ctx}/resources/css/common.css"/>--%>
 	<style type="text/css">
-		.demoTable .layui-inline {
-			margin-top: 10px;
-		}
 
-		.layui-fluid {
-			margin-bottom: 10px;
+		.search-btn-group{
+			float: right;
 		}
-		.layui-input-inline {
-			width: 120px;
+		.search-btn-group input{
+			display: inline-block;
 		}
-		.layui-form-label {
-			width: 70px;
+		.search-btn-group button{
+			top: -1px;
+			position: relative;
+		}
+		.layui-input{
+			width:185px ;
+			margin-left:0;
 		}
 
 	</style>
 
 </head>
-<body class="layui-layout-body">
+<body class="inner-body" style="background:#f2f2f2;position: relative; ">
+<div style="border-top: 1px solid #e6e6e6;"></div>
 
+<div class="tableHtml" style="height: 100%;background: #FFFFFF;">
+	<div class="top-btn" id="buttons">
+		<div class="layui-btn-group" style="position: relative;">
+			<shiro:hasPermission name="新增职工">
+				<button class="layui-btn" data-method="addWorker">
+					<%--<i class="layui-icon">&#xe654;</i> 新增--%>
+						新增
+				</button>
+			</shiro:hasPermission>
 
-<!-- user-list 主体内容 -->
-<div class="layui-body">
-	<div class="layui-fluid white-bg" style="margin: -5px;">
-		<div class="layui-row  layui-col-space15">
-			<div class="layui-col-md12">
-				<div class="layui-card">
-					<div class="layui-card-body">
-						<div class="layui-form layuiadmin-card-header-auto marginBottom">
-							<div class="demoTable" style="margin-left: 0px;">
+			<shiro:hasPermission name="删除职工">
+				<button class="layui-btn" data-method="deleteWorkers">
+					<%--<i class="layui-icon">&#xe640;</i> 删除--%>
+					删除
+				</button>
+			</shiro:hasPermission>
 
-								<div class="layui-inline">
-									<label class="layui-form-label">账号</label>
-									<div class="layui-input-inline">
-										<input type="text" name="workerAccount" id="workerAccount" placeholder="请输入账号" autocomplete="off" class="layui-input" maxlength="20">
-									</div>
-								</div>
-								<div class="layui-inline">
-									<label class="layui-form-label">登录名</label>
-									<div class="layui-input-inline">
-										<input type="text" name="workerName" id="workerName" placeholder="请输入登录名" autocomplete="off" class="layui-input" maxlength="20">
-									</div>
-								</div>
-								<div class="layui-inline">
-									<label class="layui-form-label">姓名</label>
-									<div class="layui-input-inline">
-										<input type="text" name="realName" id="realName" placeholder="请输入姓名" autocomplete="off" class="layui-input" maxlength="20">
-									</div>
-								</div>
-								<div class="layui-inline">
-									<label class="layui-form-label">创建时间</label>
-									<div class="layui-input-inline">
-										<input type="text" name="ctime" id="ctime"
-											   placeholder="请输入创建时间" autocomplete="off"
-											   class="layui-input" maxlength="20">
-									</div>
-								</div>
-								<div class="layui-inline">
-									<button data-type="reload"
-											class="layui-btn layuiadmin-btn-list" lay-submit=""
-											lay-filter="LAY-app-contlist-search">
-										<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-									</button>
-								</div>
-							</div>
-						</div>
+			<shiro:hasPermission name="关闭职员">
+				<button class="layui-btn" data-method="closeWorker">
+					<%--<i class="layui-icon">&#x1006;</i> 禁用--%>
+					禁用
+				</button>
+			</shiro:hasPermission>
 
-						<div class="demoTable marginBottom" id="buttons">
-							<div class="layui-btn-group">
-								<shiro:hasPermission name="新增职工">
-								<button class="layui-btn" data-method="addWorker">
-									<i class="layui-icon">&#xe654;</i> 新增
-								</button>
-								</shiro:hasPermission>
-								<shiro:hasPermission name="删除职工">
-								<button class="layui-btn" data-method="deleteWorkers">
-									<i class="layui-icon">&#xe640;</i> 删除
-								</button>
-								</shiro:hasPermission>
-								<shiro:hasPermission name="关闭职员">
-								<button class="layui-btn" data-method="closeWorker">
-									<i class="layui-icon">&#x1006;</i> 禁用
-								</button>
-								</shiro:hasPermission>
-								<shiro:hasPermission name="开启职工">
-								<button class="layui-btn" data-method="openWorker">
-									<i class="layui-icon">&#xe605;</i> 启用
-								</button>
-								</shiro:hasPermission>
-								<shiro:hasPermission name="分配角色">
-								<button class="layui-btn" data-method="inRole">
-									<i class="layui-icon">&#xe608;</i> 分配角色
-								</button>
-								</shiro:hasPermission>
-								<shiro:hasPermission name="重置密码">
-								<button class="layui-btn" data-method="restPassword">
-									<i class="layui-icon">&#xe631;</i>重置密码
-								</button>
-								</shiro:hasPermission>
-								<%--<shiro:hasPermission name="楼宇授权">
-								<button class="layui-btn" data-method="buildingmgt">
-									<i class="layui-icon">&#xe60a;</i>楼宇授权
-								</button>
-								</shiro:hasPermission>--%>
-							</div>
-						</div>
+			<shiro:hasPermission name="开启职工">
+				<button class="layui-btn" data-method="openWorker">
+					<%--<i class="layui-icon">&#xe605;</i> 启用--%>
+					启用
+				</button>
+			</shiro:hasPermission>
 
-						<table class="layui-hide" id="demo" lay-filter="myTable"></table>
-					</div>
-				</div>
-			</div>
+			<shiro:hasPermission name="分配角色">
+				<button class="layui-btn" data-method="inRole">
+					<%--<i class="layui-icon">&#xe608;</i> 分配角色--%>
+					分配角色
+				</button>
+			</shiro:hasPermission>
+
+			<shiro:hasPermission name="重置密码">
+				<button class="layui-btn" data-method="restPassword">
+					<%--<i class="layui-icon">&#xe631;</i>重置密码--%>
+					重置密码
+				</button>
+			</shiro:hasPermission>
 		</div>
+		<div class="search-btn-group">
+			<input type="text" name="realName" id="realName" placeholder="请输入姓名" autocomplete="off" class="layui-input" maxlength="20">
+			<%--<button class="layui-btn layui-btns" id="find">查询</button>--%>
+			<button data-type="reload"
+					class="layui-btn" lay-submit="">
+				查询
+			</button>
+
+		</div>
+		<div>
+			<table class="layui-hide" id="demo" lay-filter="myTable"></table>
+		</div>
+
 	</div>
+
 </div>
+
 
 
 <script src="${ctx}/resources/js/jquery-1.11.2.min.js"></script>
@@ -271,7 +243,7 @@
             ] ], //,data: ${list}
             url : '${ctx}/workermgt/listData.action', //,where: {username: 'admin', id: 123} //如果无需传递额外参数，可不加该参数 //method: 'post' //如果无需自定义HTTP类型，可不加该参数 //,skin: 'line' //表格风格
             id : 'myTable',
-            even : true,
+            even : false,
             page : true, //是否显示分页
             limits : [ 10, 20, 50 ],
             limit : 15, //每页默认显示的数量
@@ -557,7 +529,7 @@
             }
         });
 
-        $('.demoTable .layui-btn').on('click', function() {
+        $('.search-btn-group .layui-btn').on('click', function() {
             var type = $(this).data('type');
             active[type] ? active[type].call(this) : '';
         });

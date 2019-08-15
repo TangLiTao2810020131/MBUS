@@ -12,34 +12,56 @@
 	<link rel="stylesheet" href="${ctx}/resources/css/layui.css"/>
 	<link rel="stylesheet" href="${ctx}/resources/css/addClass.css" />
 	<link rel="stylesheet" href="${ctx}/resources/css/admin.css" media="all">
+	<link rel="stylesheet" href="${ctx}/resources/js/css/common.css"/>
+
 	<style type="text/css">
 		.demoTable .layui-inline{margin-top:10px;}
 		.layui-fluid{margin-bottom:10px;}
 	</style>
 </head>
-<body class="layui-layout-body" >
-<!-- 主体内容 -->
-<div class="layui-body">
-	<div class="layui-fluid white-bg">
-		<div class="layui-row  layui-col-space15">
-			<div class="layui-col-md12">
-				<div class="layui-card">
-					<div class="layui-card-body">
-						<div class="demoTable marginBottom" id="buttons">
-							<div class="layui-btn-group">
-									<button class="layui-btn"  data-method="addUser"><i class="layui-icon">&#xe654;</i>新增</button>
-									<button class="layui-btn" data-method="deleteUsers"><i class="layui-icon">&#xe640;</i>删除</button>
-									<button class="layui-btn" data-method="inRole"><i class="layui-icon">&#xe608;</i>分配权限</button>
-							</div>
-						</div>
+<body class="inner-body" style="background:#f2f2f2;position: relative; " >
+<div style="border-top: 1px solid #e6e6e6;"></div>
 
-						<table class="layui-hide" id="demo" lay-filter="myTable"></table>
-					</div>
-				</div>
-			</div>
+
+<div class="tableHtml" style="height: 100%;background: #FFFFFF;">
+	<div class="top-btn" id="buttons">
+		<div class="layui-btn-group" style="position: relative;">
+
+			<button class="layui-btn"  data-method="addUser">新增</button>
+
+			<button class="layui-btn" data-method="deleteUsers">删除</button>
+
+			<button class="layui-btn" data-method="inRole">分配权限</button>
+		<div>
+			<table class="layui-hide" id="demo" lay-filter="myTable"></table>
 		</div>
+
 	</div>
+
 </div>
+
+<!-- 主体内容 -->
+<%--<div class="layui-body">--%>
+	<%--<div class="layui-fluid white-bg">--%>
+		<%--<div class="layui-row  layui-col-space15">--%>
+			<%--<div class="layui-col-md12">--%>
+				<%--<div class="layui-card">--%>
+					<%--<div class="layui-card-body">--%>
+						<%--<div class="demoTable marginBottom" id="buttons">--%>
+							<%--<div class="layui-btn-group">--%>
+									<%--<button class="layui-btn"  data-method="addUser"><i class="layui-icon">&#xe654;</i>新增</button>--%>
+									<%--<button class="layui-btn" data-method="deleteUsers"><i class="layui-icon">&#xe640;</i>删除</button>--%>
+									<%--<button class="layui-btn" data-method="inRole"><i class="layui-icon">&#xe608;</i>分配权限</button>--%>
+							<%--</div>--%>
+						<%--</div>--%>
+
+						<%--<table class="layui-hide" id="demo" lay-filter="myTable"></table>--%>
+					<%--</div>--%>
+				<%--</div>--%>
+			<%--</div>--%>
+		<%--</div>--%>
+	<%--</div>--%>
+<%--</div>--%>
 
 <script src="${ctx}/resources/plugins/layui/layui.js"></script>
 <script src="${ctx}/resources/js/jquery-1.11.2.min.js"></script>
@@ -83,15 +105,16 @@
                 elem: '#demo'
                 ,cols: [[ //标题栏
                     {type:'checkbox'}
-                    ,{field: 'rolename', title: '角色名称', minWidth:120,width:avg+22,align : 'center',unresize:true}
-                    ,{title: '操作',width:avg+22,toolbar:'#handle',align : 'center',unresize:true}
+                    ,{field: 'rolename', title: '角色名称', minWidth:120,align : 'center',unresize:true}
+                    ,{title: '操作',toolbar:'#handle',align : 'center',unresize:true}
                 ]]
                 ,url: '${ctx}/rolemgt/listData.action'
                 ,id:'myTable'
                 ,page: true //是否显示分页
                 ,limits: [15,20,50]
                 ,limit:15 //每页默认显示的数量
-                ,height:clientHeight-100
+                ,height:clientHeight-100,
+				width:clientWidth
             });
 
             var $ = layui.$;

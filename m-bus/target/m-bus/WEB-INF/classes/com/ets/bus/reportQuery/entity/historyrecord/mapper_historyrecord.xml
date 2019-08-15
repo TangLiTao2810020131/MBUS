@@ -48,6 +48,7 @@
         mc.user_water userWater
         <include refid="select"/>
         <include refid="where"/>
+        order by mc.create_time desc
     </select>
 
     <select id="findHistoryRecordById" parameterType="java.lang.String" resultType="com.ets.bus.reportQuery.entity.historyrecord.HistoryRecord">
