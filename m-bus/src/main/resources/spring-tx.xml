@@ -96,63 +96,6 @@
         </property>
     </bean>
 
-    <!--&lt;!&ndash; 配置Job详情 &ndash;&gt;-->
-    <!--<bean name="getRoomWaterDailyJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
-        <!--<property name="jobClass" value="com.ets.bus.quartz.GetRoomWaterDaily"/>-->
-        <!--<property name="durability" value="true"/>-->
-        <!--<property name="requestsRecovery" value="false"/>-->
-    <!--</bean>-->
-
-    <!--<bean name="getRoomWaterMonthJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">-->
-        <!--<property name="jobClass" value="com.ets.bus.quartz.GetRoomWaterMonth"/>-->
-        <!--<property name="durability" value="true"/>-->
-        <!--<property name="requestsRecovery" value="false"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="getRoomWaterDailyScheduler" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
-        <!--<property name="jobDetail" ref="getRoomWaterDailyJob"/>-->
-        <!--<property name="cronExpression" value="1-2 0 0/1 * * ? *"/>-->
-    <!--</bean>-->
-
-    <!--<bean id="getRoomWaterMonthScheduler" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
-        <!--<property name="jobDetail" ref="getRoomWaterMonthJob"/>-->
-        <!--<property name="cronExpression" value="0/5 * * * * ?"/>-->
-    <!--</bean>-->
-
-    <!--&lt;!&ndash; 配置调度任务&ndash;&gt;-->
-    <!--<bean name="quartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
-        <!--<property name="configLocation" value="classpath:quartz.properties"/>-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--<property name="transactionManager" ref="transactionManager"/>-->
-
-        <!--&lt;!&ndash; 任务唯一的名称，将会持久化到数据库&ndash;&gt;-->
-        <!--<property name="schedulerName" value="baseScheduler"/>-->
-
-        <!--&lt;!&ndash; 每台集群机器部署应用的时候会更新触发器&ndash;&gt;-->
-        <!--<property name="overwriteExistingJobs" value="true"/>-->
-        <!--<property name="applicationContextSchedulerContextKey" value="appli"/>-->
-
-        <!--<property name="jobFactory">-->
-            <!--<bean class="com.ets.bus.quartz.AutowiringSpringBeanJobFactory"/>-->
-        <!--</property>-->
-
-        <!--<property name="triggers">-->
-            <!--<list>-->
-                <!--<ref bean="getRoomWaterDailyScheduler"/>-->
-                <!--<ref bean="getRoomWaterMonthScheduler"/>-->
-            <!--</list>-->
-        <!--</property>-->
-
-        <!--<property name="jobDetails">-->
-            <!--<list>-->
-                <!--<ref bean="getRoomWaterDailyJob"/>-->
-                <!--<ref bean="getRoomWaterMonthJob"/>-->
-            <!--</list>-->
-        <!--</property>-->
-
-        <!--<property name="taskExecutor" ref="threadPool"/>-->
-    <!--</bean>-->
-
      <import resource="shiro.xml" />
      <import resource="spring-redis.xml" />
 
