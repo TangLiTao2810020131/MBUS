@@ -99,6 +99,4 @@
      <import resource="shiro.xml" />
      <import resource="spring-redis.xml" />
 
-    <!--测试远程仓库-->
-
 	</beans>
