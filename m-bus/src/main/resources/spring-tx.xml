@@ -99,6 +99,4 @@
      <import resource="shiro.xml" />
      <import resource="spring-redis.xml" />
 
-    <!---9999999-->
-
 	</beans>
