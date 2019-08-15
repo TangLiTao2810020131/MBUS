@@ -81,13 +81,6 @@
     </bean>
     <tx:annotation-driven />
 
-<<<<<<< .mine
-||||||| .r2243
-
-
-=======
-
->>>>>>> .r2286
     <bean id="threadPool" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <!-- 核心线程数  -->
         <property name="corePoolSize" value="30" />
